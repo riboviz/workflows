@@ -6,7 +6,7 @@ Relates to issue Assess workflow language options ([riboviz#48](https://github.c
 
 ## Content
 
-* Notes on Workflow Options 28/02/2020 [Markdown](./workflows-20200228.md)
+* Notes on Workflow Options 28/02/2020 [Markdown](./workflows-202002.md)
 * RiboViz and Common Workflow Language (CWL) (30/08/2018) [Markdown](./SsiRiboVizCwl-201808.md) (from Software Sustainability Institute review).
 
 ---
