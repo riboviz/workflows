@@ -319,7 +319,7 @@ if config['count_reads']:
 
 The syntax for specifying optional files as inputs look a bit contrived:
 
-````
+```
 rule all:
     input:
         [os.path.join(config['dir_out'], sample, "plus.bedgraph") for sample in SAMPLES] if config['make_bedgraph'] else [],
