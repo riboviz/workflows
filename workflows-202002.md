@@ -444,4 +444,4 @@ Workflow Description Language (WDL)
 | Taverna | Apache 2.0 | 2003 | 2019 | ? | 3.1.0 | ? | ? | 104,000 | CWL | 
 | Cromwell | MIT | 2015 | this week | 57 | 49 | 89 | 184 | 80,700 | CWL, WDL |
 
-(*) are tools that have neem mentioned in RiboViz meetings.
+(*) are tools that have been mentioned in RiboViz meetings.
