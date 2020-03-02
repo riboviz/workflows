@@ -9,6 +9,8 @@ See notes on [Snakemake notes](./Snakemake.md).
 
 ## Run the RiboViz example
 
+[Snakefile](./Snakefile) contains a Snakemake Snakefile with steps mimicing those in `riboviz.tools.prep_riboviz` to run the RiboViz vignette (i.e. no UMI extraction, deduplication or demultiplexing).
+
 Create a new conda environment from the current RiboViz one and activate it:
 
 ```console
@@ -78,7 +80,7 @@ See, for example, [report.html](./report.html).
 
 ### Ease of implementation of key RiboViz steps
 
-A Snakefile with the steps implemented by `riboviz.tools.prep_riboviz` to run the vignette example (no UMI extraction, deduplication or demultiplexing) was implemented in ~5 hours day.
+The Snakefile was implemented in a day.
 
 ### Sample-specific sub-directories
 
