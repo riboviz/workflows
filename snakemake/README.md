@@ -333,20 +333,3 @@ rule all:
 Snakemake Wrapper Repository includes reusable wrappers for using popular bioinformatics tools within Snakemake, https://snakemake-wrappers.readthedocs.io/en/stable/index.html.
 
 Arbitrary Python code can be embedded anywhere within the Snakefile or it can be imported.
-
----
-
-## TODO
-
-If processing of one sample fails can the rest be processed?
-
-If any criteria above are not met, then could it be added easily. It is OK to do development to extend a tool if necessary.
-
-Try CWL, https://snakemake.readthedocs.io/en/stable/executing/interoperability.html, ``-export-cwl``
-
-* Ease of implementation of key RiboViz steps, for example:
-  - index => cutadapt => demultiplex => [align (rRNA)]* => count_reads
-
-```console
-$ snakemake --configfile=vignette/vignette_config.yaml --export-cwl snakemake.cwl
-```
