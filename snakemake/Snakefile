@@ -18,24 +18,24 @@ rule build_indices_rrna:
     input:
         config['rrna_fasta_file']
     output:
-        directory(os.path.join(config['dir_index'], "rrna"))
+        [os.path.join(config['dir_index'], config['rrna_index_prefix'] + ".{}.ht2".format(index)) for index in range(1, 9)]
     params:
-        prefix=os.path.join(config['dir_index'], "rrna", config['rrna_index_prefix'])
+        prefix=os.path.join(config['dir_index'], config['rrna_index_prefix'])
     log: os.path.join(config['dir_logs'], "hisat2_build_r_rna.log")
     shell:
-       "mkdir {output}; hisat2-build --version > {log}; hisat2-build {input} {params.prefix} >> {log}"
+        "hisat2-build --version > {log}; hisat2-build {input} {params.prefix} >> {log}"
 
 rule build_indices_orf:
     # TODO how to make conditional on configuration parameter?
     input:
         config['orf_fasta_file']
     output:
-        directory(os.path.join(config['dir_index'], "orf"))
+        [os.path.join(config['dir_index'], config['orf_index_prefix'] + ".{}.ht2".format(index)) for index in range(1, 9)]
     params:
-        prefix=os.path.join(config['dir_index'], "orf", config['orf_index_prefix'])
+        prefix=os.path.join(config['dir_index'], config['orf_index_prefix'])
     log: os.path.join(config['dir_logs'], "hisat2_build_orf.log")
     shell:
-       "mkdir {output}; hisat2-build --version > {log}; hisat2-build {input} {params.prefix} >> {log}"
+       "hisat2-build --version > {log}; hisat2-build {input} {params.prefix} >> {log}"
 
 rule cut_adapters:
     input:
@@ -48,10 +48,10 @@ rule cut_adapters:
 
 rule map_to_r_rna:
     input:
-        fq=os.path.join(config['dir_tmp'], "{sample}", "trim.fq"),
-        rrna=os.path.join(config['dir_index'], "rrna")
+        [os.path.join(config['dir_index'], config['rrna_index_prefix'] + ".{}.ht2".format(index)) for index in range(1, 9)],
+        fq=os.path.join(config['dir_tmp'], "{sample}", "trim.fq")
     params:
-        prefix=os.path.join(config['dir_index'], "rrna", config['rrna_index_prefix'])
+        prefix=os.path.join(config['dir_index'], config['rrna_index_prefix'])
     output:
         fq=os.path.join(config['dir_tmp'], "{sample}", "nonrRNA.fq"),
         sam=os.path.join(config['dir_tmp'], "{sample}", "rRNA_map.sam")
@@ -61,10 +61,10 @@ rule map_to_r_rna:
 
 rule map_to_orf:
     input:
-        fq=os.path.join(config['dir_tmp'], "{sample}", "nonrRNA.fq"),
-        orf=os.path.join(config['dir_index'], "orf")
+        [os.path.join(config['dir_index'], config['orf_index_prefix'] + ".{}.ht2".format(index)) for index in range(1, 9)],
+        fq=os.path.join(config['dir_tmp'], "{sample}", "nonrRNA.fq")
     params:
-        prefix=os.path.join(config['dir_index'], "orf", config['orf_index_prefix'])
+        prefix=os.path.join(config['dir_index'], config['orf_index_prefix'])
     output:
         fq=os.path.join(config['dir_tmp'], "{sample}", "unaligned.fq"),
         sam=os.path.join(config['dir_tmp'], "{sample}", "orf_map.sam")
