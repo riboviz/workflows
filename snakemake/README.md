@@ -44,19 +44,19 @@ $ cp ~/workflows/snakemake/Snakefile .
 Dry run Snakemake with `vignette/vignette_config.yaml`:
 
 ```console
-$ snakemake --configfile vignette/vignette_config.yaml -n
+$ snakemake --configfile=vignette/vignette_config.yaml -n
 ```
 
 Run Snakemake:
 
 ```console
-$ snakemake --configfile vignette/vignette_config.yaml
+$ snakemake --configfile=vignette/vignette_config.yaml
 ```
 
 Create SVG of workflow:
 
 ```console
-$ snakemake --configfile vignette/vignette_config.yaml --dag | dot -Tsvg > workflow.svg
+$ snakemake --configfile=vignette/vignette_config.yaml --dag | dot -Tsvg > workflow.svg
 ```
 
 See, for example, [workflow.svg](./workflow.svg).
@@ -64,7 +64,7 @@ See, for example, [workflow.svg](./workflow.svg).
 Create an HTML report with a graphical representation of the workflow:
 
 ```console
-$ snakemake --configfile vignette/vignette_config.yaml --report report.html
+$ snakemake --configfile=vignette/vignette_config.yaml --report report.html
 ```
 
 See, for example, [report.html](./report.html).
@@ -108,7 +108,7 @@ rule cut_adapters:
 Specify/override via command-line:
 
 ```console
-$ snakemake --configfile vignette/vignette_config.yaml ...
+$ snakemake --configfile=vignette/vignette_config.yaml ...
 ```
 
 YAML can be validated against a custom schema, see https://snakemake.readthedocs.io/en/stable/snakefiles/configuration.html#validation.
@@ -121,14 +121,14 @@ For example:
 
 ```console
 $ mv vignette/input/yeast_rRNA_R64-1-1.fa .
-$ snakemake --configfile vignette/vignette_config.yaml vignette/index/rrna -n
+$ snakemake --configfile=vignette/vignette_config.yaml vignette/index/rrna -n
 Building DAG of jobs...
 MissingInputException in line 13 of /home/ubuntu/riboviz/Snakefile:
 Missing input files for rule build_indices_rrna:
 vignette/input/yeast_rRNA_R64-1-1.fa
 vignette/input/yeast_rRNA_R64-1-1.fa
 
-$ snakemake --configfile vignette/vignette_config.yaml vignette/index/orf -n
+$ snakemake --configfile=vignette/vignette_config.yaml vignette/index/orf -n
 Building DAG of jobs...
 Job counts:
 	count	jobs
@@ -177,7 +177,7 @@ Log files are not deleted upon error.
 `--detailed-summary` produces a TSV file including bash commands run:
 
 ```console
-$ snakemake --configfile vignette/vignette_config.yaml --detailed-summary
+$ snakemake --configfile=vignette/vignette_config.yaml --detailed-summary
 Building DAG of jobs...
 output_file	date	rule	version	log-file(s)	input-file(s)	shellcmdstatus	plan
 vignette/output/TPMs_collated.tsv	Mon Mar  2 06:02:52 2020	collate_tpms	-	vignette/logs/collate_tpms.log	vignette/output/WT3AT/tpms.tsv,vignette/output/WTnone/tpms.tsv	Rscript --vanilla rscripts/collate_tpms.R --sample-subdirs=True --output-dir=vignette/output WTnone WT3AT >> vignette/logs/collate_tpms.log	set of input files changed	no update
@@ -190,7 +190,7 @@ vignette/output/WTnone/3nt_periodicity.pdf	Mon Mar  2 06:01:52 2020	generate_sta
 To create a bash script would require parsing column `shellcmd` column and executing the commands (in reverse order). Directory creation commands would also need to be derived.
 
 ```console
-$ snakemake --configfile vignette/vignette_config.yaml --printshellcmds -n
+$ snakemake --configfile=vignette/vignette_config.yaml --printshellcmds -n
 Building DAG of jobs...
 Job counts:
 	count	jobs
@@ -266,13 +266,13 @@ Another approach would be to explicitly have commands within Snakemake rules to 
 There doesn't seem to be a way to access the configuration file itself from within a Snakefile i.e. the value of `--configfile`:
 
 ```console
-$ snakemake --configfile vignette/vignette_config.yaml
+$ snakemake --configfile=vignette/vignette_config.yaml
 ```
 
 For `riboviz.tools.count_reads`, which needs the configuration file, a workaround is to provide this as an additional configuration value e.g.
 
 ```console
-$ snakemake --configfile vignette/vignette_config.yaml --config config_file=vignette/vignette_config.yaml
+$ snakemake --configfile=vignette/vignette_config.yaml --config config_file=vignette/vignette_config.yaml
 ```
 
 and to reference it as follows:
@@ -292,7 +292,7 @@ However, this feels hacky. Also, a comment in [Retrieve value of --configfile pa
 If a sample file is missing or sample processing runs into problems then the workflow execution stops. For example, using the default `vignette/vignette_config.yaml¬:
 
 ```console
-$ snakemake --configfile vignette/vignette_config.yaml
+$ snakemake --configfile=vignette/vignette_config.yaml
 Building DAG of jobs...
 MissingInputException in line 37 of /home/ubuntu/riboviz/Snakefile:
 Missing input files for rule cut_adapters:
