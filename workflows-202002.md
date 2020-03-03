@@ -438,7 +438,7 @@ Workflow Description Language (WDL)
 | Ruffus | MIT | 2013 | 6 months | 4 | v2.8.1 | 17 | 30 | 10,000 | - |
 | bpipe | New BSD | 2013 | last month | 16 | 0.9.9.8 | 11 | 45 | 2,440 | - |
 | Pegasus (*) | Apache 2.0 | 2007 | today | 40 | 4.9.3 | 19 | 55 | 750,000 | - |
-| Toil | Apache 2.0 | 2011 | today | 50 | 3.24.0 | 81 | 183 | 20,700 | CWL |
+| Toil | Apache 2.0 | 2011 | today | 50 | 3.24.0 | 81 | 183 | 20,700 | CWL, WDL |
 | Luigi | Apache 2.0 | 2014 | last week | 55 | 2.8.12 | 419 | 2100 | 49,000 | - |
 | Galaxy (*) | Academic Free 3.0 | 2005 | today | 147 | v20.01 | 225 | 594 | 655,000 | CWL |
 | Taverna | Apache 2.0 | 2003 | 2019 | ? | 3.1.0 | ? | ? | 104,000 | CWL | 
