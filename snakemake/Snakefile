@@ -1,13 +1,12 @@
 from datetime import datetime
 import yaml
 
-SAMPLES = config['fq_files']
-
 TIMESTAMP = datetime.now().strftime('%Y%m%d-%H%M%S')
 
-def get_sample_file(wildcards):
-    return os.path.join(config['dir_in'],
-                        config['fq_files'][wildcards.sample])
+# Filter input sample files down to those that exist.
+SAMPLES = {tag: filename for (tag, filename) in config['fq_files'].items()
+	if os.path.exists(os.path.join(config['dir_in'], filename))
+	and os.path.isfile(os.path.join(config['dir_in'], filename))}
 
 rule all:
     input:
@@ -42,7 +41,9 @@ if config['build_indices']:
 
 rule cut_adapters:
     input:
-        get_sample_file
+        lambda wildcards: os.path.join(config['dir_in'], SAMPLES[wildcards.sample])
+        # See https://snakemake.readthedocs.io/en/stable/project_info/faq.html#how-do-i-incorporate-files-that-do-not-follow-a-consistent-naming-scheme
+        # See https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#snakefiles-input-functions
     output:
         os.path.join(config['dir_tmp'], "{sample}", "trim.fq")
     log: os.path.join(config['dir_logs'], TIMESTAMP, "{sample}", "cutadapt.log")
@@ -176,7 +177,7 @@ rule generate_stats_figs:
 
 rule collate_tpms:
     input:
-        expand(os.path.join(config['dir_out'], "{sample}", "tpms.tsv"), sample=config['fq_files'].keys())
+        expand(os.path.join(config['dir_out'], "{sample}", "tpms.tsv"), sample=SAMPLES.keys())
     output:
         os.path.join(config['dir_out'], "TPMs_collated.tsv"),
     log: os.path.join(config['dir_logs'], TIMESTAMP, "collate_tpms.log")
@@ -186,7 +187,7 @@ rule collate_tpms:
 
 def save_sample_sheet(filename):
     sample_sheet = {}
-    sample_sheet['fq_files'] = dict(config['fq_files'])
+    sample_sheet['fq_files'] = SAMPLES
     with open(str(filename), 'w') as f:
         yaml.dump(sample_sheet, f, sort_keys=False)
 
