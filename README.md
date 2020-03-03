@@ -6,7 +6,7 @@ Relates to issue Assess workflow language options ([riboviz#48](https://github.c
 
 ## Workflow shortlist
 
-See Notes on Workflow Options 28/02/2020 [Markdown](./workflows-202002.md) for a survey.
+See [Notes on Workflow Options 28/02/2020](./workflows-202002.md) for a survey.
 
 "Overchoice" is an issue, so focus on the following that have been mentioned in meetings and seem most prevalent and popular:
 
