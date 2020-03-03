@@ -4,26 +4,31 @@ Relates to issue Assess workflow language options ([riboviz#48](https://github.c
 
 ---
 
-## Content
-
-* Notes on Workflow Options 28/02/2020 [Markdown](./workflows-202002.md)
-* RiboViz and Common Workflow Language (CWL) (30/08/2018) [Markdown](./SsiRiboVizCwl-201808.md) (from Software Sustainability Institute review).
-
----
-
 ## Workflow shortlist
+
+See Notes on Workflow Options 28/02/2020 [Markdown](./workflows-202002.md) for a survey.
 
 "Overchoice" is an issue, so focus on the following that have been mentioned in meetings and seem most prevalent and popular:
 
-* SnakeMake
+* [SnakeMake](./snakemake/README.md) - links to notes and example Snakefile.
+
+### TODO
+
+* CWL and `cwltool`:
+  - RiboViz and Common Workflow Language (CWL) (30/08/2018) [Markdown](./SsiRiboVizCwl-201808.md) (from Software Sustainability Institute review).
 * NextFlow
-* CWL with cwltool
 * Others that support CWL:
   - Pegasus
   - Galaxy
   - Cromwell
   - Toil
   - (use both their own formats and reuse CWL from cwltool)
+
+---
+
+## Notes
+
+
 
 ---
 

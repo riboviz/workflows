@@ -28,12 +28,6 @@ $ conda install -c bioconda -c conda-forge networkx
 
 (opt for minimal install to keep dependencies down)
 
-Within `riboviz`, edit `vignette/vignette_config.yaml` and comment out the entry for the missing sample i.e.
-
-```
-#  NotHere: example_missing_file.fastq.gz # Test case for missing file
-```
-
 Copy over Snakefile:
 
 ```console
