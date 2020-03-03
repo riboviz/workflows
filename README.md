@@ -14,8 +14,7 @@ See [Notes on Workflow Options 28/02/2020](./workflows-202002.md) for a survey.
 
 ### TODO
 
-* CWL and `cwltool`:
-  - RiboViz and Common Workflow Language (CWL) (30/08/2018) [Markdown](./SsiRiboVizCwl-201808.md) (from Software Sustainability Institute review).
+* CWL and cwltool.
 * NextFlow
 * Others that support CWL:
   - Pegasus
