@@ -286,17 +286,57 @@ However, this feels hacky. Also, a comment in [Retrieve value of --configfile pa
 
 `riboviz.tools.count_reads` only uses the configuration file for sample ID-file name values in `fq_files`. These could be written to another file from within the Snakefile, or another script, and that file provided as the input to `riboviz.tools.count_reads`. The current Snakefile dumps `fq_files` into an output `sample_sheet.yaml` file that is then provided as input to `riboviz.tools.count_reads`.
 
-### Exit on failure
+### If processing of one sample fails will the rest be processed?
 
-If a sample file is missing or sample processing runs into problems then the workflow execution stops. For example, using the default `vignette/vignette_config.yaml¬:
+If Snakemake is run with the vignette configuration, it fails:
 
 ```console
-$ snakemake --configfile vignette/vignette_config.yaml
+$ snakemake  --configfile vignette/vignette_config.yaml 
 Building DAG of jobs...
-MissingInputException in line 37 of /home/ubuntu/riboviz/Snakefile:
+MissingInputException in line 45 of /home/ubuntu/riboviz/Snakefile:
 Missing input files for rule cut_adapters:
 vignette/input/example_missing_file.fastq.gz
 ```
+
+The `-k` / `--keep-going` flag allows Snakemake to run independent jobs (rules to generate output files) if a specific job fails. However, in this scenario, the workflow still fails as above.
+
+To avert this, a `SAMPLES` variable is created from `fq_files` with only those sample name-file pairs for which a sample file exists:
+
+```
+SAMPLES = {tag: filename for (tag, filename) in config['fq_files'].items()
+        if os.path.exists(os.path.join(config['dir_in'], filename))
+        and os.path.isfile(os.path.join(config['dir_in'], filename))}
+```
+
+If a sample file exists but causes problems (e.g. is an invalid format) then the workflow will fail. For example, if there is an `fq_files` entry: `Invalid: invalid.fastq.gz` and `invalid.fastq.gz` has content `XXX`, the workflow will fail:
+
+```console
+$ snakemake --configfile vignette/vignette_config.yaml
+...
+[Tue Mar  3 04:12:02 2020]
+rule cut_adapters:
+    input: vignette/input/invalid.fastq.gz
+    output: vignette/tmp/Invalid/trim.fq
+    log: vignette/logs/20200303-041202/Invalid/cutadapt.log
+    jobid: 35
+    wildcards: sample=Invalid
+
+[Tue Mar  3 04:12:02 2020]
+Error in rule cut_adapters:
+    jobid: 35
+    output: vignette/tmp/Invalid/trim.fq
+    log: vignette/logs/20200303-041202/Invalid/cutadapt.log (check log file(s) for error message)
+    shell:
+        cutadapt --trim-n -O 1 -m 5 -a	CTGTAGGCACC -o vignette/tmp/Invalid/trim.fq vignette/input/invalid.fastq.gz -j 0 &> vignette/logs/20200303-041202/Invalid/cutadapt.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+...
+```
+
+Using the `-k` option allows the workflow to continue and process the other samples. However, it will still fail before invoking the rule for `collate_tpms.R` as this has a dependency on the `tpms.tsv` files for all samples, which, following dependencies back, has a dependency on the invalid input file.
+
+I tried to implement workarounds (e.g. checking for existing `tpms.tsv` files in the rule for `collate_tpms.R`) but these felt hacky and undermined the way in which Snakemake builds the workflow based on the available files.
+
+In such cases a user _can_ edit their configuration file to remove the `fq_files` entry for the problematic sample, and rerun Snakemake. As incremental build is supported, only the rule for `collate_tpms.R` will be run.
 
 ### Conditional behaviour
 
