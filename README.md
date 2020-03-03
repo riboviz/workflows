@@ -26,12 +26,6 @@ See Notes on Workflow Options 28/02/2020 [Markdown](./workflows-202002.md) for a
 
 ---
 
-## Notes
-
-
-
----
-
 ## Assessment criteria
 
 * Ease of download, install, tutorials, initial use.
