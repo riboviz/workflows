@@ -19,9 +19,9 @@ See [Notes on Workflow Options 28/02/2020](./workflows-202002.md) for a survey.
 * Others that support CWL:
   - Pegasus
   - Galaxy
-  - Cromwell
-  - Toil
-  - (use both their own formats and reuse CWL from cwltool)
+  - Cromwell (also supports WDL)
+  - Toil (also supports WDL)
+  - (use both their own formats, if appropriate, and reuse CWL from cwltool)
 
 ---
 
