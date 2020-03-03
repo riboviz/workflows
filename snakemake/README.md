@@ -369,6 +369,27 @@ rule all:
         [os.path.join(config['dir_out'], "read_counts.tsv")] if config['count_reads'] else []
 ```
 
+### Common Workflow Language
+
+https://snakemake.readthedocs.io/en/stable/executing/interoperability.html
+
+Snakemake has a `-export-cwl` flag which exports a Common Workflow Language document:
+
+```console
+$ snakemake --configfile=vignette/vignette_config.yaml --export-cwl snakemake.cwl
+```
+
+This is very verbose. For example it includes the following entries for _every_ file in RiboViz whether or not these are used in the workflow e.g.:
+
+```
+{
+    "class": "File",
+    "location": "website/Data/F2_2014_Gerashchenko_complete_SD_media.tsv"
+},
+```
+
+I'll try running this file when looking at CWL execution environments.
+
 ### Other
 
 Snakemake Wrapper Repository includes reusable wrappers for using popular bioinformatics tools within Snakemake, https://snakemake-wrappers.readthedocs.io/en/stable/index.html.
