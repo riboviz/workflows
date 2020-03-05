@@ -189,6 +189,8 @@ Integration with workflow engines
 
 ## Developing reproducible bioinformatics analysis workflows for heterogeneous computing environments to support African genomics
 
+Baichoo, S., Souilmi, Y., Panji, S. et al. Developing reproducible bioinformatics analysis workflows for heterogeneous computing environments to support African genomics. BMC Bioinformatics 19, 457 (2018). https://doi.org/10.1186/s12859-018-2446-1
+
 Choice determined by:
 
 * Existing community workflow standards or workflow systems with languages commonly in use by the bioinformatics community.
@@ -198,6 +200,39 @@ Selections:
 
 * Common workflow language (CWL).
 * Nextflow.
+
+---
+
+## Workflow systems turn raw data into scientific knowledge
+
+Perkel, J.M. "Workflow systems turn raw data into scientific knowledge", Nature 573, 149-150 (2019) doi: [10.1038/d41586-019-02619-z](https://doi.org/10.1038/d41586-019-02619-z).
+
+Workflow systems benefits:
+
+* Reproducibility.
+* Re-entrancy - pick up where a workflow left off in an earlier run.
+* Scalability.
+* Step-specific computational environments.
+* Reporting.
+
+Examples:
+
+* African bioinformatics network H3ABioNet built four pipelines - two each in CWL and Nextflow - embedded in Docker containers.
+* Computational biologists at Broad Institute of MIT and Harvard in Cambridge, Massachusetts developed and adopted Cromwell workflow system and WDL (Workflow Definition Language).
+* Broad Institute publishes WDL-based pipelines for its GATK software on GitHub, Terra and dockstore.org.
+* Dockstore also lists workflows written in Nextflow and CWL.
+* lnf-core is creating a set of gold-standard bioinformatics pipelines for Nextflow.
+
+Workflow languages:
+
+* Myriad ways to write a pipeline in a scripting language.
+* Workflow languages facilitate development of libraries of reusable components.
+* Require time to learn.
+* Can make it easier to test, execute and share new methods, and run them on a cloud.
+* Use scripting for one-off tasks and when working out the pipeline itself.
+* Move to workflow languages when:
+  - Need to rerun the workflow repeatedly.
+  - Data is being published.
 
 ---
 
