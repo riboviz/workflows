@@ -63,6 +63,12 @@ $ snakemake --configfile vignette/vignette_config.yaml --report report.html
 
 See, for example, [report.html](./report.html).
 
+Remove RiboViz index, temporary, output and log directories:
+
+```console
+$ snakemake clean --configfile vignette/vignette_config.yaml
+```
+
 ---
 
 ## Assessment

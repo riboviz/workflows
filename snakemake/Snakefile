@@ -1,4 +1,6 @@
 from datetime import datetime
+import os
+import shutil
 import yaml
 
 TIMESTAMP = datetime.now().strftime('%Y%m%d-%H%M%S')
@@ -14,6 +16,16 @@ rule all:
         [os.path.join(config['dir_out'], sample, "minus.bedgraph") for sample in SAMPLES] if config['make_bedgraph'] else [],
         os.path.join(config['dir_out'], "TPMs_collated.tsv"),
         [os.path.join(config['dir_out'], "read_counts.tsv")] if config['count_reads'] else []
+
+def cleanup():
+    shutil.rmtree(config['dir_index'], ignore_errors=True)
+    shutil.rmtree(config['dir_tmp'], ignore_errors=True)
+    shutil.rmtree(config['dir_out'], ignore_errors=True)
+    shutil.rmtree(config['dir_logs'], ignore_errors=True)
+
+rule clean:
+    run:
+       cleanup()
 
 if config['build_indices']:
     rule build_indices_rrna:
