@@ -1,4 +1,4 @@
-# RiboViz and Common Workflow Language (CWL)
+# Common Workflow Language (CWL)
 
 Updated from [RiboViz and Common Workflow Language (CWL)](https://github.com/riboviz/bbsrc-nsf/blob/master/docs/reports/201908-ssi-review/SsiRiboVizCwl.md), Mike Jackson, The Software Sustainability Institute, 30 August 2018.
 
@@ -191,7 +191,6 @@ There are repositories of CWL tool descriptions for biology/life sciences:
 There are also other projects that have developed CWL tool descriptions e.g.:
 
 * [YeoLab/eclip](https://github.com/YeoLab/eclip/) (BSD 3-clause licence)
-
 
 These could be used as-is, or customised if required.
 

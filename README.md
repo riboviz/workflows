@@ -1,16 +1,26 @@
 # RiboViz workflow options
 
-Relates to issue Assess workflow language options ([riboviz#48](https://github.com/riboviz/RiboViz/issues/48)).
+Relates to issue Assess workflow language options ([riboviz#48](https://github.com/riboviz/riboviz/issues/48)).
 
----
+## Workflow options
 
-## Workflow shortlist
+[Notes on Workflow Options 28/02/2020](./workflows-202002.md) - survey on available workflow options.
 
-See [Notes on Workflow Options 28/02/2020](./workflows-202002.md) for a survey.
+"Overchoice" is an issue, so focus is on the following that have been mentioned in meetings and seem most prevalent and popular.
 
-"Overchoice" is an issue, so focus on the following that have been mentioned in meetings and seem most prevalent and popular:
+Snakemake:
 
-* [SnakeMake](./snakemake/README.md) - links to notes and example Snakefile.
+* [Snakemake](./snakemake/Snakemake.md): Snakemake notes.
+* [RiboViz and Snakemake](./snakemake/README.md): Discussion on Snakemake for RiboViz and how to run an example.
+* [Snakefile](./snakemake/Snakefile): Example Snakefile for RiboViz.
+* [workflow.svg](./snakemake/workflow.svg): Example workflow from above.
+* [report.html](./snakemake/report.html): Example report from above.
+
+Common Workflow Language (CWL):
+
+* [Common Workflow Language (CWL)](./cwl/CommonWorkflowLanguage.md): CWL notes.
+* [Common Workflow Language User Guide Notes](./cwl/CwlUserGuideNotes.md).
+* [Snakemake and CWL](./cwl/SnakemakeCwl.md): Exploring Snakemake's `--export-cwl` option.
 
 ### TODO
 
@@ -43,3 +53,9 @@ See [Notes on Workflow Options 28/02/2020](./workflows-202002.md) for a survey.
 * If processing of one sample fails will the rest be processed?
 
 If any criteria above are not met, then could it be added easily. It is OK to do development to extend a tool if necessary.
+
+---
+
+## General
+
+[Docker](./Docker.md)

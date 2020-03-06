@@ -1,6 +1,6 @@
 # Snakemake and CWL
 
-Experimenting with Snakemake's `--export-cwl` option.
+Exploring Snakemake's `--export-cwl` option.
 
 ## Nature's Snakemake example
 
