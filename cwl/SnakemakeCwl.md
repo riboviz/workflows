@@ -4,7 +4,7 @@ Experimenting with Snakemake's `--export-cwl` option.
 
 ## Nature's Snakemake example
 
-Perkel, J.M. "Workflow systems turn raw data into scientific knowledge", Nature 573, 149-150 (2019) doi: [10.1038/d41586-019-02619-z](https://doi.org/10.1038/d41586-019-026
+Perkel, J.M. "Workflow systems turn raw data into scientific knowledge", Nature 573, 149-150 (2019) doi: [10.1038/d41586-019-02619-z](https://doi.org/10.1038/d41586-019-026).
 
 ```console
 $ git clone https://github.com/jperkel/Snakemake_example snakemake-nature
@@ -166,7 +166,7 @@ FileNotFoundError in line 17 of /tmp/tmp_ggzm5j3/stg1a19e36c-d01b-4082-877f-218c
 ...
 $ ls /tmp/tmp_ggzm5j3
 ls: cannot access '/tmp/tmp_ggzm5j3': No such file or directory
-(riboviz-cwltool-snakemake) ubuntu@ubuntu:~/explore-workflows/snakemake-nature$```
+```
 
 There is an issue for this - [--tmpdir-prefix is ignored #1084](https://github.com/common-workflow-language/cwltool/issues/1084):
 
@@ -247,6 +247,7 @@ toil.leader.FailedJobsException
 ```console
 $ toil-cwl-runner hello_world.cwl
 ...same error...
+```
 
 ## Execute RiboViz CWL using `cwltool`
 

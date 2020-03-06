@@ -178,3 +178,51 @@ For more information, see [Running Tools Inside Docker](https://www.commonwl.org
 Dockstore provide tools to allow resarchers to invoke tools registered with them.
 
 See [Getting Started with Docker](https://docs.dockstore.org/en/develop/getting-started/getting-started-with-docker.html), [Getting started with CWL](https://docs.dockstore.org/en/develop/getting-started/getting-started-with-cwl.html) and [Launching Tools and Workflows](https://docs.dockstore.org/en/develop/launch-with/launch.html) for more information.
+
+---
+
+## CWL tool descriptions
+
+There are repositories of CWL tool descriptions for biology/life sciences:
+
+* [common-workflow-library/bio-cwl-tools](https://github.com/common-workflow-library/bio-cwl-tools) (Apache 2.0 licence)
+* [pitagora-network/pitagora-cwl](https://github.com/pitagora-network/pitagora-cwl/tree/master/tools) (Apache 2.0 licence) - these are complemented with example workflows.
+
+There are also other projects that have developed CWL tool descriptions e.g.:
+
+* [YeoLab/eclip](https://github.com/YeoLab/eclip/) (BSD 3-clause licence)
+
+
+These could be used as-is, or customised if required.
+
+`bedtools genomecov`:
+
+* https://github.com/common-workflow-library/bio-cwl-tools/blob/release/bedtools/bedtools_genomecov.cwl
+
+`cutadapt`:
+
+* None found.
+
+`hisat2-build`:
+
+* https://github.com/pitagora-network/pitagora-cwl/blob/master/tools/hisat2/index/hisat2_index.cwl
+
+`hisat2`:
+
+* https://github.com/pitagora-network/pitagora-cwl/blob/master/tools/hisat2/mapping/single_end/hisat2_mapping_se.cwl
+
+`samtools view | samtools sort`:
+
+* https://github.com/common-workflow-library/bio-cwl-tools/blob/release/samtools/samtools_view_filter.cwl (could be customised)
+* https://github.com/common-workflow-library/bio-cwl-tools/blob/release/samtools/samtools_sort.cwl
+* https://github.com/pitagora-network/pitagora-cwl/blob/master/tools/samtools/sort/samtools_sort.cwl
+
+`samtools index`:
+
+* https://github.com/common-workflow-library/bio-cwl-tools/blob/release/samtools/samtools_index.cwl
+* https://github.com/pitagora-network/pitagora-cwl/blob/master/tools/samtools/index_bam/samtools_index_bam.cwl
+
+`umi_tools`:
+
+* https://github.com/YeoLab/eclip/blob/master/cwl/barcodecollapse_se.cwl
+* https://github.com/YeoLab/eclip/blob/master/cwl/barcodecollapse_se_nostats.cwl
