@@ -17,9 +17,7 @@ $ conda create --name riboviz-cwltool --clone base
 $ conda activate riboviz-cwltool
 ```
 
-`cwl-runner` is an alias for the default CWL interpreter installed on a host.
-
-Install:
+Install CWL reference implementation and node.js:
 
 ```console
 $ pip install cwlref-runner
@@ -27,7 +25,11 @@ $ cwl-runner --version
 /home/ubuntu/miniconda3/envs/riboviz-cwltool/bin/cwl-runner 2.0.20200224214940
 $ cwltool --version
 /home/ubuntu/miniconda3/envs/riboviz-cwltool/bin/cwltool 2.0.20200224214940
+
+$ sudo apt-get -y install nodejs
 ```
+
+`cwl-runner` is an alias for the default CWL interpreter installed on a host.
 
 Create tool wrapper, `echo-tool.cwl`:
 
