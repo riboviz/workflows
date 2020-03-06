@@ -17,9 +17,7 @@ $ conda create --name riboviz-cwltool --clone base
 $ conda activate riboviz-cwltool
 ```
 
-`cwl-runner` is an alias for the default CWL interpreter installed on a host.
-
-Install:
+Install CWL reference implementation and node.js:
 
 ```console
 $ pip install cwlref-runner
@@ -27,7 +25,11 @@ $ cwl-runner --version
 /home/ubuntu/miniconda3/envs/riboviz-cwltool/bin/cwl-runner 2.0.20200224214940
 $ cwltool --version
 /home/ubuntu/miniconda3/envs/riboviz-cwltool/bin/cwltool 2.0.20200224214940
+
+$ sudo apt-get -y install nodejs
 ```
+
+`cwl-runner` is an alias for the default CWL interpreter installed on a host.
 
 Create tool wrapper, `echo-tool.cwl`:
 
@@ -375,7 +377,7 @@ outputs:
    - `$(inputs.extractfile)`
    - `$(inputs["extractfile"])`
    - `$(inputs['extractfile'])`
-* `${inputs.<FILE>.path}`: reference a path to an input file e.g. `${inputs.tarfile.path}`.
+* `$(inputs.<FILE>.path)`: reference a path to an input file e.g. `$(inputs.tarfile.path)`.
 * Parameter references are only allowed within certain fields. See [Parameter References](https://www.commonwl.org/user_guide/06-params/index.html).
 
 `tar-param-job.yml`:
@@ -548,12 +550,13 @@ outputs:
 ```
 
 * `arguments`: command line options that do not correspond exactly to input parameters.
-* `${runtime.outdir}`: runtime parameter, path to designated output directory.
-* `${runtime.tmpdir}`
-* `${runtime.ram}`
-* `${runtime.cores}`
-* `${runtime.outdirSize}`
-* `${runtime.tmpdirSize}`
+* Can also be used for fixed, not user-configurable, arguments.
+* `$(runtime.outdir)`: runtime parameter, path to designated output directory.
+* `$(runtime.tmpdir)`
+* `$(runtime.ram)`
+* `$(runtime.cores)`
+* `$(runtime.outdirSize)`
+* `$(runtime.tmpdirSize)`
 
 `arguments-job.yml`:
 
@@ -1083,7 +1086,7 @@ outputs:
 
 * Input files are considered to be in a read-only directory separate from the output directory.
 * `InitialWorkDirRequirement:` with `listing:` with `$(inputs.src)`: stage input files into the output directory.
-* `valueFrom: ${self.basename}`: extract base name of input file from leading directory path (this can be ommitted and the behaviour is the same)
+* `valueFrom: $(self.basename)`: extract base name of input file from leading directory path (this can be ommitted and the behaviour is the same)
 
 ```console
 $ cwl-runner linkfile.cwl arguments-job.yml
