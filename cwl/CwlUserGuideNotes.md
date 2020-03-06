@@ -550,6 +550,7 @@ outputs:
 ```
 
 * `arguments`: command line options that do not correspond exactly to input parameters.
+* Can also be used for fixed, not user-configurable, arguments.
 * `$(runtime.outdir)`: runtime parameter, path to designated output directory.
 * `$(runtime.tmpdir)`
 * `$(runtime.ram)`
