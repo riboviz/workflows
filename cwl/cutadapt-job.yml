@@ -1,0 +1,9 @@
+trim: true
+overlap: 1
+min_length: 5
+adapter: CTGTAGGCACC
+cores: 0
+input:
+  class: File
+  path: vignette/input/SRR1042855_s1mi.fastq.gz
+output: trim.fq # vignette/tmp/WTnone/trim.fq
