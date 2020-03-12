@@ -18,7 +18,7 @@ Snakemake:
 
 Common Workflow Language (CWL):
 
-* [README.md](./cwl/README.md): Discussion on CWL for RiboViz and how to run an example.
+* [RiboViz and CWL](./cwl/README.md): Discussion on CWL for RiboViz and how to run an example.
 * [Common Workflow Language (CWL)](./cwl/CommonWorkflowLanguage.md): CWL notes.
 * [Common Workflow Language User Guide Notes](./cwl/CwlUserGuideNotes.md) from working through the examples in the CWL user guide.
 * [Snakemake and CWL](./cwl/SnakemakeCwl.md): Exploring Snakemake's `--export-cwl` option.

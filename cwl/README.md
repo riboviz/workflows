@@ -34,7 +34,7 @@ $ cwltool --version
 Install html5lib-python:
 
 * [Website](https://html5lib.readthedocs.io/en/latest/)
-* [GitHub](https://github.com/html5lib/html5lib-python]
+* [GitHub](https://github.com/html5lib/html5lib-python)
 
 ```console
 $ conda install html5lib
@@ -134,7 +134,7 @@ Untried.
 
 For example, for selecting to create index file, bedgraphs, UMI group summary files, to deduplicate or count reads.
 
-CWL issues on [Proposal for conditionals #494](https://github.com/common-workflow-language/common-workflow-language/issues/494), [Proposal: conditionals II (refinement of run_if) #854](https://github.com/common-workflow-language/common-workflow-language/issues/854), Collecting use cases for workflow level conditionals #725](https://github.com/common-workflow-language/common-workflow-language/issues/725) exist and were added, in February 2020, to a [1.2](https://github.com/common-workflow-language/common-workflow-language/milestone/9) milestone. This has no due date.
+CWL issues on [Proposal for conditionals #494](https://github.com/common-workflow-language/common-workflow-language/issues/494), [Proposal: conditionals II (refinement of run_if) #854](https://github.com/common-workflow-language/common-workflow-language/issues/854), [Collecting use cases for workflow level conditionals #725](https://github.com/common-workflow-language/common-workflow-language/issues/725) exist and were added, in February 2020, to a [1.2](https://github.com/common-workflow-language/common-workflow-language/milestone/9) milestone. This has no due date.
 
 ### Other
 
