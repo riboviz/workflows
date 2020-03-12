@@ -54,6 +54,42 @@ If any criteria above are not met, then could it be added easily. It is OK to do
 
 ---
 
+## Summary of observations/recommendations to date (12/03/2020)
+
+Snakemake:
+
+* Straightforward to learn.
+* Bulk of RiboViz workflow was prototyped in Snakemake in a day.
+* Prototype would take 2-3d to complete as an implementation of the RiboViz workflow. Adding support for `riboviz.tools.demultiplex_fastq` would be the most significant addition.
+
+Snakemake and CWL:
+
+* A Snakemake "hello world" example in a *Nature* article was exported to CWL, using the command in the article, but this could not be run using cwltool or Toil. It is unclear as to how this can be made to run.
+* A CWL file exported from Snakemake is a simple workflow that invokes Snakemake itself, rather than being the CWL equivalent of the workflow steps implemented within a Snakefile.
+
+CWL:
+
+* More effort to learn.
+* 3 steps of the RiboViz workflow were prototyped in a day.
+* Prototype would take 2-3 weeks to complete.
+* No support for conditional execution of steps as yet.
+* "edit-compile-run" development cycle iss very slow.
+* Developers would need to know JavaScript.
+* Tool wrappers can be verbose for what are single command-line invocations e.g. the basic `cutadapt` wrapper in `cutadapt.cwl` is 47 lines.
+* Workflows can be verbose e.g. the 3 step CWL workflow is 58 lines, whereas the 15 step Snakemake workflow is 220 lines (which are elegant in their conciseness).
+
+General:
+
+* Our Python workflow has custom error handling. Users using Snakemake and CWL will need to rely on their error reporting which may be more verbose, or, in the case of Toil, a possibly impenetrable stack trace. We can extend our documentation with the symptoms of common errors (e.g. missing files, missing configuration, step fails) and how to resolve these.
+
+Recommendation to date:
+
+* Adopt Snakemake - the work requires little effort to complete.
+* Snakemake is a popular tool within the community.
+* Rather than try and guess what the user community might want, ask the user community about their views on CWL.
+
+---
+
 ## General
 
 [Docker](./Docker.md)
