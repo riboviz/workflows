@@ -23,9 +23,9 @@ Common Workflow Language (CWL):
 * [Common Workflow Language User Guide Notes](./cwl/CwlUserGuideNotes.md) from working through the examples in the CWL user guide.
 * [Snakemake and CWL](./cwl/SnakemakeCwl.md): Exploring Snakemake's `--export-cwl` option.
 * [cutadapt.cwl](./cwl/cutadapt.cwl): tool wrapper for `cutadapt`.
-* [cutadapt-job.yml]./cwl/cutadapt-job.yml): job configuration for above.
+* [cutadapt-job.yml](./cwl/cutadapt-job.yml): job configuration for above.
 * [riboviz-workflow.cwl](./cwl/riboviz-workflow.cwl): workflow invoking `hisat2-build` and `cutadapt`.
-* [riboviz-job.yml]./cwl/riboviz-job.yml): job configuration for the above.
+* [riboviz-job.yml](./cwl/riboviz-job.yml): job configuration for the above.
 
 Nextflow:
 

@@ -4,7 +4,7 @@ Exploring Snakemake's `--export-cwl` option.
 
 ## Nature's Snakemake example
 
-Perkel, J.M. "Workflow systems turn raw data into scientific knowledge", Nature 573, 149-150 (2019) doi: [10.1038/d41586-019-02619-z](https://doi.org/10.1038/d41586-019-026).
+Perkel, J.M. "Workflow systems turn raw data into scientific knowledge", Nature 573, 149-150 (2019) doi: [10.1038/d41586-019-02619-z](https://doi.org/10.1038/d41586-019-02619-z).
 
 ```console
 $ git clone https://github.com/jperkel/Snakemake_example snakemake-nature
