@@ -4,7 +4,7 @@ Relates to issue Assess workflow language options ([riboviz#48](https://github.c
 
 ## Workflow options
 
-[Notes on Workflow Options 28/02/2020](./workflows-202002.md) - survey on available workflow options.
+[Notes on Workflow Options 28/02/2020](./workflows.md) - survey on available workflow options.
 
 "Overchoice" is an issue, so focus is on the following that have been mentioned in meetings and seem most prevalent and popular.
 
