@@ -100,6 +100,8 @@ Constructing file names from sample tags requires embedding JavaScript into YAML
 
 The "edit-compile-run" development cycle was very slow.
 
+Tool wrappers can be verbose for what are single command-line invocations e.g. the basic `cutadapt` wrapper in `cutadapt.cwl` is 47 lines.
+
 Errors in CWL syntax or during execution can lead to cryptic error messages or require a lot of investigation to track down their causes.
 
 ### Sample-specific sub-directories
