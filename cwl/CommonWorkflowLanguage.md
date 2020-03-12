@@ -225,3 +225,28 @@ These could be used as-is, or customised if required.
 
 * https://github.com/YeoLab/eclip/blob/master/cwl/barcodecollapse_se.cwl
 * https://github.com/YeoLab/eclip/blob/master/cwl/barcodecollapse_se_nostats.cwl
+
+---
+
+## Style guides
+
+Common Workflow Language User Guide: [Recommended Practices](https://www.commonwl.org/user_guide/rec-practices/)
+
+Arvados [Best Practices for writing CWL](https://doc.arvados.org/v1.4/user/cwl/cwl-style.html)
+
+---
+
+## Common Workflow Language Viewer
+
+[Common Workflow Language Viewer](https://view.commonwl.org/)
+
+[Explore Workflows](https://view.commonwl.org/workflows) - example workflows rendered by the above.
+
+---
+
+## Rabix Composer visual editor
+
+* [Rabix](https://rabix.io/)
+* [GitHub](https://github.com/rabix/composer)
+
+For writing CWL workflows.
