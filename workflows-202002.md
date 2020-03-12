@@ -346,6 +346,14 @@ Summary:
 
 ---
 
+## Other papers
+
+Strozzi F. et al. (2019) Scalable Workflows and Reproducible Data Analysis for Genomics. In: Anisimova M. (eds) Evolutionary Genomics. Methods in Molecular Biology, vol 1910. Humana, New York, NY. doi: [10.1007/978-1-4939-9074-0_24](https://doi.org/10.1007/978-1-4939-9074-0_24). Discussion of Snakemake, Nextflow, CWL and GWL complemented with examples at https://github.com/EvolutionaryGenomics/scalability-reproducibility-chapter
+
+Marijn van Vliet, Guidelines for data analysis scripts, v2, 9 Aug 2019, [arXiv:1904.06163](https://arxiv.org/abs/1904.06163) [cs.SE].
+
+---
+
 ## Poll of workflow managers, December 2018
 
 https://twitter.com/AlbertVilella/status/1069635987427532800
