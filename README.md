@@ -10,28 +10,26 @@ Relates to issue Assess workflow language options ([riboviz#48](https://github.c
 
 Snakemake:
 
-* [Snakemake](./snakemake/Snakemake.md): Snakemake notes.
 * [RiboViz and Snakemake](./snakemake/README.md): Discussion on Snakemake for RiboViz and how to run an example.
 * [Snakefile](./snakemake/Snakefile): Example Snakefile for RiboViz.
 * [workflow.svg](./snakemake/workflow.svg): Example workflow from above.
 * [report.html](./snakemake/report.html): Example report from above.
+* [Snakemake](./snakemake/Snakemake.md): Snakemake notes.
 
 Common Workflow Language (CWL):
 
+* [README.md](./cwl/README.md): Discussion on CWL for RiboViz and how to run an example.
 * [Common Workflow Language (CWL)](./cwl/CommonWorkflowLanguage.md): CWL notes.
-* [Common Workflow Language User Guide Notes](./cwl/CwlUserGuideNotes.md).
+* [Common Workflow Language User Guide Notes](./cwl/CwlUserGuideNotes.md) from working through the examples in the CWL user guide.
 * [Snakemake and CWL](./cwl/SnakemakeCwl.md): Exploring Snakemake's `--export-cwl` option.
+* [cutadapt.cwl](./cwl/cutadapt.cwl): tool wrapper for `cutadapt`.
+* [cutadapt-job.yml]./cwl/cutadapt-job.yml): job configuration for above.
+* [riboviz-workflow.cwl](./cwl/riboviz-workflow.cwl): workflow invoking `hisat2-build` and `cutadapt`.
+* [riboviz-job.yml]./cwl/riboviz-job.yml): job configuration for the above.
 
-### TODO
+Nextflow:
 
-* CWL and cwltool.
-* NextFlow
-* Others that support CWL:
-  - Pegasus
-  - Galaxy
-  - Cromwell (also supports WDL)
-  - Toil (also supports WDL)
-  - (use both their own formats, if appropriate, and reuse CWL from cwltool)
+* TODO
 
 ---
 

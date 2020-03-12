@@ -132,7 +132,7 @@ The execution order of the steps is determined by the inputs and outputs specifi
 
 See, for example, the "extract Java source from tar file then compile" workflow in [Writing workflows](https://www.commonwl.org/user_guide/21-1st-workflow/) in the [Common Workflow Language User Guide](https://www.commonwl.org/user_guide/).
 
-Workflows, complemented by inputs files, are executed in the same way as tool descriptions.
+Workflows, complemented by inputs files, are executed in the same way as tool wrappers.
 
 ---
 
@@ -181,14 +181,14 @@ See [Getting Started with Docker](https://docs.dockstore.org/en/develop/getting-
 
 ---
 
-## CWL tool descriptions
+## CWL tool wrappers
 
-There are repositories of CWL tool descriptions for biology/life sciences:
+There are repositories of CWL tool wrappers for biology/life sciences:
 
 * [common-workflow-library/bio-cwl-tools](https://github.com/common-workflow-library/bio-cwl-tools) (Apache 2.0 licence)
 * [pitagora-network/pitagora-cwl](https://github.com/pitagora-network/pitagora-cwl/tree/master/tools) (Apache 2.0 licence) - these are complemented with example workflows.
 
-There are also other projects that have developed CWL tool descriptions e.g.:
+There are also other projects that have developed CWL tool wrappers e.g.:
 
 * [YeoLab/eclip](https://github.com/YeoLab/eclip/) (BSD 3-clause licence)
 
