@@ -19,10 +19,10 @@ Mick Watson, [The three technologies bioinformaticians need to be using right no
    - Language, jobs, inputs, outputs.
    - Local computer, HPC job submission, cloud.
    - Snakemake (https://snakemake.readthedocs.io/en/stable/)
-   - NextFlow (https://www.nextflow.io/)
+   - Nextflow (https://www.nextflow.io/)
 3. Cloud:
    - Snakemake can submit jobs to Google Cloud (via Kubernetes)
-   - NextFlow can submit jobs to Amazon.
+   - Nextflow can submit jobs to Amazon.
    - Both Amazon and Google can send monthly invoices.
 
 ---
@@ -276,7 +276,7 @@ samiwillbe:
 * Nextflow:
   - Made sense and worked straight away.
   - Once dataflow concepts were grasped, wrote fairly complicated pipelines that ran locally, on clusters, and in the cloud, transparently.
-  - Team ofcomputational biologists were able to come up to speed quickly and write their own pipelines.
+  - Team of computational biologists were able to come up to speed quickly and write their own pipelines.
 * WDL/Cromwell
   - Nice features e.g. subworkflows.
   - CWL/WDL aims for declarative separation of workflow description and execution.
@@ -385,7 +385,7 @@ Marijn van Vliet, Guidelines for data analysis scripts, v2, 9 Aug 2019, [arXiv:1
 
 https://twitter.com/AlbertVilella/status/1069635987427532800
 
-* 44.4% NextFlow
+* 44.4% Nextflow
 * 22.2% SevenBridges (SBGenomics)
 * 19.4% CWL
 * Snakemake
@@ -402,7 +402,7 @@ Implicit convention frameworks:
 * SnakeMake
   - https://github.com/snakemake/snakemake
   - https://snakemake.readthedocs.io/en/stable/
-* NextFlow
+* Nextflow
   - https://github.com/nextflow-io/nextflow
   - https://www.nextflow.io/
 * BigDataScript
@@ -503,7 +503,7 @@ Workflow Description Language (WDL)
 | Product | Licence | Start | Last update | Releases | Latest | Contributors | Forks | Google | Workflow Language |
 | ------- | ------- | ----- | ----------- | -------- | ------ | ------------ | ----- | ------ | ---------------- |
 | SnakeMake (*) | MIT | 2013 | this week | 87 | 5.10.0 | 122 | 73 | 23,000 | - |
-| NextFlow (*) | Apache 2.0 | 2013 | this week | 171 | 20.01.0 | 230 | 60 | 23,800 | - |
+| Nextflow (*) | Apache 2.0 | 2013 | this week | 171 | 20.01.0 | 230 | 60 | 23,800 | - |
 | BigDataScript | Apache 2.0 | 2014 | last month | 40 | v2.1a | 8 | 24 | 534 | - |
 | Ruffus | MIT | 2013 | 6 months | 4 | v2.8.1 | 17 | 30 | 10,000 | - |
 | bpipe | New BSD | 2013 | last month | 16 | 0.9.9.8 | 11 | 45 | 2,440 | - |
