@@ -1,5 +1,32 @@
 # Notes on Workflow Options 28/02/2020
 
+## The three technologies bioinformaticians need to be using right now
+
+Mick Watson, [The three technologies bioinformaticians need to be using right now](http://www.opiniomics.org/the-three-technologies-bioinformaticians-need-to-be-using-right-now/), Opioniomics, 12 August 2019.
+
+1. Software environments and/or containers
+   - e.g. one for each pipeline you run.
+   - Can be versioned.
+   - Environments:
+     - conda (https://docs.conda.io/en/latest/)
+     - BioConda project (https://bioconda.github.io/) bioinformatics tools.
+  - Containers:
+    - Docker
+    - Singularity
+    - BioContainers project (https://biocontainers.pro/#/)
+2. Workflow management systems
+   - Pipelines as bash, Perl, Python.
+   - Language, jobs, inputs, outputs.
+   - Local computer, HPC job submission, cloud.
+   - Snakemake (https://snakemake.readthedocs.io/en/stable/)
+   - NextFlow (https://www.nextflow.io/)
+3. Cloud
+  - Snakemake can submit jobs to Google Cloud (via Kubernetes)
+  - NextFlow can submit jobs to Amazon.
+  - Both Amazon and Google can send monthly invoices.
+
+---
+
 ## A review of bioinformatic pipeline frameworks
 
 Leipzig, Jeremy (2017) A review of bioinformatic pipeline frameworks. Briefings in Bioinformatics, Volume 18, Issue 3, 1 May 2017, Pages 530-536, https://doi.org/10.1093/bib/bbw020.
