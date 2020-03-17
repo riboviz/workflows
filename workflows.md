@@ -4,7 +4,7 @@
 
 Mick Watson, [The three technologies bioinformaticians need to be using right now](http://www.opiniomics.org/the-three-technologies-bioinformaticians-need-to-be-using-right-now/), Opioniomics, 12 August 2019.
 
-1. Software environments and/or containers
+1. Software environments and/or containers:
    - e.g. one for each pipeline you run.
    - Can be versioned.
    - Environments:
@@ -14,13 +14,13 @@ Mick Watson, [The three technologies bioinformaticians need to be using right no
     - Docker
     - Singularity
     - BioContainers project (https://biocontainers.pro/#/)
-2. Workflow management systems
+2. Workflow management systems:
    - Pipelines as bash, Perl, Python.
    - Language, jobs, inputs, outputs.
    - Local computer, HPC job submission, cloud.
    - Snakemake (https://snakemake.readthedocs.io/en/stable/)
    - NextFlow (https://www.nextflow.io/)
-3. Cloud
+3. Cloud:
    - Snakemake can submit jobs to Google Cloud (via Kubernetes)
    - NextFlow can submit jobs to Amazon.
    - Both Amazon and Google can send monthly invoices.
