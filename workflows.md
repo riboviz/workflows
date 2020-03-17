@@ -21,9 +21,9 @@ Mick Watson, [The three technologies bioinformaticians need to be using right no
    - Snakemake (https://snakemake.readthedocs.io/en/stable/)
    - NextFlow (https://www.nextflow.io/)
 3. Cloud
-  - Snakemake can submit jobs to Google Cloud (via Kubernetes)
-  - NextFlow can submit jobs to Amazon.
-  - Both Amazon and Google can send monthly invoices.
+   - Snakemake can submit jobs to Google Cloud (via Kubernetes)
+   - NextFlow can submit jobs to Amazon.
+   - Both Amazon and Google can send monthly invoices.
 
 ---
 
