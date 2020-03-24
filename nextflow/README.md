@@ -6,7 +6,7 @@
 
 See notes on:
 
-* [Nextflow Documentation Notes](./NextflowUserGuideNotes.md) from reading through the Nextflow documentation.
+* [Nextflow Documentation Notes](./NextflowDocNotes.md) from reading through the Nextflow documentation.
 
 ---
 
@@ -179,7 +179,7 @@ A lot of preparatory reading is required to go beyond the "hello world!" example
 
 Julian Mazzitelli, [NGS Workflows](https://jmazz.me/blog/NGS-Workflows), @thejmazz, 8 June 2016
 
-Brian Naughton, [Comparing bioinformatics workflow systems: nextflow, snakemake, reflow](http://blog.booleanbiotech.com/nextflow-snakemake-reflow.html, Boolean Biotech, 2 June 2019
+Brian Naughton, [Comparing bioinformatics workflow systems: nextflow, snakemake, reflow](http://blog.booleanbiotech.com/nextflow-snakemake-reflow.html), Boolean Biotech, 2 June 2019
 
 * Ease of implementation of key RiboViz steps, for example:
   - index => [cutadapt => align (rRNA)]* => count_reads
