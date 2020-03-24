@@ -1,12 +1,21 @@
 # RiboViz workflow options
 
+## About
+
+Options for reimplementing the RiboViz workflow, `riboviz.tools.prep_riboviz`, using workflow technologies popular within the bioinformatics community.
+
 Relates to issue Assess workflow language options ([riboviz#48](https://github.com/riboviz/riboviz/issues/48)).
+
+---
 
 ## Workflow options
 
-[Notes on Workflow Options 28/02/2020](./workflows.md) - survey on available workflow options.
+General:
 
-"Overchoice" is an issue, so focus is on the following that have been mentioned in meetings and seem most prevalent and popular.
+* [Notes on Workflow Options 28/02/2020](./workflows.md): survey on available workflow options.
+* [Docker](./Docker.md): notes on Docker as some workflow technogies use Docker.
+
+"Overchoice" is an issue, so focus is on the following that have been mentioned in meetings and seem most prevalent and popular: Snakemake, CWL and Nextflow.
 
 Snakemake:
 
@@ -88,9 +97,3 @@ Recommendation to date:
 * Adopt Snakemake - the work requires little effort to complete.
 * Snakemake is a popular tool within the community.
 * Rather than try and guess what the user community might want, ask the user community about their views on CWL.
-
----
-
-## General
-
-[Docker](./Docker.md)
