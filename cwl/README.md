@@ -7,7 +7,7 @@
 See notes on:
 
 * [Common Workflow Language (CWL)](./CommonWorkflowLanguage.md)
-* [Common Workflow Language User Guide](./CwlUserGuideNotes.md) from working through the examples in the CWL user guide.
+* [Common Workflow Language User Guide Notes](./CwlUserGuideNotes.md) from working through the examples in the CWL user guide.
 
 ---
 
