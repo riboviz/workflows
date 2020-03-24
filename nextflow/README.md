@@ -143,7 +143,34 @@ Bonjour world!
 
 ### Run the RiboViz example
 
-TODO
+Copy over Nextflow script:
+
+```console
+$ cd riboviz
+$ cp ~/workflows/nextflow/riboviz.nf .
+```
+
+TODO add riboviz.nf to repository.
+
+Run:
+
+```console
+$ nextflow run riboviz.nf -params-file vignette/vignette_config.yaml
+```
+
+Create HTML report, timeline, pipeline graph:
+
+```console
+$ nextflow run riboviz.nf -params-file vignette/vignette_config.yaml -with-report report.html -with-timeline timeline.html -with-dag workflow.svg
+```
+
+See, for example:
+
+* [report.html](./report.html)
+* [timeline.html](./timeline.html)
+* [workflow.svg](./workflow.svg)
+
+TODO add files to repository.
 
 ---
 
@@ -151,55 +178,139 @@ TODO
 
 ### Ease of download, install, tutorials, initial use
 
+Nextflow and its dependencies are straightforward to download and install (whether using conda or a native package manager). The "hello" example and [Get started](https://www.nextflow.io/docs/latest/getstarted.html) tutorial - writing a workflow with two tasks - are straightforward to follow.
+
 ### Ease of implementation of key RiboViz steps
 
-A lot of preparatory reading is required to go beyond the "hello world!" example. The User Guide took about 4 hours to work through, running all the examples.
+The user documentation took ~1 day to read through to get a full feel of Nextflow's capabilities. An expanded tutorial, to implement a multi-task workflow, analogous to that provided by Snakemake, would have been useful.
+
+TODO
 
 ### Sample-specific sub-directories
 
+Every invocation of a task - every process - has its own subdirectory within Nextflow's `work/` directory into which the input files for that task are copied and into which the output files from that task are written. As a result, sample-specific invocations of tasks will have their own directories.
+
+TODO is there a way to easily identify which directories hold the files for which samples?
+
 ### Parse YAML configuration files
+
+Nextflow supports a `-params-file` command-line option which allows a YAML or JSON file to be provided. The parameters can then be accessed within a Nextflow script via a `params.` prefix e.g. `params.rrna_fasta_file`.
 
 ### Dry run option, validating configuration and input file existence
 
+TODO
+
 ### Tool/step-specific log files
+
+Standard output and standard error (as well as exit codes) for each task invocation are automatically captured and placed in process-specific subdirectories of Nextflow's `work/` directory.
+
+For example:
+
+```console
+$ nextflow run riboviz.nf -params-file vignette/vignette_config.yaml
+N E X T F L O W  ~  version 20.01.0
+Launching `riboviz.nf` [special_goodall] - revision: 78a68e034f
+executor >  local (2)
+[b3/92880f] process > buildIndicesRrna [  0%] 0 of 1
+[52/edae02] process > buildIndicesOrf  [  0%] 0 of 1
+...
+[b3/92880f] process > buildIndicesRrna [100%] 1 of 1 ?
+[52/edae02] process > buildIndicesOrf  [100%] 1 of 1 ?
+$ ls -1A work/b3/92880fd4c2dffe97e20b16f363182a/
+.command.begin
+.command.err
+.command.log
+.command.out
+.command.run
+.command.sh
+.exitcode
+yeast_rRNA.1.ht2
+yeast_rRNA.2.ht2
+yeast_rRNA.3.ht2
+yeast_rRNA.4.ht2
+yeast_rRNA.5.ht2
+yeast_rRNA.6.ht2
+yeast_rRNA.7.ht2
+yeast_rRNA.8.ht2
+yeast_rRNA_R64-1-1.fa
+```
+
+TODO
 
 ### Output bash script, that can be rerun
 
-### Access configuration file name from within CWL
+TODO
+
+### Access configuration file name from within a Nextflow script
+
+There doesn't seem to be a way to access the configuration file itself from within a Nextflow script i.e. the value of `-params-file`.
+
+`riboviz.tools.count_reads` needs the RiboViz configuration file for sample ID-file name values in `fq_files`. These could be written to another file from within the Nextflow script, or via another script invoked by Nextflow, and that file provided as the input to `riboviz.tools.count_reads`.
+
+TODO: The current Snakefile dumps `fq_files` into an output `sample_sheet.yaml` file that is then provided as input to `riboviz.tools.count_reads`.
 
 ### If processing of one sample fails will the rest be processed?
 
+TODO
+
 ### Conditional behaviour
 
+Nextflow supports a `when` declaration in tasks to allow tasks to only be executed if certain conditions hold.
+
 ### Other
+
+Nextflow requires Java JDK 1.8+ to run.
+
+Writing scripts requires knowledge of Groovy - a Python-esque language based on Java. I think anyone familiar with Python or R would not find Groovy too challenging. I hadn't used it myself before looking at Nextflow and though I have a number of years of experience with Java, I didn't really draw upon that knowledge.
+
+Nextflow has built-in functions for FASTA and FASTQ files e.g. count records, extract records, query the NCBI SRA database for specific FASTQ files.
 
 ---
 
 ## TODO
 
-Julian Mazzitelli, [NGS Workflows](https://jmazz.me/blog/NGS-Workflows), @thejmazz, 8 June 2016
-
-Brian Naughton, [Comparing bioinformatics workflow systems: nextflow, snakemake, reflow](http://blog.booleanbiotech.com/nextflow-snakemake-reflow.html), Boolean Biotech, 2 June 2019
-
 * Ease of implementation of key RiboViz steps, for example:
   - index => [cutadapt => align (rRNA)]* => count_reads
   - index => cutadapt => demultiplex => [align (rRNA)]* => count_reads
   - Requires:
-    - Ability to handle implicit naming of index files.
     - Iteration over samples.
     - Aggregation of sample-specific results.
-    - Conditional behaviour e.g. indexing, UMI groups.
 
-* Tool/step-specific log files - try Snakemake style.
-* Parse YAML configuration files.
+* More readable directory names? For samples? for log files?
+* Is there a way to easily identify which directories hold the files for which samples?
+
+* Best practices on naming?
 * Dry run option, validating configuration and input file existence.
-* Output bash script, that can be rerun.
-* If processing of one sample fails will the rest be processed?
+* Output bash script, that can be rerun?
+
+* Incremental build?
+
+```
+$ nextflow run riboviz.nf -params-file vignette/vignette_config.yaml -resume
+```
+
+* If processing of one sample fails can/will the rest be processed?
+
 * If any criteria above are not met, then could it be added easily. It is OK to do development to extend a tool if necessary.
 
-Remember docs have:
+Read...
 
-* Examples
+Julian Mazzitelli, [NGS Workflows](https://jmazz.me/blog/NGS-Workflows), @thejmazz, 8 June 2016
+
+Brian Naughton, [Comparing bioinformatics workflow systems: nextflow, snakemake, reflow](http://blog.booleanbiotech.com/nextflow-snakemake-reflow.html), Boolean Biotech, 2 June 2019
+
+Examples...
+
+https://github.com/nf-core/rnaseq
+
+RNA-Seq pipeline:
+
+> The example below shows how put together a RNAseq pipeline with basic functionality. It maps a collection of read-pairs to a given reference genome and outputs the respective transcript model.
+
+https://www.nextflow.io/example4.html
+
+* https://www.nextflow.io/docs/latest/example.html
+
 * FAQ
 * How do I process multiple input files in parallel?
 * How do I get a unique ID based on the file name?
@@ -207,13 +318,3 @@ Remember docs have:
 * How do I invoke custom scripts and tools?
 * How do I iterate over a process n times?
 * How do I iterate over nth files from within a process?
-
-Notes:
-
-* Tutorial consists of a simple two process (step) workflow. The rest of docs are more of a reference guide which took a while to read through to get a feel of the capabilities. A more complex example, as provided by Snakemake, would be nice.
-* Requires Java JDK 1.8+ to run.
-* Requires knowledge of Groovy (Pythonesque language underpinned by Java) for scripting.
-* Built-in functions to count FASTQ, FASTA records, to query NCBI SRA database and emit FASTQ files matching specified criteria.
-* Similar data flow model to Snakemake.
-* Feeling that features are far richer.
-* HTML reports and workflow images.
