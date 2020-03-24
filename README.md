@@ -39,7 +39,7 @@ Common Workflow Language (CWL):
 Nextflow:
 
 * [RiboViz and Nextflow](./nextflow/README.md): Discussion on Nextflow for RiboViz and how to run an example.
-* [Nextflow Documentation Notes](./NextflowDocNotes.md) from reading through the Nextflow documentation.
+* [Nextflow Documentation Notes](./nextflow/NextflowDocNotes.md) from reading through the Nextflow documentation.
 
 ---
 
