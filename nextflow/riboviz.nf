@@ -1,8 +1,11 @@
 #!/usr/bin/env nextflow
 
+rrna_fasta_file = Channel.fromPath(params.rrna_fasta_file,
+                                   checkIfExists: true)
+
 process buildIndicesRrna {
     input:
-        file fasta_file from file(params.rrna_fasta_file)
+        file fasta_file from rrna_fasta_file
     output:
         file "${params.rrna_index_prefix}.*.ht2*" into rrna_index_files
     when:
@@ -14,9 +17,14 @@ process buildIndicesRrna {
         """
 }
 
+// rrna_index_files.subscribe { println "RRNA Index files: ${it}" }
+
+orf_fasta_file = Channel.fromPath(params.orf_fasta_file,
+                                  checkIfExists: true)
+
 process buildIndicesOrf {
     input:
-        file fasta_file from file(params.orf_fasta_file)
+        file fasta_file from orf_fasta_file
     output:
         file "${params.orf_index_prefix}.*.ht2*" into orf_index_files
     when:
@@ -28,10 +36,14 @@ process buildIndicesOrf {
         """
 }
 
+// orf_index_files.subscribe { println "ORF index files: ${it}" }
+
 // Alternative one task approach.
-alt_rrna_fasta_file = Channel.fromPath(params.rrna_fasta_file)
+alt_rrna_fasta_file = Channel.fromPath(params.rrna_fasta_file,
+                                       checkIfExists: true)
 alt_rrna_index_prefix = Channel.of(params.rrna_index_prefix)
-alt_orf_fasta_file = Channel.fromPath(params.orf_fasta_file)
+alt_orf_fasta_file = Channel.fromPath(params.orf_fasta_file,
+                                      checkIfExists: true)
 alt_orf_index_prefix = Channel.of(params.orf_index_prefix)
 index_fasta_files = alt_rrna_fasta_file.concat(alt_orf_fasta_file)
 index_prefixes = alt_rrna_index_prefix.concat(alt_orf_index_prefix)
@@ -51,30 +63,71 @@ process buildIndices {
         """
 }
 
-rrna_index_files.subscribe { println "RRNA Index files: ${it}" }
-orf_index_files.subscribe { println "ORF index files: ${it}" }
-index_files.subscribe { println "Index files: ${it}" }
-
-input_dir = Channel.fromPath(params.dir_in)
-adapters = params.adapters
+// index_files.subscribe { println "Index files: ${it}" }
 
 /*
-lambda wildcards: os.path.join(config['dir_in'], SAMPLES[wildcards.sample])
-os.path.join(config['dir_tmp'], "{sample}", "trim.fq")
-log: os.path.join(config['dir_logs'], TIMESTAMP, "{sample}", "cutadapt.log")
-cutadapt --trim-n -O 1 -m 5 -a	{config[adapters]} -o {output} {input} -j 0 &> {log}
+fq_files: # fastq files to be processed, relative to dir_in
+  WTnone: SRR1042855_s1mi.fastq.gz
+  WT3AT: SRR1042864_s1mi.fastq.gz
+  NotHere: example_missing_file.fastq.gz # Test case for missing file
 */
+
 /*
+fq_file = 'SRR1042855_s1mi.fastq.gz'
+sample = Channel.fromPath("${params.dir_in}/${fq_file}")
 process cutAdapters {
     input:
-    file sequence from TODO
-    val adapters from adapters
+        file sample from sample
+        val adapters from params.adapters
     output:
+        file 'trim.fq' into trimmed_fastq
     shell:
-    // TODO configure -j 0 in a more Nextflow-esque way.
-    """
-    cutadapt --trim-n -O 1 -m 5 -a ${adapters} -o ${trimmed_sequence} ${sequence} -j 0
-    """
+        """
+        cutadapt --trim-n -O 1 -m 5 -a ${adapters} -o trim.fq ${sample} -j 0
+        """
 }
 */
 
+/**
+params.fq_files.each({key, value -> println "Key-value: $key $value"})
+samples = Channel.of(params.fq_files.each({key, value -> [key, value]}))
+samples.subscribe { println "Sample: ${it}" }
+sample_ids = params.fq_files.each({key, value -> key}).collect()
+println "${sample_ids}\n"
+sample_files = params.fq_files.each({key, value -> value}).collect()
+println "${sample_files}\n"
+xxx = params.fq_files.entrySet()
+yyy = xxx.each { entry -> entry.key }
+println "YYY ${yyy}\n"
+*/
+
+
+sample_ids = Channel.fromList(params.fq_files.keySet())
+sample_files = Channel.fromPath(params.fq_files.values().collect({"${params.dir_in}/${it}"}))
+
+sample_list = params.fq_files.collect({key, value -> [key, file(value)]})
+
+process cutAdapters {
+    input:
+        val sample_id from sample_ids
+        file sample_file from sample_files
+
+        // 1
+        // cutadapt --trim-n -O 1 -m 5 -a CTGTAGGCACC -o WT3AT_trim.fq SRR1042864_s1mi.fastq.gz -j 0
+        // OSError: pigz: skipping: SRR1042864_s1mi.fastq.gz does not exist as file has not been staged.
+        // tuple val(sample_id), sample_file from sample_list
+	// 2
+        // cutadapt --trim-n -O 1 -m 5 -a CTGTAGGCACC -o WTnone_trim.fq input.1 -j 0
+        // tuple val(sample_id), file(sample_file) from sample_list
+
+        val adapters from params.adapters
+    output:
+        file "${sample_id}_trim.fq" into trimmed_sample_fastq
+    shell:
+        // TODO configure -j 0 in a more Nextflow-esque way.
+        """
+        echo ${sample_id}
+        echo ${sample_file}
+        cutadapt --trim-n -O 1 -m 5 -a ${adapters} -o ${sample_id}_trim.fq ${sample_file} -j 0
+        """
+}
