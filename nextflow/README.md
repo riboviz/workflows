@@ -150,8 +150,6 @@ $ cd riboviz
 $ cp ~/workflows/nextflow/riboviz.nf .
 ```
 
-TODO add riboviz.nf to repository.
-
 Run:
 
 ```console
@@ -170,7 +168,7 @@ See, for example:
 * [timeline.html](./timeline.html)
 * [workflow.svg](./workflow.svg)
 
-TODO add files to repository.
+TODO add report files to repository.
 
 ---
 
@@ -190,7 +188,7 @@ TODO
 
 Every invocation of a task - every process - has its own subdirectory within Nextflow's `work/` directory into which the input files for that task are copied and into which the output files from that task are written. As a result, sample-specific invocations of tasks will have their own directories.
 
-TODO is there a way to easily identify which directories hold the files for which samples?
+TODO
 
 ### Parse YAML configuration files
 
@@ -247,8 +245,6 @@ There doesn't seem to be a way to access the configuration file itself from with
 
 `riboviz.tools.count_reads` needs the RiboViz configuration file for sample ID-file name values in `fq_files`. These could be written to another file from within the Nextflow script, or via another script invoked by Nextflow, and that file provided as the input to `riboviz.tools.count_reads`.
 
-TODO: The current Snakefile dumps `fq_files` into an output `sample_sheet.yaml` file that is then provided as input to `riboviz.tools.count_reads`.
-
 ### If processing of one sample fails will the rest be processed?
 
 TODO
@@ -269,52 +265,44 @@ Nextflow has built-in functions for FASTA and FASTQ files e.g. count records, ex
 
 ## TODO
 
-* Ease of implementation of key RiboViz steps, for example:
-  - index => [cutadapt => align (rRNA)]* => count_reads
-  - index => cutadapt => demultiplex => [align (rRNA)]* => count_reads
-  - Requires:
-    - Iteration over samples.
-    - Aggregation of sample-specific results.
+See TODOs above:
 
-* More readable directory names? For samples? for log files?
-* Is there a way to easily identify which directories hold the files for which samples?
+* If processing of one sample fails will the rest be processed?
+  - Use invalid file, see what happens, Google.
+* Dry run option, validating configuration and input file existence
+  - Google.
+* Sample-specific sub-directories
+  - Expand comments with notes below, inc. publishDir. All are inherently sample-specific.
+* Tool/step-specific log files
+  - By default, expand.
+* Output bash script, that can be rerun
+  - Google (but question why is this still needed?!)
+* Ease of implementation of key RiboViz steps
+  - Add notes below.
+* Add report files to repository
+  - Create and add
 
-* Best practices on naming?
-* Dry run option, validating configuration and input file existence.
-* Output bash script, that can be rerun?
+Notes:
 
-* Incremental build?
+* Incremental build:
 
 ```
 $ nextflow run riboviz.nf -params-file vignette/vignette_config.yaml -resume
 ```
 
-* If processing of one sample fails can/will the rest be processed?
+* Slower to write than Snakemake (as less Make-esque - took a couple of hours to rediscover `each` to reuse index files for each sample), but more productive than CWL.
+* Verbosity and structure of scripts is comparable to Snakemake.
+* `work` directory names are cryptic - auto-generated file IDs. [publishDir](https://www.nextflow.io/docs/latest/process.html#publishdir) directive allows files to be published to a specific by, for example, symlink (default) or copy.
+* Many resources...
+* Examples menu on [Nextflow](https://www.nextflow.io/index.html)
+* Documentation [Example](https://www.nextflow.io/docs/latest/example.html)
+* Documentation [FAQ](https://www.nextflow.io/docs/latest/faq.html)
+* Collection of Nextflow implentation [patterns](https://github.com/nextflow-io/patterns)
+* Nextflow 2017 workshop [tutorial](https://github.com/nextflow-io/nf-hack17-tutorial) (my understanding of Nextflow has passed beyond this when I found it)
 
-* If any criteria above are not met, then could it be added easily. It is OK to do development to extend a tool if necessary.
+Read:
 
-Read...
+* Julian Mazzitelli, [NGS Workflows](https://jmazz.me/blog/NGS-Workflows), @thejmazz, 8 June 2016
+* Brian Naughton, [Comparing bioinformatics workflow systems: nextflow, snakemake, reflow](http://blog.booleanbiotech.com/nextflow-snakemake-reflow.html), Boolean Biotech, 2 June 2019
 
-Julian Mazzitelli, [NGS Workflows](https://jmazz.me/blog/NGS-Workflows), @thejmazz, 8 June 2016
-
-Brian Naughton, [Comparing bioinformatics workflow systems: nextflow, snakemake, reflow](http://blog.booleanbiotech.com/nextflow-snakemake-reflow.html), Boolean Biotech, 2 June 2019
-
-Examples...
-
-https://github.com/nf-core/rnaseq
-
-RNA-Seq pipeline:
-
-> The example below shows how put together a RNAseq pipeline with basic functionality. It maps a collection of read-pairs to a given reference genome and outputs the respective transcript model.
-
-https://www.nextflow.io/example4.html
-
-* https://www.nextflow.io/docs/latest/example.html
-
-* FAQ
-* How do I process multiple input files in parallel?
-* How do I get a unique ID based on the file name?
-* How do I use the same channel multiple times?
-* How do I invoke custom scripts and tools?
-* How do I iterate over a process n times?
-* How do I iterate over nth files from within a process?
+Check Snakemake VS Nextflow for HPC, Grid, Cloud architectures.
