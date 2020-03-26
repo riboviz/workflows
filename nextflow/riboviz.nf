@@ -34,40 +34,7 @@ process buildIndicesORF {
         """
 }
 
-/*
- * cutadapt using concurrent sample ID and filename channels.
- */
-sample_ids = []
-sample_files = []
-for (entry in params.fq_files) {
-    sample_file = file("${params.dir_in}/${entry.value}")
-    if (sample_file.exists()) {
-        sample_ids.add(entry.key)
-	sample_files.add(sample_file)
-    } else {
-        println "Missing file ($entry.key): $entry.value"
-    }
-}
-println "Samples: ${sample_ids} ${sample_files}\n"
-
-process cutAdapters {
-    tag "$sample_id"
-    input:
-        val adapters from params.adapters
-        val sample_id from sample_ids
-        file sample_file from sample_files
-    output:
-        file "${sample_id}_trim.fq" into trim_fastq
-    shell:
-        // TODO configure -j 0 in a more Nextflow-esque way.
-        """
-        cutadapt --trim-n -O 1 -m 5 -a ${adapters} -o ${sample_id}_trim.fq ${sample_file} -j 0
-        """
-}
-
-/*
- * Alternative cutadapt using channel of (sample ID, filename) tuples.
- */
+// Filter samples down to those whose files exist.
 sample_list = []
 for (entry in params.fq_files) {
     sample_file = file("${params.dir_in}/${entry.value}")
@@ -77,12 +44,11 @@ for (entry in params.fq_files) {
         println "Missing file ($entry.key): $entry.value"
     }
 }
-println "Samples: ${sample_list}\n"
 
-process cutAdaptersTuple {
+process cutAdapters {
     input:
-        val adapters from params.adapters
         tuple val(sample_id), file(sample_file) from sample_list
+        val adapters from params.adapters
     output:
         tuple val("${sample_id}"), file("${sample_id}_trim.fq") into trim_sample_fastq_tuple
     shell:
@@ -92,13 +58,10 @@ process cutAdaptersTuple {
         """
 }
 
-// TODO this has an issue in that a sample tuple is read and the index
-// files are read. The next sample tuple will not be read as the index
-// files have already been consumed. Only one sample is processed.
 process hisat2rRNA {
     input:
-        file "${params.rrna_index_prefix}.*.ht2" from rrna_index_files
         tuple val(sample_id), file(trim_fq) from trim_sample_fastq_tuple
+        each file("${params.rrna_index_prefix}.*.ht2") from rrna_index_files
     output:
         tuple val("${sample_id}"), file("${sample_id}_nonrRNA.fq") into non_rrna_fq
         tuple val("${sample_id}"), file("${sample_id}_rRNA_map.sam") into rrna_map_sam
@@ -111,8 +74,8 @@ process hisat2rRNA {
 
 process hisat2ORF {
     input:
-        file "${params.orf_index_prefix}.*.ht2" from orf_index_files
         tuple val(sample_id), file(non_rrna_fq) from non_rrna_fq
+        each file("${params.orf_index_prefix}.*.ht2") from orf_index_files
     output:
         tuple val("${sample_id}"), file("${sample_id}_unaligned.fq") into unaligned_fq
         tuple val("${sample_id}"), file("${sample_id}_orf_map.sam") into orf_map_sam
