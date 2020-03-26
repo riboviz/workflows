@@ -66,68 +66,43 @@ process buildIndices {
 // index_files.subscribe { println "Index files: ${it}" }
 
 /*
-fq_files: # fastq files to be processed, relative to dir_in
-  WTnone: SRR1042855_s1mi.fastq.gz
-  WT3AT: SRR1042864_s1mi.fastq.gz
-  NotHere: example_missing_file.fastq.gz # Test case for missing file
-*/
-
-/*
-fq_file = 'SRR1042855_s1mi.fastq.gz'
-sample = Channel.fromPath("${params.dir_in}/${fq_file}")
-process cutAdapters {
-    input:
-        file sample from sample
-        val adapters from params.adapters
-    output:
-        file 'trim.fq' into trimmed_fastq
-    shell:
-        """
-        cutadapt --trim-n -O 1 -m 5 -a ${adapters} -o trim.fq ${sample} -j 0
-        """
-}
-*/
-
-/**
-params.fq_files.each({key, value -> println "Key-value: $key $value"})
-samples = Channel.of(params.fq_files.each({key, value -> [key, value]}))
-samples.subscribe { println "Sample: ${it}" }
-sample_ids = params.fq_files.each({key, value -> key}).collect()
-println "${sample_ids}\n"
-sample_files = params.fq_files.each({key, value -> value}).collect()
-println "${sample_files}\n"
-xxx = params.fq_files.entrySet()
-yyy = xxx.each { entry -> entry.key }
-println "YYY ${yyy}\n"
-*/
-
+ * cutadapt using concurrent sample ID and filename channels.
+ */
 
 sample_ids = Channel.fromList(params.fq_files.keySet())
-sample_files = Channel.fromPath(params.fq_files.values().collect({"${params.dir_in}/${it}"}))
-
-sample_list = params.fq_files.collect({key, value -> [key, file(value)]})
+sample_files = Channel.fromPath(
+    params.fq_files.values().collect({"${params.dir_in}/${it}"}))
 
 process cutAdapters {
     input:
+        val adapters from params.adapters
         val sample_id from sample_ids
         file sample_file from sample_files
-
-        // 1
-        // cutadapt --trim-n -O 1 -m 5 -a CTGTAGGCACC -o WT3AT_trim.fq SRR1042864_s1mi.fastq.gz -j 0
-        // OSError: pigz: skipping: SRR1042864_s1mi.fastq.gz does not exist as file has not been staged.
-        // tuple val(sample_id), sample_file from sample_list
-	// 2
-        // cutadapt --trim-n -O 1 -m 5 -a CTGTAGGCACC -o WTnone_trim.fq input.1 -j 0
-        // tuple val(sample_id), file(sample_file) from sample_list
-
-        val adapters from params.adapters
     output:
         file "${sample_id}_trim.fq" into trimmed_sample_fastq
     shell:
         // TODO configure -j 0 in a more Nextflow-esque way.
         """
-        echo ${sample_id}
-        echo ${sample_file}
+        cutadapt --trim-n -O 1 -m 5 -a ${adapters} -o ${sample_id}_trim.fq ${sample_file} -j 0
+        """
+}
+
+/*
+ * Alternative cutadapt using channel of (sample ID, filename) tuples.
+ */
+
+sample_list = params.fq_files.collect(
+    {key, value -> [key, file("${params.dir_in}/${value}")]})
+
+process cutAdaptersTuple {
+    input:
+        val adapters from params.adapters
+        tuple val(sample_id), file(sample_file) from sample_list
+    output:
+        file "${sample_id}_trim.fq" into trimmed_sample_fastq_tuple
+    shell:
+        // TODO configure -j 0 in a more Nextflow-esque way.
+        """
         cutadapt --trim-n -O 1 -m 5 -a ${adapters} -o ${sample_id}_trim.fq ${sample_file} -j 0
         """
 }
