@@ -3,11 +3,11 @@
 rrna_fasta_file = Channel.fromPath(params.rrna_fasta_file,
                                    checkIfExists: true)
 
-process buildIndicesRrna {
+process buildIndicesrRNA {
     input:
         file fasta_file from rrna_fasta_file
     output:
-        file "${params.rrna_index_prefix}.*.ht2*" into rrna_index_files
+        file "${params.rrna_index_prefix}.*.ht2" into rrna_index_files
     when:
         params.build_indices
     shell:
@@ -17,16 +17,14 @@ process buildIndicesRrna {
         """
 }
 
-// rrna_index_files.subscribe { println "RRNA Index files: ${it}" }
-
 orf_fasta_file = Channel.fromPath(params.orf_fasta_file,
                                   checkIfExists: true)
 
-process buildIndicesOrf {
+process buildIndicesORF {
     input:
         file fasta_file from orf_fasta_file
     output:
-        file "${params.orf_index_prefix}.*.ht2*" into orf_index_files
+        file "${params.orf_index_prefix}.*.ht2" into orf_index_files
     when:
         params.build_indices
     shell:
@@ -36,50 +34,30 @@ process buildIndicesOrf {
         """
 }
 
-// orf_index_files.subscribe { println "ORF index files: ${it}" }
-
-// Alternative one task approach.
-alt_rrna_fasta_file = Channel.fromPath(params.rrna_fasta_file,
-                                       checkIfExists: true)
-alt_rrna_index_prefix = Channel.of(params.rrna_index_prefix)
-alt_orf_fasta_file = Channel.fromPath(params.orf_fasta_file,
-                                      checkIfExists: true)
-alt_orf_index_prefix = Channel.of(params.orf_index_prefix)
-index_fasta_files = alt_rrna_fasta_file.concat(alt_orf_fasta_file)
-index_prefixes = alt_rrna_index_prefix.concat(alt_orf_index_prefix)
-
-process buildIndices {
-    input:
-        file index_fasta_file from index_fasta_files
-        val index_prefix from index_prefixes
-    output:
-        file "${index_prefix}.*.ht2*" into index_files
-    when:
-        params.build_indices
-    shell:
-        """
-        hisat2-build --version
-        hisat2-build ${index_fasta_file} ${index_prefix}
-        """
-}
-
-// index_files.subscribe { println "Index files: ${it}" }
-
 /*
  * cutadapt using concurrent sample ID and filename channels.
  */
-
-sample_ids = Channel.fromList(params.fq_files.keySet())
-sample_files = Channel.fromPath(
-    params.fq_files.values().collect({"${params.dir_in}/${it}"}))
+sample_ids = []
+sample_files = []
+for (entry in params.fq_files) {
+    sample_file = file("${params.dir_in}/${entry.value}")
+    if (sample_file.exists()) {
+        sample_ids.add(entry.key)
+	sample_files.add(sample_file)
+    } else {
+        println "Missing file ($entry.key): $entry.value"
+    }
+}
+println "Samples: ${sample_ids} ${sample_files}\n"
 
 process cutAdapters {
+    tag "$sample_id"
     input:
         val adapters from params.adapters
         val sample_id from sample_ids
         file sample_file from sample_files
     output:
-        file "${sample_id}_trim.fq" into trimmed_sample_fastq
+        file "${sample_id}_trim.fq" into trim_fastq
     shell:
         // TODO configure -j 0 in a more Nextflow-esque way.
         """
@@ -90,19 +68,58 @@ process cutAdapters {
 /*
  * Alternative cutadapt using channel of (sample ID, filename) tuples.
  */
-
-sample_list = params.fq_files.collect(
-    {key, value -> [key, file("${params.dir_in}/${value}")]})
+sample_list = []
+for (entry in params.fq_files) {
+    sample_file = file("${params.dir_in}/${entry.value}")
+    if (sample_file.exists()) {
+        sample_list.add([entry.key, sample_file])
+    } else {
+        println "Missing file ($entry.key): $entry.value"
+    }
+}
+println "${sample_list.getClass()}"
+println "Samples: ${sample_list}\n"
 
 process cutAdaptersTuple {
     input:
         val adapters from params.adapters
         tuple val(sample_id), file(sample_file) from sample_list
     output:
-        file "${sample_id}_trim.fq" into trimmed_sample_fastq_tuple
+        tuple val("${sample_id}"), file("${sample_id}_trim.fq") into trim_sample_fastq_tuple
     shell:
         // TODO configure -j 0 in a more Nextflow-esque way.
         """
         cutadapt --trim-n -O 1 -m 5 -a ${adapters} -o ${sample_id}_trim.fq ${sample_file} -j 0
+        """
+}
+
+// TODO this has an issue in that a sample tuple is read and the index
+// files are read. The next sample tuple will not be read as the index
+// files have already been consumed. Only one sample is processed.
+process hisat2rRNA {
+    input:
+        file "${params.rrna_index_prefix}.*.ht2" from rrna_index_files
+        tuple val(sample_id), file(trim_fq) from trim_sample_fastq_tuple
+    output:
+        tuple val("${sample_id}"), file("${sample_id}_nonrRNA.fq") into non_rrna_fq
+        tuple val("${sample_id}"), file("${sample_id}_rRNA_map.sam") into rrna_map_sam
+    shell:
+        """
+        hisat2 --version
+        hisat2 -p ${params.num_processes} -N 1 -k 1 --un ${sample_id}_nonrRNA.fq -x ${params.rrna_index_prefix} -S ${sample_id}_rRNA_map.sam -U ${trim_fq}
+        """
+}
+
+process hisat2ORF {
+    input:
+        file "${params.orf_index_prefix}.*.ht2" from orf_index_files
+        tuple val(sample_id), file(non_rrna_fq) from non_rrna_fq
+    output:
+        tuple val("${sample_id}"), file("${sample_id}_unaligned.fq") into unaligned_fq
+        tuple val("${sample_id}"), file("${sample_id}_orf_map.sam") into orf_map_sam
+    shell:
+        """
+        hisat2 --version
+        hisat2 -p ${params.num_processes} -k 2 --no-spliced-alignment --rna-strandness F --no-unal --un ${sample_id}_unaligned.fq -x ${params.orf_index_prefix} -S ${sample_id}_orf_map.sam -U ${non_rrna_fq}
         """
 }
