@@ -77,7 +77,6 @@ for (entry in params.fq_files) {
         println "Missing file ($entry.key): $entry.value"
     }
 }
-println "${sample_list.getClass()}"
 println "Samples: ${sample_list}\n"
 
 process cutAdaptersTuple {
