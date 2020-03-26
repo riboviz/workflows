@@ -1,8 +1,11 @@
 #!/usr/bin/env nextflow
 
+rrna_fasta_file = Channel.fromPath(params.rrna_fasta_file,
+                                   checkIfExists: true)
+
 process buildIndicesRrna {
     input:
-        file fasta_file from file(params.rrna_fasta_file)
+        file fasta_file from rrna_fasta_file
     output:
         file "${params.rrna_index_prefix}.*.ht2*" into rrna_index_files
     when:
@@ -14,9 +17,14 @@ process buildIndicesRrna {
         """
 }
 
+// rrna_index_files.subscribe { println "RRNA Index files: ${it}" }
+
+orf_fasta_file = Channel.fromPath(params.orf_fasta_file,
+                                  checkIfExists: true)
+
 process buildIndicesOrf {
     input:
-        file fasta_file from file(params.orf_fasta_file)
+        file fasta_file from orf_fasta_file
     output:
         file "${params.orf_index_prefix}.*.ht2*" into orf_index_files
     when:
@@ -28,10 +36,14 @@ process buildIndicesOrf {
         """
 }
 
+// orf_index_files.subscribe { println "ORF index files: ${it}" }
+
 // Alternative one task approach.
-alt_rrna_fasta_file = Channel.fromPath(params.rrna_fasta_file)
+alt_rrna_fasta_file = Channel.fromPath(params.rrna_fasta_file,
+                                       checkIfExists: true)
 alt_rrna_index_prefix = Channel.of(params.rrna_index_prefix)
-alt_orf_fasta_file = Channel.fromPath(params.orf_fasta_file)
+alt_orf_fasta_file = Channel.fromPath(params.orf_fasta_file,
+                                      checkIfExists: true)
 alt_orf_index_prefix = Channel.of(params.orf_index_prefix)
 index_fasta_files = alt_rrna_fasta_file.concat(alt_orf_fasta_file)
 index_prefixes = alt_rrna_index_prefix.concat(alt_orf_index_prefix)
@@ -51,30 +63,46 @@ process buildIndices {
         """
 }
 
-rrna_index_files.subscribe { println "RRNA Index files: ${it}" }
-orf_index_files.subscribe { println "ORF index files: ${it}" }
-index_files.subscribe { println "Index files: ${it}" }
-
-input_dir = Channel.fromPath(params.dir_in)
-adapters = params.adapters
+// index_files.subscribe { println "Index files: ${it}" }
 
 /*
-lambda wildcards: os.path.join(config['dir_in'], SAMPLES[wildcards.sample])
-os.path.join(config['dir_tmp'], "{sample}", "trim.fq")
-log: os.path.join(config['dir_logs'], TIMESTAMP, "{sample}", "cutadapt.log")
-cutadapt --trim-n -O 1 -m 5 -a	{config[adapters]} -o {output} {input} -j 0 &> {log}
-*/
-/*
+ * cutadapt using concurrent sample ID and filename channels.
+ */
+
+sample_ids = Channel.fromList(params.fq_files.keySet())
+sample_files = Channel.fromPath(
+    params.fq_files.values().collect({"${params.dir_in}/${it}"}))
+
 process cutAdapters {
     input:
-    file sequence from TODO
-    val adapters from adapters
+        val adapters from params.adapters
+        val sample_id from sample_ids
+        file sample_file from sample_files
     output:
+        file "${sample_id}_trim.fq" into trimmed_sample_fastq
     shell:
-    // TODO configure -j 0 in a more Nextflow-esque way.
-    """
-    cutadapt --trim-n -O 1 -m 5 -a ${adapters} -o ${trimmed_sequence} ${sequence} -j 0
-    """
+        // TODO configure -j 0 in a more Nextflow-esque way.
+        """
+        cutadapt --trim-n -O 1 -m 5 -a ${adapters} -o ${sample_id}_trim.fq ${sample_file} -j 0
+        """
 }
-*/
 
+/*
+ * Alternative cutadapt using channel of (sample ID, filename) tuples.
+ */
+
+sample_list = params.fq_files.collect(
+    {key, value -> [key, file("${params.dir_in}/${value}")]})
+
+process cutAdaptersTuple {
+    input:
+        val adapters from params.adapters
+        tuple val(sample_id), file(sample_file) from sample_list
+    output:
+        file "${sample_id}_trim.fq" into trimmed_sample_fastq_tuple
+    shell:
+        // TODO configure -j 0 in a more Nextflow-esque way.
+        """
+        cutadapt --trim-n -O 1 -m 5 -a ${adapters} -o ${sample_id}_trim.fq ${sample_file} -j 0
+        """
+}
