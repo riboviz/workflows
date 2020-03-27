@@ -256,7 +256,7 @@ Nextflow and its dependencies are straightforward to download and install (wheth
 
 The user documentation took ~1 day to read through to get a full feel of Nextflow's capabilities. An expanded tutorial, to implement a multi-task workflow, analogous to that provided by Snakemake, would have been useful. I did, later on, find Nextflow 2017 workshop [tutorial](https://github.com/nextflow-io/nf-hack17-tutorial) but my understanding of Nextflow had passed beyond its content when I found it.
 
-Implementation of a subset of the RiboViz workflow to took a day. Despite having read the documentation, a lot of searching was required. The most challenging aspect was trying to have the index files reused when processing each sample file, but the solution, once the command was found, was straightforward (the `each` [input repeater](https://www.nextflow.io/docs/latest/process.html#input-repeaters)).
+Implementation of a subset of the RiboViz workflow took ~2 days. Despite having read the documentation, a lot of searching was required. The most challenging aspect was trying to have the index files reused when processing each sample file, but the solution, once the command was found, was straightforward (the `each` [input repeater](https://www.nextflow.io/docs/latest/process.html#input-repeaters)). I think progress to complete the workflow would be more rapid as more experience of using, as opposed to reading about, Nextflow's constructs is gained.
 
 There are myriad examples to draw upon, for example:
 
@@ -278,7 +278,6 @@ work/1b/ff0a43332a3feaca02c998cc354878
 work/20/2975a5ab45a6707685a85f5aa219f3
 work/37/b11ee1d2fb315a1b72adb65c151b44
 work/3e/98ec992925cc16885b3dd12967a532
-```
 ```
 
 The [tag](https://www.nextflow.io/docs/latest/process.html#tag) directive can be used to associate meaningful names with tasks and processes. These, in conjunction with the Nextflow log file, can make it easier to find out which `work/` subdirectory has the files for which process.
