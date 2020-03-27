@@ -128,7 +128,7 @@ This runs https://github.com/nextflow-io/hello/blob/master/main.nf from https://
 
 ### Run the RiboViz example
 
-`riboviz.nf` as a subset of the RiboViz workflow which implements the following steps:
+[riboviz.nf](./riboviz.nf) is a subset of the RiboViz workflow which implements the following steps:
 
 1. Read configuration information from YAML configuration file.
 2. Build hisat2 indices if requested.
