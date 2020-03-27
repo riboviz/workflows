@@ -390,6 +390,17 @@ This is very verbose. For example it includes the following entries for _every_ 
 
 I'll try running this file when looking at CWL execution environments.
 
+### Containers, clusters and cloud
+
+Snakemake has support for:
+
+* [Running jobs in containers](https://snakemake.readthedocs.io/en/stable/snakefiles/deployment.html#running-jobs-in-containers) - Docker and Singularity.
+* [Cluster execution](https://snakemake.readthedocs.io/en/stable/executing/cluster-cloud.html#cluster-execution) via cluster engines that support shell scripts and use a common file system. An example is provided for using Sun Grid Engine to submit a job.
+* [Cloud support](https://snakemake.readthedocs.io/en/stable/executing/cluster-cloud.html#cloud-support). Examples are provided for:
+  - Google Cloud Engine via [Kubernetes](https://kubernetes.io/) "open-source system for automating deployment, scaling, and management of containerized applications."
+  - Amazon Web Services via [Tibanna](https://tibanna.readthedocs.io/en/latest/) tool to run genomic pipelines.
+  - Input and output files are staged from/to remote locations and the Snakemake workflow is expected to be stored within a Git repository. There is no requirement for a shared network file system.
+
 ### Other
 
 Snakemake Wrapper Repository includes reusable wrappers for using popular bioinformatics tools within Snakemake, https://snakemake-wrappers.readthedocs.io/en/stable/index.html.

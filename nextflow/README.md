@@ -409,6 +409,22 @@ Nextflow supports a number of [combining operators](https://www.nextflow.io/docs
 
 The [collect](https://www.nextflow.io/docs/latest/operator.html#collect) operator can be used to collect all items from a channel (e.g. the names of all successfully processed samples) and output the list as a single item. The `summarise` task in `riboviz.nf` has an example of its use.
 
+### Containers, clusters and cloud
+
+Nextflow has support for:
+
+* Running jobs in [Docker](https://www.nextflow.io/docs/latest/docker.html?highlight=docker) and [Singularity](https://www.nextflow.io/docs/latest/singularity.html) containers.
+* [executors](https://www.nextflow.io/docs/latest/executor.html) which manage execution of a Nextflow script on underyling execution systems. Executors are provided for:
+  - Sun Grid Engine/Open Grid Engine/Univa Grid Engine - (Open) Grid Engine is used on the University of Edinburgh's [ECDF Linux Compute Cluster (Eddie)](https://www.ed.ac.uk/information-services/research-support/research-computing/ecdf/high-performance-computing).
+  - PBS Pro - as used by [Cirrus](https://www.cirrus.ac.uk) and [ARCHER](https://www.archer.ac.uk).
+  - SLURM resource manager
+  - Kubernetes
+  - AWS Batch
+  - Many others.
+* Cloud support, "out-of-the-box", for:
+  - [Amazon Cloud](https://www.nextflow.io/docs/latest/awscloud.html)
+  - [Google Cloud](https://www.nextflow.io/docs/latest/google.html)
+
 ### Other
 
 Nextflow requires Java JDK 1.8+ to run.
