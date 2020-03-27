@@ -51,6 +51,7 @@ for (entry in params.fq_files) {
 
 process cutAdapters {
     tag "${sample_id}"
+    errorStrategy 'ignore'
     publishDir "${params.dir_tmp}/${sample_id}"
     input:
         tuple val(sample_id), file(sample_file) from samples
@@ -110,3 +111,19 @@ process trim5pMismatches {
         python -m riboviz.tools.trim_5p_mismatch -m 2 -i ${sam} -o orf_map_clean.sam -s trim_5p_mismatch.tsv
         """
 }
+
+// Collect sample IDs and print list.
+// Could be used as a model for implementing collect_tpms.R task.
+process summarise {
+    input:
+        val(samples) from clean_orf_maps.map({name, f -> return (name) }).collect()
+    output:
+        val(samples) into summary
+    shell:
+        """
+        echo "Processed samples: ${samples.join(' ')}"
+        """
+}
+
+// Print output from summarise.
+summary.subscribe { println "Processed samples: ${it.join(' ')} "}
