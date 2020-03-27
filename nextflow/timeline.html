@@ -78,20 +78,21 @@ function c0(index) { return "#9c9c9c"; }
 function c1(index) { return "#bdbdbd"; }
 function c2(index) { return colors[index % 16]; } // <-- note: uses only the first 16 colors
 
-var elapsed="25.5s"
-var beginningMillis=1585307927980;
-var endingMillis=1585307953496;
+var elapsed="27.8s"
+var beginningMillis=1585312325250;
+var endingMillis=1585312353012;
 var data=[
-{"label": "cutAdapters (WTnone)", "times": [{"starting_time": 1585307929078, "ending_time": 1585307929174, "color":c1(0)}, {"starting_time": 1585307929174, "ending_time": 1585307936655, "color":c2(0), "label": "8.5s \/ 182 MB"}, {"starting_time": 1585307936655, "ending_time": 1585307937586, "color":c1(0)}]},
-{"label": "buildIndicesORF (YAL_CDS_w_250)", "times": [{"starting_time": 1585307929088, "ending_time": 1585307929178, "color":c1(1)}, {"starting_time": 1585307929178, "ending_time": 1585307930005, "color":c2(1), "label": "1.1s \/ 3.2 MB"}, {"starting_time": 1585307930005, "ending_time": 1585307930146, "color":c1(1)}]},
-{"label": "cutAdapters (WT3AT)", "times": [{"starting_time": 1585307929096, "ending_time": 1585307929180, "color":c1(0)}, {"starting_time": 1585307929180, "ending_time": 1585307938512, "color":c2(0), "label": "9.4s \/ 182.3 MB"}, {"starting_time": 1585307938512, "ending_time": 1585307938545, "color":c1(0)}]},
-{"label": "buildIndicesrRNA (yeast_rRNA)", "times": [{"starting_time": 1585307929103, "ending_time": 1585307929182, "color":c1(2)}, {"starting_time": 1585307929182, "ending_time": 1585307929829, "color":c2(2), "label": "917ms \/ 3.2 MB"}, {"starting_time": 1585307929829, "ending_time": 1585307930020, "color":c1(2)}]},
-{"label": "hisat2rRNA (WTnone)", "times": [{"starting_time": 1585307937633, "ending_time": 1585307937687, "color":c1(3)}, {"starting_time": 1585307937687, "ending_time": 1585307944213, "color":c2(3), "label": "7.1s \/ 24.3 MB"}, {"starting_time": 1585307944213, "ending_time": 1585307944742, "color":c1(3)}]},
-{"label": "hisat2rRNA (WT3AT)", "times": [{"starting_time": 1585307938560, "ending_time": 1585307938645, "color":c1(3)}, {"starting_time": 1585307938645, "ending_time": 1585307950013, "color":c2(3), "label": "11.5s \/ 24.2 MB"}, {"starting_time": 1585307950013, "ending_time": 1585307950078, "color":c1(3)}]},
-{"label": "hisat2ORF (WTnone)", "times": [{"starting_time": 1585307944814, "ending_time": 1585307944842, "color":c1(4)}, {"starting_time": 1585307944842, "ending_time": 1585307947819, "color":c2(4), "label": "3.1s \/ 24.8 MB"}, {"starting_time": 1585307947819, "ending_time": 1585307947931, "color":c1(4)}]},
-{"label": "trim5pMismatches (WTnone)", "times": [{"starting_time": 1585307947990, "ending_time": 1585307948033, "color":c1(5)}, {"starting_time": 1585307948033, "ending_time": 1585307948676, "color":c2(5), "label": "836ms \/ 48.7 MB"}, {"starting_time": 1585307948676, "ending_time": 1585307948826, "color":c1(5)}]},
-{"label": "hisat2ORF (WT3AT)", "times": [{"starting_time": 1585307950099, "ending_time": 1585307950178, "color":c1(4)}, {"starting_time": 1585307950178, "ending_time": 1585307952205, "color":c2(4), "label": "2.1s \/ 24.8 MB"}, {"starting_time": 1585307952205, "ending_time": 1585307952218, "color":c1(4)}]},
-{"label": "trim5pMismatches (WT3AT)", "times": [{"starting_time": 1585307952230, "ending_time": 1585307952319, "color":c1(5)}, {"starting_time": 1585307952319, "ending_time": 1585307952776, "color":c2(5), "label": "490ms \/ 13.6 MB"}]}
+{"label": "buildIndicesORF (YAL_CDS_w_250)", "times": [{"starting_time": 1585312326377, "ending_time": 1585312326458, "color":c1(0)}, {"starting_time": 1585312326458, "ending_time": 1585312327235, "color":c2(0), "label": "1.1s \/ 3.1 MB"}, {"starting_time": 1585312327235, "ending_time": 1585312327445, "color":c1(0)}]},
+{"label": "cutAdapters (WT3AT)", "times": [{"starting_time": 1585312326385, "ending_time": 1585312326463, "color":c1(1)}, {"starting_time": 1585312326463, "ending_time": 1585312337377, "color":c2(1), "label": "11.1s \/ 179.4 MB"}, {"starting_time": 1585312337377, "ending_time": 1585312337494, "color":c1(1)}]},
+{"label": "buildIndicesrRNA (yeast_rRNA)", "times": [{"starting_time": 1585312326397, "ending_time": 1585312326465, "color":c1(2)}, {"starting_time": 1585312326465, "ending_time": 1585312327153, "color":c2(2), "label": "915ms \/ 3.1 MB"}, {"starting_time": 1585312327153, "ending_time": 1585312327312, "color":c1(2)}]},
+{"label": "cutAdapters (WTnone)", "times": [{"starting_time": 1585312326404, "ending_time": 1585312326467, "color":c1(1)}, {"starting_time": 1585312326467, "ending_time": 1585312335214, "color":c2(1), "label": "9.1s \/ 176.5 MB"}, {"starting_time": 1585312335214, "ending_time": 1585312335494, "color":c1(1)}]},
+{"label": "hisat2rRNA (WTnone)", "times": [{"starting_time": 1585312335571, "ending_time": 1585312335595, "color":c1(3)}, {"starting_time": 1585312335595, "ending_time": 1585312343502, "color":c2(3), "label": "8.5s \/ 24.1 MB"}, {"starting_time": 1585312343502, "ending_time": 1585312344078, "color":c1(3)}]},
+{"label": "hisat2rRNA (WT3AT)", "times": [{"starting_time": 1585312337530, "ending_time": 1585312337598, "color":c1(3)}, {"starting_time": 1585312337598, "ending_time": 1585312349333, "color":c2(3), "label": "11.8s \/ 24.3 MB"}, {"starting_time": 1585312349333, "ending_time": 1585312349367, "color":c1(3)}]},
+{"label": "hisat2ORF (WTnone)", "times": [{"starting_time": 1585312344110, "ending_time": 1585312344179, "color":c1(4)}, {"starting_time": 1585312344179, "ending_time": 1585312346904, "color":c2(4), "label": "2.9s \/ 25.1 MB"}, {"starting_time": 1585312346904, "ending_time": 1585312347056, "color":c1(4)}]},
+{"label": "trim5pMismatches (WTnone)", "times": [{"starting_time": 1585312347106, "ending_time": 1585312347157, "color":c1(5)}, {"starting_time": 1585312347157, "ending_time": 1585312347822, "color":c2(5), "label": "764ms \/ 36.2 MB"}, {"starting_time": 1585312347822, "ending_time": 1585312347870, "color":c1(5)}]},
+{"label": "hisat2ORF (WT3AT)", "times": [{"starting_time": 1585312349389, "ending_time": 1585312349468, "color":c1(4)}, {"starting_time": 1585312349468, "ending_time": 1585312351378, "color":c2(4), "label": "2s \/ 24.9 MB"}]},
+{"label": "trim5pMismatches (WT3AT)", "times": [{"starting_time": 1585312351368, "ending_time": 1585312351458, "color":c1(5)}, {"starting_time": 1585312351458, "ending_time": 1585312351934, "color":c2(5), "label": "515ms \/ 17.9 MB"}]},
+{"label": "summarise", "times": [{"starting_time": 1585312351916, "ending_time": 1585312351984, "color":c1(6)}, {"starting_time": 1585312351984, "ending_time": 1585312351990, "color":c2(6), "label": "99ms \/ 0"}, {"starting_time": 1585312351990, "ending_time": 1585312352015, "color":c1(6)}]}
 ]
 
 
