@@ -46,26 +46,7 @@ Other necessary and useful features:
 * [Snakefile](./snakemake/Snakefile): Example Snakefile for RiboViz.
 * [Snakemake](./snakemake/Snakemake.md): Snakemake notes.
 
-## Common Workflow Language (CWL)
-
-* [RiboViz and CWL](./cwl/README.md): Discussion on CWL for RiboViz and how to run an example.
-* [Common Workflow Language (CWL)](./cwl/CommonWorkflowLanguage.md): CWL notes.
-* [Common Workflow Language User Guide Notes](./cwl/CwlUserGuideNotes.md) from working through the examples in the CWL user guide.
-* [Snakemake and CWL](./cwl/SnakemakeCwl.md): Exploring Snakemake's `--export-cwl` option.
-* [cutadapt.cwl](./cwl/cutadapt.cwl): tool wrapper for `cutadapt`.
-* [cutadapt-job.yml](./cwl/cutadapt-job.yml): job configuration for above.
-* [riboviz-workflow.cwl](./cwl/riboviz-workflow.cwl): workflow invoking `hisat2-build` and `cutadapt`.
-* [riboviz-job.yml](./cwl/riboviz-job.yml): job configuration for the above.
-
-## Nextflow
-
-* [RiboViz and Nextflow](./nextflow/README.md): Discussion on Nextflow for RiboViz and how to run an example.
-* [Nextflow Documentation Notes](./nextflow/NextflowDocNotes.md) from reading through the Nextflow documentation.
-* [riboviz.nf](./nextflow/riboviz.nf): Example Nextflow script for RiboViz.
-
-## Summary of observations and recommendations
-
-Snakemake:
+Summary:
 
 * Straightforward to learn.
 * Bulk of RiboViz workflow was prototyped in Snakemake in a day.
@@ -77,11 +58,22 @@ Snakemake and CWL:
 * A Snakemake "hello world" example in a *Nature* article was exported to CWL, using the command in the article, but this could not be run using cwltool or Toil. It is unclear as to how this can be made to run.
 * A CWL file exported from Snakemake is a simple workflow that invokes Snakemake itself, rather than being the CWL equivalent of the workflow steps implemented within a Snakefile.
 
-CWL:
+## Common Workflow Language (CWL)
+
+* [RiboViz and CWL](./cwl/README.md): Discussion on CWL for RiboViz and how to run an example.
+* [Common Workflow Language (CWL)](./cwl/CommonWorkflowLanguage.md): CWL notes.
+* [Common Workflow Language User Guide Notes](./cwl/CwlUserGuideNotes.md) from working through the examples in the CWL user guide.
+* [Snakemake and CWL](./cwl/SnakemakeCwl.md): Exploring Snakemake's `--export-cwl` option.
+* [cutadapt.cwl](./cwl/cutadapt.cwl): tool wrapper for `cutadapt`.
+* [cutadapt-job.yml](./cwl/cutadapt-job.yml): job configuration for above.
+* [riboviz-workflow.cwl](./cwl/riboviz-workflow.cwl): workflow invoking `hisat2-build` and `cutadapt`.
+* [riboviz-job.yml](./cwl/riboviz-job.yml): job configuration for the above.
+
+Summary:
 
 * More effort to learn than Snakemake.
-* 3 steps of the RiboViz workflow were prototyped in a day.
-* "edit-compile-run" development cycle is very slow.
+* 3 steps of the RiboViz workflow were prototyped, in a basic form, in a day.
+* "edit-compile-run" development cycle is very slow and painful.
 * Prototype would take 2-3 weeks to implement.
 * No support for conditional execution of steps as yet.
 * Developers would need to know, or learn, JavaScript.
@@ -89,7 +81,13 @@ CWL:
 * Workflows can be very verbose e.g. the 3 step CWL workflow is 58 lines, whereas the 15 step Snakemake workflow is 220 lines (which are elegant in their conciseness).
 * Don't feel there is any point pursuing this option further at this time. Rather than try and guess whether the user community might want CWL, ask the user community about their views on CWL.
 
-Nextflow:
+## Nextflow
+
+* [RiboViz and Nextflow](./nextflow/README.md): Discussion on Nextflow for RiboViz and how to run an example.
+* [Nextflow Documentation Notes](./nextflow/NextflowDocNotes.md) from reading through the Nextflow documentation.
+* [riboviz.nf](./nextflow/riboviz.nf): Example Nextflow script for RiboViz.
+
+Summary:
 
 * More effort to learn than Snakemake but less effort than CWL.
 * 3 steps of the RiboViz workflow were prototyped in 2 days.
@@ -100,7 +98,7 @@ Nextflow:
 * Every invocation of a task takes place in its own isolated directory with symbolic links to the required input files and a small bash script with the command that is to be invoked. This would be very useful for debugging and feels elegant.
 * Supports Docker, Singularity, cluster and cloud execution.
 
-General:
+## General
 
 * Our Python workflow has custom error handling. Users using Snakemake, CWL or Nextflow will need to rely on their error reporting which may be more verbose, or, in the case of Toil, a possibly impenetrable stack trace. We can extend our documentation with the symptoms of common errors (e.g. missing files, missing configuration, step fails) and how to resolve these.
 
