@@ -4,6 +4,7 @@ rrna_fasta = Channel.fromPath(params.rrna_fasta_file,
                               checkIfExists: true)
 
 process buildIndicesrRNA {
+    tag "${params.rrna_index_prefix}"
     publishDir "${params.dir_index}"
     input:
         file fasta from rrna_fasta
@@ -22,6 +23,7 @@ orf_fasta = Channel.fromPath(params.orf_fasta_file,
                              checkIfExists: true)
 
 process buildIndicesORF {
+    tag "${params.orf_index_prefix}"
     publishDir "${params.dir_index}"
     input:
         file fasta from orf_fasta
@@ -48,6 +50,7 @@ for (entry in params.fq_files) {
 }
 
 process cutAdapters {
+    tag "${sample_id}"
     publishDir "${params.dir_tmp}/${sample_id}"
     input:
         tuple val(sample_id), file(sample_file) from samples
@@ -63,6 +66,7 @@ process cutAdapters {
 }
 
 process hisat2rRNA {
+    tag "${sample_id}"
     publishDir "${params.dir_tmp}/${sample_id}"
     input:
         tuple val(sample_id), file(fastq) from cut_adapters
@@ -78,6 +82,7 @@ process hisat2rRNA {
 }
 
 process hisat2ORF {
+    tag "${sample_id}"
     publishDir "${params.dir_tmp}/${sample_id}"
     input:
         tuple val(sample_id), file(fastq) from non_rrnas
@@ -93,12 +98,13 @@ process hisat2ORF {
 }
 
 process trim5pMismatches {
+    tag "${sample_id}"
     publishDir "${params.dir_tmp}/${sample_id}"
     input:
         tuple val(sample_id), file(sam) from orf_maps
     output:
         tuple val(sample_id), file("${sample_id}_orf_map_clean.sam") into clean_orf_maps
-        tuple val(sample_id), file("${sample_id}_trim_5p_mismatch.tsv") into trim_summaaries
+        tuple val(sample_id), file("${sample_id}_trim_5p_mismatch.tsv") into trim_summaries
     shell:
         """
         python -m riboviz.tools.trim_5p_mismatch -m 2 -i ${sam} -o ${sample_id}_orf_map_clean.sam -s ${sample_id}_trim_5p_mismatch.tsv
