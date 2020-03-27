@@ -21,8 +21,6 @@ Snakemake:
 
 * [RiboViz and Snakemake](./snakemake/README.md): Discussion on Snakemake for RiboViz and how to run an example.
 * [Snakefile](./snakemake/Snakefile): Example Snakefile for RiboViz.
-* [workflow.svg](./snakemake/workflow.svg): Example workflow from above.
-* [report.html](./snakemake/report.html): Example report from above.
 * [Snakemake](./snakemake/Snakemake.md): Snakemake notes.
 
 Common Workflow Language (CWL):
@@ -40,27 +38,34 @@ Nextflow:
 
 * [RiboViz and Nextflow](./nextflow/README.md): Discussion on Nextflow for RiboViz and how to run an example.
 * [Nextflow Documentation Notes](./nextflow/NextflowDocNotes.md) from reading through the Nextflow documentation.
+* [riboviz.nf](./nextflow/riboviz.nf): Example Nextflow script for RiboViz.
 
 ---
 
 ## Assessment criteria
 
-* Ease of download, install, tutorials, initial use.
-* Ease of implementation of key RiboViz steps, for example:
-  - index => [cutadapt => align (rRNA)]* => count_reads
-  - index => cutadapt => demultiplex => [align (rRNA)]* => count_reads
-  - Requires:
-    - Ability to handle implicit naming of index files.
-    - Iteration over samples.
-    - Aggregation of sample-specific results.
-    - Conditional behaviour e.g. indexing, UMI groups.
-* Tool/step-specific log files.
-* Parse YAML configuration files.
-* Dry run option, validating configuration and input file existence.
-* Output bash script, that can be rerun.
-* If processing of one sample fails will the rest be processed?
+Ease of download, install, tutorials, initial use.
 
-If any criteria above are not met, then could it be added easily. It is OK to do development to extend a tool if necessary.
+Ease of implementation of key RiboViz steps, for example:
+
+1. Read configuration information from YAML configuration file.
+2. Build hisat2 indices if requested.
+3. Process each sample ID-sample file pair in turn:
+   1. Cut out sequencing library adapters using `cutadapt`.
+   2. Remove rRNA or other contaminating reads by alignment to rRNA index files using `hisat2`.
+   3. Align remaining reads to ORFs index files using `hisat2`.
+   4. Trim 5' mismatches from reads and remove reads with more than 2 mismatches using `riboviz.tools.trim_5p_mismatch`.
+
+Other necessary and useful features:
+
+* Iteration over samples, and processing remaining samples if processing of one sample fails.
+* Aggregation of sample-specific results.
+* Conditional behaviour e.g. indexing, UMI groups.
+* Tool/step-specific log files.
+* Accept YAML configuration files.
+* Dry run option, validating configuration and input file existence.
+* Output a bash script, that can be rerun.
+* If processing of one sample fails will the rest be processed?
 
 ---
 

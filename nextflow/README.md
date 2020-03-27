@@ -150,23 +150,25 @@ Run:
 ```console
 $ PYTHONPATH=$HOME/riboviz nextflow run riboviz.nf -params-file vignette/vignette_config.yaml -ansi-log false -with-report report.html -with-timeline timeline.html -with-dag workflow.svg
 N E X T F L O W  ~  version 20.01.0
-Launching `riboviz.nf` [shrivelled_bartik] - revision: 0991b3f306
+Launching `riboviz.nf` [furious_bell] - revision: 134fcb8f6f
 Missing file (NotHere): example_missing_file.fastq.gz
-[3e/98ec99] Submitted process > cutAdapters (WTnone)
-[da/875a7b] Submitted process > buildIndicesORF (YAL_CDS_w_250)
-[d3/906411] Submitted process > cutAdapters (WT3AT)
-[d6/0c10fb] Submitted process > buildIndicesrRNA (yeast_rRNA)
-[37/b11ee1] Submitted process > hisat2rRNA (WTnone)
-[ff/21df94] Submitted process > hisat2rRNA (WT3AT)
-[20/2975a5] Submitted process > hisat2ORF (WTnone)
-[56/b75fd2] Submitted process > trim5pMismatches (WTnone)
-[1b/ff0a43] Submitted process > hisat2ORF (WT3AT)
-[cb/d4687a] Submitted process > trim5pMismatches (WT3AT)
+[5c/676372] Submitted process > buildIndicesORF (YAL_CDS_w_250)
+[f7/6fcdf1] Submitted process > cutAdapters (WT3AT)
+[e5/ccf3e6] Submitted process > buildIndicesrRNA (yeast_rRNA)
+[5b/ff17ba] Submitted process > cutAdapters (WTnone)
+[ad/1e7c54] Submitted process > hisat2rRNA (WTnone)
+[e4/deff35] Submitted process > hisat2rRNA (WT3AT)
+[1b/642455] Submitted process > hisat2ORF (WTnone)
+[b9/aaf172] Submitted process > trim5pMismatches (WTnone)
+[e8/8514a6] Submitted process > hisat2ORF (WT3AT)
+[23/a980bc] Submitted process > trim5pMismatches (WT3AT)
+[b4/837e33] Submitted process > summarise
+Processed samples: WTnone WT3AT 
 ```
 
 Note: `PYTHONPATH=$HOME/riboviz` is required so that, when Nextflow invokes `python -m riboviz.tools.trim_5p_mismatch`, Python can find the `riboviz` module.
 
-Every invocation of a task - every process - has its own subdirectory within Nextflow's `work/` directory named after the process identifiers (e.g. `37/b11ee1`). These subdirectories have:
+Every invocation of a task - every process - has its own subdirectory within Nextflow's `work/` directory named after the process identifiers (e.g. `ad/1e7c54`). These subdirectories have:
 
 * Input files. These are symbolic links to the input files for the task which, depending on the task, can be:
   - Output files in other `work/` subdirectories. For example, the directory for an `hisat2rRNA` proces will have input files which are symbolic links to the output files produced by a `cutAdapters` process,
@@ -174,10 +176,10 @@ Every invocation of a task - every process - has its own subdirectory within Nex
 * Output files, from the invocation of the task.
 * Log files and bash scripts (see below).
 
-For example, for the process `37/b11ee1`, an invocation of task `hisat2rRNA` for sample `WTnone`, the `work/` directory includes:
+For example, for the process `ad/1e7c54`, an invocation of task `hisat2rRNA` for sample `WTnone`, the `work/` directory includes:
 
 ```console
-$ find work/37/b11ee1d2fb315a1b72adb65c151b44/ -printf '%P\t%l\n' | sort
+$ find work/ad/1e7c54a889f21451cb07d29655e0be/ -printf '%P\t%l\n' | sort
 .command.begin	
 .command.err	
 .command.log	
@@ -188,18 +190,18 @@ $ find work/37/b11ee1d2fb315a1b72adb65c151b44/ -printf '%P\t%l\n' | sort
 .exitcode	
 nonrRNA.fq	
 rRNA_map.sam	
-trim.fq	/home/ubuntu/riboviz/work/3e/98ec992925cc16885b3dd12967a532/trim.fq
-yeast_rRNA.1.ht2	/home/ubuntu/riboviz/work/d6/0c10fb7be24dc2bb6a88052bbc2989/yeast_rRNA.1.ht2
-yeast_rRNA.2.ht2	/home/ubuntu/riboviz/work/d6/0c10fb7be24dc2bb6a88052bbc2989/yeast_rRNA.2.ht2
-yeast_rRNA.3.ht2	/home/ubuntu/riboviz/work/d6/0c10fb7be24dc2bb6a88052bbc2989/yeast_rRNA.3.ht2
-yeast_rRNA.4.ht2	/home/ubuntu/riboviz/work/d6/0c10fb7be24dc2bb6a88052bbc2989/yeast_rRNA.4.ht2
-yeast_rRNA.5.ht2	/home/ubuntu/riboviz/work/d6/0c10fb7be24dc2bb6a88052bbc2989/yeast_rRNA.5.ht2
-yeast_rRNA.6.ht2	/home/ubuntu/riboviz/work/d6/0c10fb7be24dc2bb6a88052bbc2989/yeast_rRNA.6.ht2
-yeast_rRNA.7.ht2	/home/ubuntu/riboviz/work/d6/0c10fb7be24dc2bb6a88052bbc2989/yeast_rRNA.7.ht2
-yeast_rRNA.8.ht2	/home/ubuntu/riboviz/work/d6/0c10fb7be24dc2bb6a88052bbc2989/yeast_rRNA.8.ht2
+trim.fq	/home/ubuntu/riboviz/work/5b/ff17ba3e19c5d659e54b04b08dab85/trim.fq
+yeast_rRNA.1.ht2	/home/ubuntu/riboviz/work/e5/ccf3e6388cde7038658d88a79e81d1/yeast_rRNA.1.ht2
+yeast_rRNA.2.ht2	/home/ubuntu/riboviz/work/e5/ccf3e6388cde7038658d88a79e81d1/yeast_rRNA.2.ht2
+yeast_rRNA.3.ht2	/home/ubuntu/riboviz/work/e5/ccf3e6388cde7038658d88a79e81d1/yeast_rRNA.3.ht2
+yeast_rRNA.4.ht2	/home/ubuntu/riboviz/work/e5/ccf3e6388cde7038658d88a79e81d1/yeast_rRNA.4.ht2
+yeast_rRNA.5.ht2	/home/ubuntu/riboviz/work/e5/ccf3e6388cde7038658d88a79e81d1/yeast_rRNA.5.ht2
+yeast_rRNA.6.ht2	/home/ubuntu/riboviz/work/e5/ccf3e6388cde7038658d88a79e81d1/yeast_rRNA.6.ht2
+yeast_rRNA.7.ht2	/home/ubuntu/riboviz/work/e5/ccf3e6388cde7038658d88a79e81d1/yeast_rRNA.7.ht2
+yeast_rRNA.8.ht2	/home/ubuntu/riboviz/work/e5/ccf3e6388cde7038658d88a79e81d1/yeast_rRNA.8.ht2
 ```
 
-The `.ht2` files are symbolic links to the outputs of process `d6/0c10fb`, an invocation of task `buildIndicesrRNA`.
+The `.ht2` files are symbolic links to the outputs of process `e5/ccf3e6`, an invocation of task `buildIndicesrRNA`.
 
 `riboviz.nf` uses Nextflow's [publishDir](https://www.nextflow.io/docs/latest/process.html#publishdir) directive which allows files to be published to a specific directory. By default, the files in this directory are symlinked to those in `work/`. `riboviz.nf` uses this to publishes the outputs to `vignette/index/` and `vignette/tmp/`. 
 
@@ -216,30 +218,32 @@ These flag generate reports on the run and an image of the task execution workfl
 The `-ansi-log` parameter is enabled by default. When Nextflow is run it displays and updates progress information in-place within the bash window. For example, for the above, the output, on completion, would look like:
 
 ```console
-[d6/0c10fb] process > buildIndicesrRNA [100%] 1 of 1 /
-[da/875a7b] process > buildIndicesORF  [100%] 1 of 1 /
-[d3/906411] process > cutAdapters      [100%] 2 of 2 /
-[ff/21df94] process > hisat2rRNA       [100%] 2 of 2 /
-[1b/ff0a43] process > hisat2ORF        [100%] 2 of 2 /
-[cb/d4687a] process > trim5pMismatches [100%] 2 of 2 /
+[5c/676372] process > buildIndicesORF  [100%] 1 of 1 /
+[e5/ccf3e6] process > buildIndicesrRNA [100%] 1 of 1 /
+[5b/ff17ba] process > cutAdapters      [100%] 2 of 2 /
+[e4/deff35] process > hisat2rRNA       [100%] 2 of 2 /
+[e8/8514a6] process > hisat2ORF        [100%] 2 of 2 /
+[23/a980bc] process > trim5pMismatches [100%] 2 of 2 /
+[b4/837e33] process > summarise        [100%] 1 of 1 /
 ```
 
 To find out which `work/` subdirectory holds the outputs for each step requires inspecting the Nextflow log file. For example:
 
 ```console
 $ grep INFO .nextflow.log
-Mar-27 04:18:47.418 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 20.01.0
-Mar-27 04:18:47.429 [main] INFO  nextflow.cli.CmdRun - Launching `riboviz.nf` [shrivelled_bartik] - revision: 0991b3f306
-Mar-27 04:18:49.078 [Task submitter] INFO  nextflow.Session - [3e/98ec99] Submitted process > cutAdapters (WTnone)
-Mar-27 04:18:49.088 [Task submitter] INFO  nextflow.Session - [da/875a7b] Submitted process > buildIndicesORF (YAL_CDS_w_250)
-Mar-27 04:18:49.096 [Task submitter] INFO  nextflow.Session - [d3/906411] Submitted process > cutAdapters (WT3AT)
-Mar-27 04:18:49.104 [Task submitter] INFO  nextflow.Session - [d6/0c10fb] Submitted process > buildIndicesrRNA (yeast_rRNA)
-Mar-27 04:18:57.633 [Task submitter] INFO  nextflow.Session - [37/b11ee1] Submitted process > hisat2rRNA (WTnone)
-Mar-27 04:18:58.560 [Task submitter] INFO  nextflow.Session - [ff/21df94] Submitted process > hisat2rRNA (WT3AT)
-Mar-27 04:19:04.814 [Task submitter] INFO  nextflow.Session - [20/2975a5] Submitted process > hisat2ORF (WTnone)
-Mar-27 04:19:07.990 [Task submitter] INFO  nextflow.Session - [56/b75fd2] Submitted process > trim5pMismatches (WTnone)
-Mar-27 04:19:10.099 [Task submitter] INFO  nextflow.Session - [1b/ff0a43] Submitted process > hisat2ORF (WT3AT)
-Mar-27 04:19:12.230 [Task submitter] INFO  nextflow.Session - [cb/d4687a] Submitted process > trim5pMismatches (WT3AT)
+Mar-27 05:32:04.711 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 20.01.0
+Mar-27 05:32:04.722 [main] INFO  nextflow.cli.CmdRun - Launching `riboviz.nf` [furious_bell] - revision: 134fcb8f6f
+Mar-27 05:32:06.377 [Task submitter] INFO  nextflow.Session - [5c/676372] Submitted process > buildIndicesORF (YAL_CDS_w_250)
+Mar-27 05:32:06.386 [Task submitter] INFO  nextflow.Session - [f7/6fcdf1] Submitted process > cutAdapters (WT3AT)
+Mar-27 05:32:06.397 [Task submitter] INFO  nextflow.Session - [e5/ccf3e6] Submitted process > buildIndicesrRNA (yeast_rRNA)
+Mar-27 05:32:06.404 [Task submitter] INFO  nextflow.Session - [5b/ff17ba] Submitted process > cutAdapters (WTnone)
+Mar-27 05:32:15.571 [Task submitter] INFO  nextflow.Session - [ad/1e7c54] Submitted process > hisat2rRNA (WTnone)
+Mar-27 05:32:17.530 [Task submitter] INFO  nextflow.Session - [e4/deff35] Submitted process > hisat2rRNA (WT3AT)
+Mar-27 05:32:24.110 [Task submitter] INFO  nextflow.Session - [1b/642455] Submitted process > hisat2ORF (WTnone)
+Mar-27 05:32:27.106 [Task submitter] INFO  nextflow.Session - [b9/aaf172] Submitted process > trim5pMismatches (WTnone)
+Mar-27 05:32:29.389 [Task submitter] INFO  nextflow.Session - [e8/8514a6] Submitted process > hisat2ORF (WT3AT)
+Mar-27 05:32:31.368 [Task submitter] INFO  nextflow.Session - [23/a980bc] Submitted process > trim5pMismatches (WT3AT)
+Mar-27 05:32:31.916 [Task submitter] INFO  nextflow.Session - [b4/837e33] Submitted process > summarise
 ```
 
 Setting `-ansi-log` to `false`, as above, explicitly shows the progress as separate steps in a bash window.
@@ -302,7 +306,7 @@ No "dry run" option is supported at present. On the issue above, the Nextflow au
 
 ### Tool/step-specific log files
 
-Standard output and standard error (as well as exit codes) for each process are automatically captured and placed in subdirectories of Nextflow's `work/` directory. For example, for the process `37/b11ee1`, an invocation of task `hisat2rRNA` for sample `WTnone`, the `work/` directory includes:
+Standard output and standard error (as well as exit codes) for each process are automatically captured and placed in subdirectories of Nextflow's `work/` directory. For example, for a process `37/b11ee1`, an invocation of task `hisat2rRNA` for sample `WTnone`, the `work/` directory includes:
 
 ```console
 $ ls -A work/37/b11ee1d2fb315a1b72adb65c151b44/
@@ -376,19 +380,34 @@ There doesn't seem to be a way to access the configuration file itself from with
 
 ### If processing of one sample fails will the rest be processed?
 
-Each task can have an [errorStrategy](https://www.nextflow.io/docs/latest/process.html#errorstrategy) defined which indicates how a process, and the workflow, should behave if an error is encountered. `ignore` allows for other processes to continue if one fails. This could be used to ensure that other samples are processed if processing of one sample fails. For example, in `cutAdapt` one could add:
+Each task can have an [errorStrategy](https://www.nextflow.io/docs/latest/process.html#errorstrategy) defined which indicates how a process, and the workflow, should behave if an error is encountered. `ignore` allows for other processes to continue if one fails. This can be used to ensure that other samples are processed if processing of one sample fails. For example, if the file for sample `WTnone` was corrupt in some way:
 
-```groovy
-process cutAdapters {
-    ...
-    errorStrategy 'ignore'
-    ...
-}
+```console
+$ PYTHONPATH=$HOME/riboviz nextflow run riboviz.nf -params-file vignette/vignette_config.yaml -ansi-log false
+N E X T F L O W  ~  version 20.01.0
+Launching `riboviz.nf` [mad_heisenberg] - revision: 134fcb8f6f
+Missing file (NotHere): example_missing_file.fastq.gz
+[a4/e3fc5d] Submitted process > cutAdapters (WT3AT)
+[03/f1cfc3] Submitted process > cutAdapters (WTnone)
+[9d/43b3e0] Submitted process > buildIndicesORF (YAL_CDS_w_250)
+[ec/1aafe5] Submitted process > buildIndicesrRNA (yeast_rRNA)
+[03/f1cfc3] NOTE: Process `cutAdapters (WTnone)` terminated with an error exit status (1) -- Error is ignored
+[35/1c7ac8] Submitted process > hisat2rRNA (WT3AT)
+[1a/af8ff1] Submitted process > hisat2ORF (WT3AT)
+[c4/2f18a2] Submitted process > trim5pMismatches (WT3AT)
+[df/28719b] Submitted process > summarise
+Processed samples: WT3AT 
 ```
 
 ### Conditional behaviour
 
 Nextflow supports a `when` declaration in tasks to allow tasks to only be executed if certain conditions hold.
+
+### Aggregation of sample-specific results.
+
+Nextflow supports a number of [combining operators](https://www.nextflow.io/docs/latest/operator.html#combining-operators) which can be used to aggregate together results. 
+
+The [collect](https://www.nextflow.io/docs/latest/operator.html#collect) operator can be used to collect all items from a channel (e.g. the names of all successfully processed samples) and output the list as a single item. The `summarise` task in `riboviz.nf` has an example of its use.
 
 ### Other
 
@@ -407,16 +426,18 @@ $ nextflow run riboviz.nf -params-file vignette/vignette_config.yaml -resume
 This also supports incremental build. For example, given a `vignette_config.yaml` which specifies only sample `WTnone`, running Nextflow gives:
 
 ```console
-$ PYTHONPATH=$HOME/riboviz nextflow run riboviz.nf -params-file vignette/vignette_config.yaml -ansi-log false
+$ PYTHONPATH=$HOME/riboviz nextflon riboviz.nf -params-file vignette/vignette_config.yaml -ansi-log false
 N E X T F L O W  ~  version 20.01.0
-Launching `riboviz.nf` [spontaneous_bartik] - revision: dd3b39ef01
+Launching `riboviz.nf` [serene_noether] - revision: 26bb98ec7b
 Missing file (NotHere): example_missing_file.fastq.gz
-[c7/00d6ad] Submitted process > buildIndicesORF (YAL_CDS_w_250)
-[4e/8030ea] Submitted process > cutAdapters (WTnone)
-[5e/e09c06] Submitted process > buildIndicesrRNA (yeast_rRNA)
-[7c/648055] Submitted process > hisat2rRNA (WTnone)
-[e7/97a2d0] Submitted process > hisat2ORF (WTnone)
-[89/991547] Submitted process > trim5pMismatches (WTnone)
+[bf/ddd7de] Submitted process > cutAdapters (WTnone)
+[0d/f82601] Submitted process > buildIndicesrRNA (yeast_rRNA)
+[61/5a1186] Submitted process > buildIndicesORF (YAL_CDS_w_250)
+[02/dac1f8] Submitted process > hisat2rRNA (WTnone)
+[15/e5f9ed] Submitted process > hisat2ORF (WTnone)
+[ed/fc50b9] Submitted process > trim5pMismatches (WTnone)
+[c0/29b60a] Submitted process > summarise
+Processed samples: WTnone 
 ```
 
 If `WT3AT` is then added to `vignette_config.yaml` and Nextflow is run with the `-resume` option, then only the processing for `WT3AT` is done, the cached outputs to date for `WTnone` being reused:
@@ -424,16 +445,18 @@ If `WT3AT` is then added to `vignette_config.yaml` and Nextflow is run with the 
 ```console
 $ PYTHONPATH=$HOME/riboviz nextflow run riboviz.nf -params-file vignette/vignette_config.yaml -ansi-log false -resume
 N E X T F L O W  ~  version 20.01.0
-Launching `riboviz.nf` [lethal_brenner] - revision: dd3b39ef01
+Launching `riboviz.nf` [desperate_coulomb] - revision: 26bb98ec7b
 Missing file (NotHere): example_missing_file.fastq.gz
-[4e/8030ea] Cached process > cutAdapters (WTnone)
-[c7/00d6ad] Cached process > buildIndicesORF (YAL_CDS_w_250)
-[dc/59b03a] Submitted process > cutAdapters (WT3AT)
-[5e/e09c06] Cached process > buildIndicesrRNA (yeast_rRNA)
-[7c/648055] Cached process > hisat2rRNA (WTnone)
-[e7/97a2d0] Cached process > hisat2ORF (WTnone)
-[89/991547] Cached process > trim5pMismatches (WTnone)
-[41/6f3ac7] Submitted process > hisat2rRNA (WT3AT)
-[26/b0db8d] Submitted process > hisat2ORF (WT3AT)
-[59/8ce730] Submitted process > trim5pMismatches (WT3AT)
+[80/79a5f4] Submitted process > cutAdapters (WT3AT)
+[bf/ddd7de] Cached process > cutAdapters (WTnone)
+[61/5a1186] Cached process > buildIndicesORF (YAL_CDS_w_250)
+[0d/f82601] Cached process > buildIndicesrRNA (yeast_rRNA)
+[02/dac1f8] Cached process > hisat2rRNA (WTnone)
+[15/e5f9ed] Cached process > hisat2ORF (WTnone)
+[ed/fc50b9] Cached process > trim5pMismatches (WTnone)
+[e3/9c39d7] Submitted process > hisat2rRNA (WT3AT)
+[a6/49addd] Submitted process > hisat2ORF (WT3AT)
+[46/d5db2c] Submitted process > trim5pMismatches (WT3AT)
+[a5/5c6c05] Submitted process > summarise
+Processed samples: WTnone WT3AT 
 ```
