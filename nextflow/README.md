@@ -124,7 +124,7 @@ Ciao world!
 Hello world!
 ```
 
-This runs https://github.com/nextflow-io/hello/blob/master/main.nf from https://github.com/nextflow-io/hello.git. The Nextflow script has a `sayHello` task that is run on 4 inputs - the multi-lingual greetings - and runs bash `echo` to print the greetings. Each iteration of task on each input is run as a separate process.
+This runs https://github.com/nextflow-io/hello/blob/master/main.nf from https://github.com/nextflow-io/hello.git. The Nextflow script has a `sayHello` task that is run on 4 inputs - the multi-lingual greetings - and runs bash `echo` to print the greetings. Each iteration of a task on each input is run as a separate process.
 
 ### Run the RiboViz example
 
@@ -273,7 +273,7 @@ Every invocation of a task - every process - has its own subdirectory within Nex
 
 `work/` subdirectory names are cryptic as they are auto-generated. For example
 
-````
+```
 work/1b/ff0a43332a3feaca02c998cc354878
 work/20/2975a5ab45a6707685a85f5aa219f3
 work/37/b11ee1d2fb315a1b72adb65c151b44
