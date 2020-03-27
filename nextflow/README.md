@@ -376,11 +376,11 @@ There doesn't seem to be a way to access the configuration file itself from with
 
 ### If processing of one sample fails will the rest be processed?
 
-Each task can have an [errorStrategy](https://www.nextflow.io/docs/latest/process.html#errorstrategy) defined which indicates how a process, and the workflow, should behave if an error is encountered. `ignore` allows for other processes to continue if one fails. This could be used to ensure that other samples are processed if processing of one sample fails. For example, in `cutAdapt` one would add:
+Each task can have an [errorStrategy](https://www.nextflow.io/docs/latest/process.html#errorstrategy) defined which indicates how a process, and the workflow, should behave if an error is encountered. `ignore` allows for other processes to continue if one fails. This could be used to ensure that other samples are processed if processing of one sample fails. For example, in `cutAdapt` one could add:
 
 ```groovy
 process cutAdapters {
-    ,,,
+    ...
     errorStrategy 'ignore'
     ...
 }
@@ -394,9 +394,9 @@ Nextflow supports a `when` declaration in tasks to allow tasks to only be execut
 
 Nextflow requires Java JDK 1.8+ to run.
 
-Writing scripts requires knowledge of Groovy - a Python-esque language based on Java. I think anyone familiar with Python or R would not find Groovy too challenging. I hadn't used it myself before looking at Nextflow and though I have a number of years of experience with Java, I didn't really draw upon that knowledge.
+Writing scripts requires knowledge of Groovy - a Python-esque language based on Java. I think anyone familiar with Python or R would not find Groovy too challenging. I hadn't used it myself before looking at Nextflow and though I have a number of years of experience with Java, I didn't really need to draw upon that knowledge when writing the Nextflow script.
 
-Nextflow has built-in functions for FASTA and FASTQ files e.g. count records, extract records, query the NCBI SRA database for specific FASTQ files.
+Nextflow has built-in functions for FASTA and FASTQ files e.g. count records, extract records, query the NCBI SRA database for specific FASTQ files, which may be of interest or use in future.
 
 If a Nextflow workflow fails then a `-resume` option allows it to be rerun from the point at which it failed:
 
