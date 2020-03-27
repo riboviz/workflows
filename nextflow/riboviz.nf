@@ -56,12 +56,12 @@ process cutAdapters {
         tuple val(sample_id), file(sample_file) from samples
         val adapters from params.adapters
     output:
-        tuple val(sample_id), file("${sample_id}_trim.fq") into cut_adapters
+        tuple val(sample_id), file("trim.fq") into cut_adapters
     shell:
         // TODO configure -j 0 in a more Nextflow-esque way.
         """
         echo Trimming ${sample_id}
-        cutadapt --trim-n -O 1 -m 5 -a ${adapters} -o ${sample_id}_trim.fq ${sample_file} -j 0
+        cutadapt --trim-n -O 1 -m 5 -a ${adapters} -o trim.fq ${sample_file} -j 0
         """
 }
 
@@ -72,12 +72,12 @@ process hisat2rRNA {
         tuple val(sample_id), file(fastq) from cut_adapters
         each file(indices) from rrna_indices
     output:
-        tuple val(sample_id), file("${sample_id}_nonrRNA.fq") into non_rrnas
-        tuple val(sample_id), file("${sample_id}_rRNA_map.sam") into rrna_maps
+        tuple val(sample_id), file("nonrRNA.fq") into non_rrnas
+        tuple val(sample_id), file("rRNA_map.sam") into rrna_maps
     shell:
         """
         hisat2 --version
-        hisat2 -p ${params.num_processes} -N 1 -k 1 --un ${sample_id}_nonrRNA.fq -x ${params.rrna_index_prefix} -S ${sample_id}_rRNA_map.sam -U ${fastq}
+        hisat2 -p ${params.num_processes} -N 1 -k 1 --un nonrRNA.fq -x ${params.rrna_index_prefix} -S rRNA_map.sam -U ${fastq}
         """
 }
 
@@ -88,12 +88,12 @@ process hisat2ORF {
         tuple val(sample_id), file(fastq) from non_rrnas
         each file(indices) from orf_indices
     output:
-        tuple val(sample_id), file("${sample_id}_unaligned.fq") into unaligneds
-        tuple val(sample_id), file("${sample_id}_orf_map.sam") into orf_maps
+        tuple val(sample_id), file("unaligned.fq") into unaligneds
+        tuple val(sample_id), file("orf_map.sam") into orf_maps
     shell:
         """
         hisat2 --version
-        hisat2 -p ${params.num_processes} -k 2 --no-spliced-alignment --rna-strandness F --no-unal --un ${sample_id}_unaligned.fq -x ${params.orf_index_prefix} -S ${sample_id}_orf_map.sam -U ${fastq}
+        hisat2 -p ${params.num_processes} -k 2 --no-spliced-alignment --rna-strandness F --no-unal --un unaligned.fq -x ${params.orf_index_prefix} -S orf_map.sam -U ${fastq}
         """
 }
 
@@ -103,10 +103,10 @@ process trim5pMismatches {
     input:
         tuple val(sample_id), file(sam) from orf_maps
     output:
-        tuple val(sample_id), file("${sample_id}_orf_map_clean.sam") into clean_orf_maps
-        tuple val(sample_id), file("${sample_id}_trim_5p_mismatch.tsv") into trim_summaries
+        tuple val(sample_id), file("orf_map_clean.sam") into clean_orf_maps
+        tuple val(sample_id), file("trim_5p_mismatch.tsv") into trim_summaries
     shell:
         """
-        python -m riboviz.tools.trim_5p_mismatch -m 2 -i ${sam} -o ${sample_id}_orf_map_clean.sam -s ${sample_id}_trim_5p_mismatch.tsv
+        python -m riboviz.tools.trim_5p_mismatch -m 2 -i ${sam} -o orf_map_clean.sam -s trim_5p_mismatch.tsv
         """
 }
