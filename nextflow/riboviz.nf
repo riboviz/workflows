@@ -4,6 +4,7 @@ rrna_fasta_file = Channel.fromPath(params.rrna_fasta_file,
                                    checkIfExists: true)
 
 process buildIndicesrRNA {
+    publishDir "${params.dir_index}"
     input:
         file fasta_file from rrna_fasta_file
     output:
@@ -21,6 +22,7 @@ orf_fasta_file = Channel.fromPath(params.orf_fasta_file,
                                   checkIfExists: true)
 
 process buildIndicesORF {
+    publishDir "${params.dir_index}"
     input:
         file fasta_file from orf_fasta_file
     output:
@@ -46,6 +48,7 @@ for (entry in params.fq_files) {
 }
 
 process cutAdapters {
+    publishDir "${params.dir_tmp}/${sample_id}"
     input:
         tuple val(sample_id), file(sample_file) from sample_list
         val adapters from params.adapters
@@ -59,6 +62,7 @@ process cutAdapters {
 }
 
 process hisat2rRNA {
+    publishDir "${params.dir_tmp}/${sample_id}"
     input:
         tuple val(sample_id), file(trim_fq) from trim_sample_fastq_tuple
         each file("${params.rrna_index_prefix}.*.ht2") from rrna_index_files
@@ -73,6 +77,7 @@ process hisat2rRNA {
 }
 
 process hisat2ORF {
+    publishDir "${params.dir_tmp}/${sample_id}"
     input:
         tuple val(sample_id), file(non_rrna_fq) from non_rrna_fq
         each file("${params.orf_index_prefix}.*.ht2") from orf_index_files
