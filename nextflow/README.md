@@ -304,6 +304,14 @@ No "dry run" option is supported at present. On the issue above, the Nextflow au
 
 > In my opinion the easiest workaround is to have always in your pipeline a tiny dataset that can be used to validate the script execution.
 
+Similar suggestions were made in more recent Nextflow issues:
+
+* ["dry run" option? #844](https://github.com/nextflow-io/nextflow/issues/844) - "When using the -resume option, it would be helpful to see which processes are going to be run and which will be reused from the cache."
+* [Output Nextflow pipeline tasks #1458](https://github.com/nextflow-io/nextflow/issues/1458) - "It would be very helpful to be able to run Nextflow in such a way that it does not actually execute the pipeline tasks, but instead just evaluates the DAG of the pipeline and generates all the tasks to be run."
+* [Pipeline tests #1533](https://github.com/nextflow-io/nextflow/issues/1533) - "At the moment writing a pipeline is quick but testing it can take a lot of time."
+
+This is a clear need that Nextflow has, that if solved would help the riboviz project.
+
 ### Tool/step-specific log files
 
 Standard output and standard error (as well as exit codes) for each process are automatically captured and placed in subdirectories of Nextflow's `work/` directory. For example, for a process `37/b11ee1`, an invocation of task `hisat2rRNA` for sample `WTnone`, the `work/` directory includes:
