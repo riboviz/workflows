@@ -85,10 +85,6 @@
         float: right;
         vertical-align: bottom;
       }
-      .cc-by-logo img {
-        height: 75pt;
-        float: center;
-      }
       /*
        * From Slide number removal
        * https://github.com/yihui/xaringan/wiki/Slide-number-removal
@@ -113,6 +109,12 @@
       {
         font-size: 12pt;
         line-height: 1.2;
+      }
+      .workflow-svg img {
+        height: 350pt;
+      }
+      .workflow-deplex-svg img {
+        height: 350pt;
       }
       .slide-survey p
       {
@@ -240,7 +242,35 @@ Make the computer repeat tasks and Save recent commands in a file for re-use:
 
 Use a build tool to automate workflows and Re-use code instead of rewriting it:
 
-* Migrate to workflow management system.
+* Migrate to workflow management system (recommended).
+
+???
+
+* So, why migrate further?
+
+---
+
+## Processing samples
+
+.center[
+.workflow-svg[
+![Workflow for processing samples](./img/workflow.svg)
+]
+]
+
+---
+
+## Processing multiplexed samples
+
+.center[
+.workflow-deplex-svg[
+![Workflow for processing multiplexed samples ](./img/workflow-deplex.svg)
+]
+]
+
+???
+
+* Workflow includes barcode and UMI extraction, demultiplexing and deduplication.
 
 ---
 
