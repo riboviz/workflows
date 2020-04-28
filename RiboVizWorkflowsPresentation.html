@@ -523,9 +523,11 @@ cutadapt:
 process cutAdapters {
     tag "${sample_id}"
     errorStrategy 'ignore'
-    publishDir "${params.dir_tmp}/${sample_id}"
+    publishDir "${params.dir_tmp}/${sample_id}", \
+        mode: 'copy', overwrite: true
     input:
-        tuple val(sample_id), file(sample_file) from sample_files
+        tuple val(sample_id), file(sample_file) \
+            from sample_files.collect{ id, file -> [id, file] }
     output:
         tuple val(sample_id), file("trim.fq") into cut_samples
     shell:
