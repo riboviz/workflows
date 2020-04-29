@@ -557,26 +557,6 @@ Demonstration:
 * Explicit standard output and error capture in bash commands via `&> {log}`.
 * Incremental build.
 
-???
-
-```console
-# Edit `vignette/vignette_config.yaml` and comment out `WT3AT`.
-$ cd riboviz
-$ conda activate riboviz-snakemake
-$ cp ~/workflows/snakemake/Snakefile .
-# Dry-run:
-$ snakemake --configfile vignette/vignette_config.yaml -n
-# Bash commands:
-$ snakemake --configfile vignette/vignette_config.yaml --printshellcmds -n
-$ snakemake --configfile vignette/vignette_config.yaml
-# Edit `vignette/vignette_config.yaml` and uncomment `WT3AT`.
-# Incremental build, dry-run:
-$ snakemake --configfile vignette/vignette_config.yaml -n
-$ snakemake --configfile vignette/vignette_config.yaml
-# Clean:
-$ snakemake clean --configfile vignette/vignette_config.yaml
-```
-
 ---
 
 ## Snakemake experiences
@@ -626,26 +606,6 @@ Demonstration:
 * Process-specific `work/` directory includes bash command, exit code, standard output and standard error, symbolic links to process's input files.
 * Publish process output to known locations via `publishDir`.
 * Incremental build via `-resume` flag uses `Cached` outputs within `work/` directory.
-
-???
-
-```console
-# Edit `vignette/vignette_config.yaml` and comment out `WT3AT`.
-$ cd riboviz
-$ conda activate riboviz-nextflow
-# Run:
-$ nextflow run prep_riboviz.nf -params-file vignette/vignette_config.yaml -ansi-log false
-# Work directory, choose one for cutadapt:
-$ ls -lA work/NN/HASH/
-$ cat work/NN/HASH/.command.sh 
-$ head work/NN/HASH/.command.out 
-$ head work/NN/HASH/.command.err 
-$ cat work/NN/HASH/.exitcode
-$ ls vignette/tmp/WTnone
-# Edit `vignette/vignette_config.yaml` and uncomment `WT3AT`.
-# Incremental build, resume:
-$ nextflow run prep_riboviz.nf -params-file vignette/vignette_config.yaml -ansi-log false -resume
-```
 
 ---
 
