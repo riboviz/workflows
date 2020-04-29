@@ -22,10 +22,15 @@ Dry-run:
 $ snakemake --configfile vignette/vignette_config.yaml -n
 ```
 
-Bash commands:
+Dry run and bash commands:
 
 ```console
 $ snakemake --configfile vignette/vignette_config.yaml --printshellcmds -n
+```
+
+Run:
+
+```console
 $ snakemake --configfile vignette/vignette_config.yaml
 ```
 
