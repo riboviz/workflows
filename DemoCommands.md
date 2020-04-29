@@ -20,6 +20,7 @@ Dry-run:
 
 ```console
 $ snakemake --configfile vignette/vignette_config.yaml -n
+```
 
 Bash commands:
 
@@ -35,6 +36,12 @@ Incremental build, dry-run:
 ```console
 $ snakemake --configfile vignette/vignette_config.yaml -n
 $ snakemake --configfile vignette/vignette_config.yaml
+```
+
+Bash script:
+
+```console
+$ snakemake --configfile vignette/vignette_config.yaml --detailed-summary
 ```
 
 Clean:
