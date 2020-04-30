@@ -160,6 +160,19 @@ This work is funded by BBSRC in the UK and the NSF/BIO in the USA as a BBSRC-NSF
 
 ---
 
+## Workflow management system
+
+"infrastructure for the set-up, performance and monitoring of a defined sequence of tasks" - [Workflow management system](https://en.wikipedia.org/wiki/Workflow_management_system)
+
+"designed specifically to compose and execute a series of computational or data manipulation steps ... that relate to bioinformatics" - [Bioinformatics workflow management system](https://en.wikipedia.org/wiki/Bioinformatics_workflow_management_system)
+
+???
+
+* A specific infrastructure, not a custom script.
+* Typically, the steps will be invocations of third-party tools (e.g. bash commands or web services), not in-code functions.
+
+---
+
 ## RiboViz
 
 Extract biological insight from ribosome profiling data to help advance our understanding of protein synthesis.
@@ -223,7 +236,7 @@ Wilson, G., Aruliah, D.A., Brown, C.T., Chue Hong, N.P. and Davis, M. "Best Prac
 
 ---
 
-## Implementing the RiboViz workflow
+## Evolution of the RiboViz workflow
 
 Initial explorations:
 
@@ -274,11 +287,15 @@ Represent the workflow within a system that is popular, and well understood, wit
 
 Out-of-the-box workflow execution management functionality.
 
-Incremental build, if steps fail or if new samples are added.
+Incremental build, if steps fail or if new samples are added (re-entrancy).
 
 Exploit containers, high-performance computing (HPC) systems, cloud.
 
 Focus on analysis of ribosome profiling data, the science!
+
+???
+
+* Perkel, J.M. "Workflow systems turn raw data into scientific knowledge", Nature 573, 149-150 (2019) doi: [10.1038/d41586-019-02619-z](https://doi.org/10.1038/d41586-019-02619-z) lists reproducibility, scalability, step-specific computational environments, reporting.
 
 ---
 
@@ -372,6 +389,7 @@ Useful functionality:
 
 * Five steps: build rRNA and ORF indices using HISAT2; cut out sequencing library adapters using Cutadapt; remove rRNA or other contaminating reads by alignment to rRNA index files using HISAT2; align to ORFs by alignment to ORF index files using HISAT2.
 * 2-3 days per tool.
+* "dry run": check input files exist and see commands that will be run before they are run.
 
 ---
 
@@ -544,7 +562,7 @@ process cutAdapters {
 Demonstration:
 
 * `$ snakemake --configfile vignette/vignette_config.yaml`
-* "dry run" via `-n` flag.
+* "dry run" via `-n` flag, analogous to Make.
 * YAML configuration accessible via `config` variable.
 * Use of Python, for example to filter samples down to those whose files exist.
 * Conditional tasks wrapped in Python `if` blocks.
@@ -617,7 +635,7 @@ Supports containers (Docker, Singularity), HPC systems (Sun Grid Engine, PBS Pro
 
 ???
 
-* No "dry run", recommends using small datasets.
+* No "dry run" as, in contrast to Snakemake, Nextflow starts with inputs and invokes all possible processes based on these (subject to conditions) and so on downstream. Nextflow recommend using small datasets. Discussion of "dry run" is ongoing, but would be challenging.
 * Rich documentation but more comprehensive tutorial would help.
 * It likes files more than directories and RiboViz script tweaks may be needed to be used easily from within Nextflow (especially `riboviz.tools.count_reads` which takes a directory as input).
 
@@ -634,6 +652,27 @@ Nextflow:
 * Writing Groovy should not be an issue for Python or R projects.
 * Very positive community "vibe".
 
+---
+
+## RiboViz team meeting 29/04/20
+
+Snakemake:
+
+* [snakePipes](https://snakepipes.readthedocs.io/en/latest/) workflows repository.
+* "dry run" to check commands prior to running a time-consuming or complex workflow.
+* Specify the exact output files to build to isolate commands (that will be) run.
+* Popular within labs of collaborators and guests.
+
+Nextflow:
+
+* [nf-core](https://nf-co.re/) analysis pipelines repository, nicer than snakePipes.
+* Small sample datasets for checking workflow correctness may not adequately replicate behaviour of a full dataset.
+* "blunt instrument".
+
+???
+
+* Choice depends on balancing of criteria!
+* Choosing one does not preclude moving to the other 6 months or a year away - the overhead is low i.e. ~1 week.
     </textarea>
     <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
     <script>
