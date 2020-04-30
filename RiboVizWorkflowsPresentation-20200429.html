@@ -160,59 +160,6 @@ This work is funded by BBSRC in the UK and the NSF/BIO in the USA as a BBSRC-NSF
 
 ---
 
-exclude: true
-
-## RiboViz
-
-Extract biological insight from ribosome profiling data to help advance our understanding of protein synthesis.
-
-From raw data from sequencing machines:
-
-* Estimate how much each part of RNA is translated into protein.
-* Estimate how the amount of translation is controlled by the code of that RNA.
-* Produce tables, figures and graphs. 
-
-Developed by [The Wallace Lab](https://ewallace.github.io/) and [EPCC](https://www.epcc.ed.ac.uk/) at The University of Edinburgh, [The Shah Lab](https://theshahlab.org/) at Rutgers University and [The Lareau Lab](http://www.lareaulab.org/) at University of California, Berkeley.
-
----
-
-exclude: true
-
-## RiboViz workflow
-
-A directed acyclic graph of steps:
-
-* Each step is invocation of a command-line tool via bash.
-* Open source bioinformatics packages: HISAT2, Cutadapt, Samtools, Bedtools, UMI-tools.
-* RiboViz-specific tools: Python and R scripts.
-
-Process several ribosome profiling samples in a single run:
-
-* Initial sample-independent steps.
-* Steps applied per-sample.
-* Steps aggregating and summarising results from all samples.
-* Some steps conditional upon configuration parameters.
-
----
-
-exclude: true
-
-## RiboViz software
-
-https://github.com/riboviz/riboviz/
-
-`riboviz.tools.prep_riboviz`:
-
-* Workflow implementation in Python.
-* Configured via a YAML file.
-* Creates a log file for each step plus a log file for the workflow itself.
-* Writes sample-specific data and log files to sample-specific directories.
-* Records bash commands into a rerunnable bash script.
-* "dry-run" mode.
-* No concurrency or parallelism.
-
----
-
 ## Best practices for scientific computing
 
 Wilson, G., Aruliah, D.A., Brown, C.T., Chue Hong, N.P. and Davis, M. "Best Practices for Scientific Computing" (doi:[10.1371/journal.pbio.1001745](https://doi.org/10.1371/journal.pbio.1001745)).
