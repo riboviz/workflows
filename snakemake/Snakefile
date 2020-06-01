@@ -9,6 +9,7 @@ TIMESTAMP = datetime.now().strftime('%Y%m%d-%H%M%S')
 SAMPLES = {tag: filename for (tag, filename) in config['fq_files'].items()
 	if os.path.exists(os.path.join(config['dir_in'], filename))
 	and os.path.isfile(os.path.join(config['dir_in'], filename))}
+SAMPLE_IDS = list(SAMPLES.keys())
 
 rule all:
     input:
@@ -189,13 +190,13 @@ rule generate_stats_figs:
 
 rule collate_tpms:
     input:
-        expand(os.path.join(config['dir_out'], "{sample}", "tpms.tsv"), sample=SAMPLES.keys())
+        expand(os.path.join(config['dir_out'], "{sample}", "tpms.tsv"), sample=SAMPLE_IDS)
     output:
         os.path.join(config['dir_out'], "TPMs_collated.tsv"),
     log: os.path.join(config['dir_logs'], TIMESTAMP, "collate_tpms.log")
     shell:
         # TODO how to derive R path if not relative?
-        "Rscript --vanilla rscripts/collate_tpms.R --sample-subdirs=True --output-dir={config[dir_out]} WTnone WT3AT &> {log}"
+        "Rscript --vanilla rscripts/collate_tpms.R --sample-subdirs=True --output-dir={config[dir_out]} {SAMPLE_IDS} &> {log}"
 
 def save_sample_sheet(filename):
     sample_sheet = {}
