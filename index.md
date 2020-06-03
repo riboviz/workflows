@@ -8,4 +8,4 @@ Presentations related to exploring RiboViz workflow options.
 
 [Choosing a workflow management system for RiboViz](./RiboVizWorkflowsPresentation-20200429.html), 29 April 2020. Presentation for RiboViz team plus guests.
 
-[Choosing a workflow management system for RiboViz](./RiboVizWorkflowsPresentation-20200513.html), 13 May 2020. Presentation for EPCC seminar
+[Choosing a workflow management system for RiboViz](./RiboVizWorkflowsPresentation-20200603.html), 03 June 2020.  Presentation for EPCC seminar
