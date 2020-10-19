@@ -2,11 +2,23 @@
 
 Mike Jackson, EPCC, The University of Edinburgh, March 2020
 
-## About
+## About this repository
 
-Options for reimplementing the [RiboViz](https://github.com/riboviz/riboviz) workflow, `riboviz.tools.prep_riboviz`, using workflow technologies popular within the bioinformatics community.
+This repository contains some notes made by the author while exploring options for reimplementing the [RiboViz](https://github.com/riboviz/riboviz) workflow, `riboviz.tools.prep_riboviz`, using workflow technologies popular within the bioinformatics community.
 
-Relates to issue Assess workflow language options ([riboviz#48](https://github.com/riboviz/riboviz/issues/48)).
+This repository also contains Snakemake, Nextflow and CWL workflows rapidly prototyped during thee explorations.
+
+These notes relate to the RiboViz development ticket Assess workflow language options ([riboviz#48](https://github.com/riboviz/riboviz/issues/48)).
+
+**Important note:** The notes in this repository are just that, notes and, in many cases are highly-subjective. The prototype workflows unsupported and not designed for, or intended for, use by others.
+
+## Related papers and presentations
+
+Jackson M, Wallace E, Kavoussanakis K. Using rapid prototyping to choose a bioinformatics workflow management system/ bioRxiv 2020.08.04.236208; doi: [10.1101/2020.08.04.236208](https://doi.org/10.1101/2020.08.04.236208).
+
+[Choosing a workflow management system for RiboViz](https://github.com/riboviz/workflows/blob/gh-pages/RiboVizWorkflowsPresentation-20200429.html), 03 June 2020. Presentation for EPCC seminar.
+
+[Choosing a workflow management system for RiboViz](https://github.com/riboviz/workflows/blob/gh-pages/RiboVizWorkflowsPresentation-20200429.html), 29 April 2020. Presentation for RiboViz team plus guests.
 
 ## Workflow options
 

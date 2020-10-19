@@ -82,7 +82,7 @@ Implicit class-based frameworks:
 * Closely bound to existing code libraries rather than various executables.
 * Luigi (Python).
 
-Explicit configuration open source erver workbenches:
+Explicit configuration open source server workbenches:
 
 * Link preconfigured modular tools together via drag-and-drop GUI. 
 * Require exacting specifications of inputs and outputs.
