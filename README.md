@@ -16,9 +16,9 @@ These notes relate to the RiboViz development ticket Assess workflow language op
 
 Jackson M, Wallace E, Kavoussanakis K. Using rapid prototyping to choose a bioinformatics workflow management system/ bioRxiv 2020.08.04.236208; doi: [10.1101/2020.08.04.236208](https://doi.org/10.1101/2020.08.04.236208).
 
-[Choosing a workflow management system for RiboViz](https://github.com/riboviz/workflows/blob/gh-pages/RiboVizWorkflowsPresentation-20200429.html), 03 June 2020. Presentation for EPCC seminar.
+[Choosing a workflow management system for RiboViz](https://riboviz.github.io/workflows/RiboVizWorkflowsPresentation-20200603.html), 03 June 2020. Presentation for EPCC seminar.
 
-[Choosing a workflow management system for RiboViz](https://github.com/riboviz/workflows/blob/gh-pages/RiboVizWorkflowsPresentation-20200429.html), 29 April 2020. Presentation for RiboViz team plus guests.
+[Choosing a workflow management system for RiboViz](https://riboviz.github.io/workflows/RiboVizWorkflowsPresentation-20200429.html), 29 April 2020. Presentation for RiboViz team plus guests.
 
 ## Workflow options
 
