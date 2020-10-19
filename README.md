@@ -1,16 +1,19 @@
 # RiboViz workflow options
 
-Mike Jackson, EPCC, The University of Edinburgh, March 2020
+Mike Jackson, EPCC, The University of Edinburgh, March-July 2020
 
 ## About this repository
 
-This repository contains some notes made by the author while exploring options for reimplementing the [RiboViz](https://github.com/riboviz/riboviz) workflow, `riboviz.tools.prep_riboviz`, using workflow technologies popular within the bioinformatics community.
+This repository contains some notes made by the author in March 2020 while exploring options for reimplementing the [RiboViz](https://github.com/riboviz/riboviz) workflow (currently implemented as a custom Python script) using workflow technologies popular within the bioinformatics community.
 
-This repository also contains Snakemake, Nextflow and CWL workflows rapidly prototyped during thee explorations.
+This repository also contains Snakemake, Nextflow and CWL workflows rapidly prototyped during these explorations. These prototype workflows are unsupported and not designed for actual use, but may prove of interest to others as snapshots of how a subset of the RiboViz workflow was reimplemented using these technologies.
 
 These notes relate to the RiboViz development ticket Assess workflow language options ([riboviz#48](https://github.com/riboviz/riboviz/issues/48)).
 
-**Important note:** The notes in this repository are just that, notes and, in many cases are highly-subjective. The prototype workflows unsupported and not designed for, or intended for, use by others.
+RiboViz release [2.0](https://github.com/riboviz/riboviz/releases/tag/2.0) of 8th July 2020 contains the first complete implementation of the RiboViz workflow in Nextflow, which can be compared to the Python implementation within the same release:
+
+* Nextflow workflow ([prep_riboviz.nf](https://github.com/riboviz/riboviz/blob/2.0/prep_riboviz.nf)).
+* Python workflow ([riboviz.tools.prep_riboviz](https://github.com/riboviz/riboviz/blob/2.0/riboviz/tools/prep_riboviz.py)).
 
 ## Related papers and presentations
 
