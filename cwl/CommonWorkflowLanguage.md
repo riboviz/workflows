@@ -1,7 +1,5 @@
 # Common Workflow Language (CWL)
 
-Updated from [RiboViz and Common Workflow Language (CWL)](https://github.com/riboviz/bbsrc-nsf/blob/master/docs/reports/201908-ssi-review/SsiRiboVizCwl.md), Mike Jackson, The Software Sustainability Institute, 30 August 2018.
-
 ## Common Workflow Language Specification (CWL)
 
 [Common Workflow Language](http://www.commonwl.org) is:
