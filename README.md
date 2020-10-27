@@ -47,7 +47,7 @@ This work was supported by the following:
 
 To cite this repository, please use:
 
-Jackson, Michael; Wallace, Edward; Anderson, Felicity; Kavoussanakis, Kostas. (2020): Options for RiboViz workflow management. figshare. Software. doi: [10.6084/m9.figshare.13147979](https://doi.org/10.6084/m9.figshare.13147979)
+Jackson, Michael; Wallace, Edward; Kavoussanakis, Kostas; Anderson, Felicity (2020): Options for RiboViz workflow management. figshare. Software. doi: [10.6084/m9.figshare.13147979](https://doi.org/10.6084/m9.figshare.13147979)
 
 To cite **RiboViz**, please use both of the following references:
 
