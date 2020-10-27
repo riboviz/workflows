@@ -102,4 +102,4 @@ I'd recommend adopting Nextflow over Snakemake for the following reasons:
 * Nextflow feels far richer in terms of its features and expressivity.
 * The execution of each task in isolated directories is very useful for debugging.
 * Nextflow's built-in support for, and documentation around, Docker, Singularity, cluster and cloud execution, seems more comprehensive than that of Snakemake.
-* While Nextflow and Snakemake are both very popular tools within the bioinformatics community, Nextflow seems to have the slight edge (based on [Notes on Workflow Options 28/02/2020](./workflows.md)).
+* While Nextflow and Snakemake are both very popular tools within the bioinformatics community, Nextflow seems to have the slight edge (based on [Notes on Workflow Options 28/02/2020](./WorkflowsNotes.md)).

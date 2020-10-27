@@ -280,7 +280,7 @@ and to reference it as follows:
         "python -m riboviz.tools.count_reads -c {config[config_file]} -i {config[dir_in]} -t {config[dir_tmp]} -o {config[dir_out]} -r {output} >> {log}"
 ```
 
-However, this feels hacky. Also, a comment in [Retrieve value of --configfile parameter in rule params](https://bitbucket.org/snakemake/snakemake/issues/594/retrieve-value-of-configfile-parameter-in) in the Snakemake issue tracker recommends not accessing the configuration file within a Snakefile:
+However, this feels hacky. Also, a comment in [Retrieve value of --configfile parameter in rule params](https://bitbucket.org/snakemake/snakemake/issues/594/retrieve-value-of-configfile-parameter-in) (link now broken) in the Snakemake issue tracker recommends not accessing the configuration file within a Snakefile:
 
 > The reason for not documenting is that --configfile is not an obligatory parameter, and hence it does not make too much sense to access it from the Snakemake. E.g., the user could omit it, and in fact it is recommended to store workflows in a way such that no additional arguments are needed (see here), in order to maximize reproducibility. Further, the user could provide --configfile and further overwrite values via --config.
 
@@ -340,7 +340,7 @@ In such cases a user _can_ edit their configuration file to remove the `fq_files
 
 ### Conditional behaviour
 
-For example, for selecting to create index file, bedgraphs, UMI group summary files, to deduplicate or count reads, a response to [Add complex conditional file dependency](https://bitbucket.org/snakemake/snakemake/issues/37/add-complex-conditional-file-dependency) comments:
+For example, for selecting to create index file, bedgraphs, UMI group summary files, to deduplicate or count reads, a response to [Add complex conditional file dependency](https://bitbucket.org/snakemake/snakemake/issues/37/add-complex-conditional-file-dependency) (link now broken) comments:
 
 > You can put rules in conditional statements. These are evaluated before the workflow is executed though, so they cannot be data dependent.
 
@@ -395,8 +395,8 @@ I'll try running this file when looking at CWL execution environments.
 Snakemake has support for:
 
 * [Running jobs in containers](https://snakemake.readthedocs.io/en/stable/snakefiles/deployment.html#running-jobs-in-containers) - Docker and Singularity.
-* [Cluster execution](https://snakemake.readthedocs.io/en/stable/executing/cluster-cloud.html#cluster-execution) via cluster engines that support shell scripts and use a common file system. An example is provided for using Sun Grid Engine to submit a job.
-* [Cloud support](https://snakemake.readthedocs.io/en/stable/executing/cluster-cloud.html#cloud-support). Examples are provided for:
+* [Cluster execution](https://snakemake.readthedocs.io/en/stable/executing/cluster.html) via cluster engines that support shell scripts and use a common file system. An example is provided for using Sun Grid Engine to submit a job.
+* [Cloud support](https://snakemake.readthedocs.io/en/stable/executing/cloud.html). Examples are provided for:
   - Google Cloud Engine via [Kubernetes](https://kubernetes.io/) "open-source system for automating deployment, scaling, and management of containerized applications."
   - Amazon Web Services via [Tibanna](https://tibanna.readthedocs.io/en/latest/) tool to run genomic pipelines.
   - Input and output files are staged from/to remote locations and the Snakemake workflow is expected to be stored within a Git repository. There is no requirement for a shared network file system.
