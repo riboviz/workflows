@@ -2,7 +2,7 @@
 
 ## Notes
 
-* [Notes on Workflow Options 28/02/2020](./WorkflowsNotes.md): survey on available workflow options.
+* [Notes on Workflow Options 28/02/2020](./WorkflowsNotes.md): notes on possible workflow management systems options.
 * [Docker](./Docker.md): notes on Docker as some workflow technogies use Docker.
 
 "Overchoice" is an issue, so focus is on the following that have been mentioned in meetings and seem most prevalent and popular: Snakemake, CWL and Nextflow.
