@@ -248,3 +248,163 @@ Arvados [Best Practices for writing CWL](https://doc.arvados.org/v1.4/user/cwl/c
 * [GitHub](https://github.com/rabix/composer)
 
 For writing CWL workflows.
+
+---
+
+## Running a "hello world!" CWL workflow
+
+### cwltool
+
+Common Workflow Language reference implementation, [cwltool](https://github.com/common-workflow-language/cwltool)
+
+Note: though Ubuntu 18.04 (my virtual machine) has a `cwltool` package ([bionic (18.04LTS) > science > cwltool](https://packages.ubuntu.com/bionic/cwltool)), I opted to use a `pip` install for consistency with other Python dependencies used by RiboViz.
+
+Create a new conda environment from the current RiboViz one and activate it:
+
+```console
+$ conda create --name riboviz-cwltool --clone base
+$ conda activate riboviz-cwltool
+```
+
+Install CWL reference implementation and node.js:
+
+```console
+$ pip install cwlref-runner
+$ cwl-runner --version
+/home/ubuntu/miniconda3/envs/riboviz-cwltool/bin/cwl-runner 2.0.20200224214940
+$ cwltool --version
+/home/ubuntu/miniconda3/envs/riboviz-cwltool/bin/cwltool 2.0.20200224214940
+
+$ sudo apt-get -y install nodejs
+```
+
+`cwl-runner` is an alias for the default CWL interpreter installed on a host.
+
+Create tool wrapper, `echo-tool.cwl`:
+
+```cwl
+#!/usr/bin/env cwl-runner
+
+cwlVersion: v1.0
+class: CommandLineTool
+baseCommand: echo
+stdout: output.txt
+inputs:
+  message:
+    type: string
+    inputBinding:
+      position: 1
+outputs:
+  output:
+    type: stdout
+```
+
+Create input object, `echo-job.yml`:
+
+```yml
+message: Hello world!
+```
+
+Run:
+
+```console
+$ cwl-runner [tool-or-workflow-description] [input-job-settings]
+```
+```console
+$ cwltool echo-tool.cwl echo-job.yml 
+INFO /home/ubuntu/miniconda3/envs/riboviz-cwltool/bin/cwltool 2.0.20200224214940
+INFO Resolved 'echo-tool.cwl' to 'file:///home/ubuntu/cwl-tutorial/echo-tool.cwl'
+INFO [job echo-tool.cwl] /tmp/0wg8bch2$ echo \
+    'Hello world!' > /tmp/0wg8bch2/output.txt
+INFO [job echo-tool.cwl] completed success
+{
+    "output": {
+        "location": "file:///home/ubuntu/cwl-tutorial/output.txt",
+        "basename": "output.txt",
+        "class": "File",
+        "checksum": "sha1$47a013e660d408619d894b20806b1d5086aab03b",
+        "size": 13,
+        "path": "/home/ubuntu/cwl-tutorial/output.txt"
+    }
+}
+INFO Final process status is success
+```
+```
+$ cat output.txt 
+Hello world!
+```
+
+### Toil
+
+[Toil](https://toil.readthedocs.io) is a workflow engine written in Python. It is listed by CWL as having an "in production" implementation of CWL.
+
+See [Running a basic CWL workflow](https://toil.readthedocs.io/en/latest/gettingStarted/quickStart.html#running-a-basic-cwl-workflow):
+
+Create a new conda environment from the current RiboViz one and activate it:
+
+```console
+$ conda create --name riboviz-toil --clone base
+$ conda activate riboviz-toil
+```
+
+Install Toil and `cwl` extra:
+
+```console
+$ pip install toil[cwl]
+$ cwltool --version
+/home/ubuntu/miniconda3/envs/riboviz-toil/bin/cwltool 1.0.20190906054215
+$ toil-cwl-runner --version
+3.24.0
+```
+
+Note that `cwltool` is `1.0.x`, not `2.0.x`.
+
+Run:
+
+```console
+$ toil-cwl-runner echo-tool.cwl echo-job.yml 
+ubuntu 2020-03-03 08:51:05,402 MainThread INFO cwltool: Resolved 'echo-tool.cwl' to 'file:///home/ubuntu/cwl-tutorial/echo-tool.cwl'
+ubuntu 2020-03-03 08:51:05,976 MainThread WARNING toil.batchSystems.singleMachine: Limiting maxCores to CPU count of system (4).
+ubuntu 2020-03-03 08:51:05,976 MainThread WARNING toil.batchSystems.singleMachine: Limiting maxMemory to physically available memory (8340123648).
+ubuntu 2020-03-03 08:51:05,976 MainThread WARNING toil.batchSystems.singleMachine: Limiting maxDisk to physically available disk (19029254144).
+ubuntu 2020-03-03 08:51:05,989 MainThread INFO toil: Running Toil version 3.24.0-de586251cb579bcb80eef435825cb3cedc202f52.
+ubuntu 2020-03-03 08:51:05,992 MainThread INFO toil.leader: Issued job 'file:///home/ubuntu/cwl-tutorial/echo-tool.cwl' echo kind-file_home_ubuntu_cwl-tutorial_echo-tool.cwl/instancegehkd1py with job batch system ID: 0 and cores: 1, disk: 3.0 G, and memory: 2.0 G
+INFO:toil.worker:Redirecting logging to /tmp/toil-8e1d4067-cf05-45ed-94f9-f02a5548da7f-453138a4fa34406f996060e86264aa60/tmp3jb592ti/worker_log.txt
+ubuntu 2020-03-03 08:51:06,588 MainThread INFO toil.leader: Job ended: 'file:///home/ubuntu/cwl-tutorial/echo-tool.cwl' echo kind-file_home_ubuntu_cwl-tutorial_echo-tool.cwl/instancegehkd1py
+ubuntu 2020-03-03 08:51:08,007 MainThread INFO toil.leader: Finished toil run successfully.
+{
+    "output": {
+        "location": "file:///home/ubuntu/cwl-tutorial/output.txt",
+        "basename": "output.txt",
+        "nameroot": "output",
+        "nameext": ".txt",
+        "class": "File",
+        "checksum": "sha1$47a013e660d408619d894b20806b1d5086aab03b",
+        "size": 13
+    }
+}ubuntu 2020-03-03 08:51:08,017 MainThread INFO toil.common: Successfully deleted the job store: FileJobStore(/tmp/tmp5_bvvekm)
+```
+```console
+$ cat output.txt 
+Hello world!
+```
+
+**Troubleshooting: `AssertionError: The job ... is requesting 2147483648 bytes of memory...`**
+
+If you get:
+
+```
+AssertionError: The job file:///home/ubuntu/cwl/echo-tool.cwl is requesting 2147483648 bytes of memory, more than the maximum of 2065702912 this batch system was configured with.
+```
+
+Then explictly specify the default memory required e.g. `--defaultMemory=100M`
+
+**Troubleshooting: `toil.batchSystems.abstractBatchSystem.InsufficientSystemResources`**
+
+If you get:
+
+```
+toil.batchSystems.abstractBatchSystem.InsufficientSystemResources: Requesting more disk than either physically available, or enforced by --maxDisk. Requested: 3221225472, Available: 2719440896
+```
+
+Then explictly specify the default disk space required e.g. `--defaultDisk=100M echo-tool.cwl`.

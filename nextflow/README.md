@@ -4,10 +4,6 @@
 * [GitHub](https://github.com/nextflow-io/nextflow)
 * [Documentation](https://www.nextflow.io/docs/latest/index.html)
 
-See notes on:
-
-* [Nextflow Documentation Notes](./NextflowDocNotes.md) from reading through the Nextflow documentation.
-
 ---
 
 ## Run the RiboViz example

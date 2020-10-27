@@ -3,8 +3,6 @@
 * [GitHub](https://github.com/snakemake/snakemake)
 * [Documentation](https://snakemake.readthedocs.io/en/stable/)
 
-See notes on [Snakemake](./Snakemake.md).
-
 ---
 
 ## Run the RiboViz example
