@@ -2,7 +2,7 @@
 
 Edward Wallace, Felicity Anderson: [The Wallace Lab](https://ewallace.github.io/), The University of Edinburgh.
 
-Kostas Kavousannakis, Mike Jackson: [EPCC](https://www.epcc.ed.ac.uk/), The University of Edinburgh.
+Kostas Kavoussanakis, Mike Jackson: [EPCC](https://www.epcc.ed.ac.uk/), The University of Edinburgh.
 
 March-July 2020.
 
@@ -47,10 +47,10 @@ This work was supported by the following:
 
 To cite this repository, please use:
 
-Jackson, Michael; Wallace, Edward; Anderson, Felicity; Kavousannakis, Kostas. (2020): Options for RiboViz workflow management. figshare. Software. doi: [10.6084/m9.figshare.13147979](https://doi.org/10.6084/m9.figshare.13147979)
+Jackson, Michael; Wallace, Edward; Anderson, Felicity; Kavoussanakis, Kostas. (2020): Options for RiboViz workflow management. figshare. Software. doi: [10.6084/m9.figshare.13147979](https://doi.org/10.6084/m9.figshare.13147979)
 
 To cite **RiboViz**, please use both of the following references:
 
 riboviz: analysis and visualization of ribosome profiling datasets, Carja et al., BMC Bioinformatics 2017. doi:[10.1186/s12859-017-1873-8](https://doi.org/10.1186/s12859-017-1873-8).
 
-Wallace, Edward; Anderson, Felicity; Kavousannakis, Kostas; Jackson, Michael; Shah, Premal; Lareau, Liana; et al. (2020): riboviz: software for analysis and visualization of ribosome profiling datasets. figshare. Software. doi: [10.6084/m9.figshare.12624200](https://doi.org/10.6084/m9.figshare.12624200)
+Wallace, Edward; Anderson, Felicity; Kavoussanakis, Kostas; Jackson, Michael; Shah, Premal; Lareau, Liana; et al. (2020): riboviz: software for analysis and visualization of ribosome profiling datasets. figshare. Software. doi: [10.6084/m9.figshare.12624200](https://doi.org/10.6084/m9.figshare.12624200)
