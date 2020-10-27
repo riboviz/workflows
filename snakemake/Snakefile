@@ -1,0 +1,221 @@
+from datetime import datetime
+import os
+import shutil
+import yaml
+
+TIMESTAMP = datetime.now().strftime('%Y%m%d-%H%M%S')
+
+# Filter input sample files down to those that exist.
+SAMPLES = {tag: filename for (tag, filename) in config['fq_files'].items()
+	if os.path.exists(os.path.join(config['dir_in'], filename))
+	and os.path.isfile(os.path.join(config['dir_in'], filename))}
+SAMPLE_IDS = list(SAMPLES.keys())
+
+rule all:
+    input:
+        [os.path.join(config['dir_out'], sample, "plus.bedgraph") for sample in SAMPLES] if config['make_bedgraph'] else [],
+        [os.path.join(config['dir_out'], sample, "minus.bedgraph") for sample in SAMPLES] if config['make_bedgraph'] else [],
+        os.path.join(config['dir_out'], "TPMs_collated.tsv"),
+        [os.path.join(config['dir_out'], "read_counts.tsv")] if config['count_reads'] else []
+
+def cleanup():
+    shutil.rmtree(config['dir_index'], ignore_errors=True)
+    shutil.rmtree(config['dir_tmp'], ignore_errors=True)
+    shutil.rmtree(config['dir_out'], ignore_errors=True)
+    shutil.rmtree(config['dir_logs'], ignore_errors=True)
+
+rule clean:
+    run:
+       cleanup()
+
+if config['build_indices']:
+    rule build_indices_rrna:
+        input:
+            config['rrna_fasta_file']
+        output:
+            [os.path.join(config['dir_index'], config['rrna_index_prefix'] + ".{}.ht2".format(index)) for index in range(1, 9)]
+        params:
+            prefix=os.path.join(config['dir_index'], config['rrna_index_prefix'])
+        log: os.path.join(config['dir_logs'], TIMESTAMP, "hisat2_build_r_rna.log")
+        shell:
+            "hisat2-build --version &> {log}; hisat2-build {input} {params.prefix} &>> {log}"
+
+if config['build_indices']:
+    rule build_indices_orf:
+        input:
+            config['orf_fasta_file']
+        output:
+            [os.path.join(config['dir_index'], config['orf_index_prefix'] + ".{}.ht2".format(index)) for index in range(1, 9)]
+        params:
+            prefix=os.path.join(config['dir_index'], config['orf_index_prefix'])
+        log: os.path.join(config['dir_logs'], TIMESTAMP, "hisat2_build_orf.log")
+        shell:
+           "hisat2-build --version &> {log}; hisat2-build {input} {params.prefix} &>> {log}"
+
+rule cut_adapters:
+    input:
+        lambda wildcards: os.path.join(config['dir_in'], SAMPLES[wildcards.sample])
+        # See https://snakemake.readthedocs.io/en/stable/project_info/faq.html#how-do-i-incorporate-files-that-do-not-follow-a-consistent-naming-scheme
+        # See https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#snakefiles-input-functions
+    output:
+        os.path.join(config['dir_tmp'], "{sample}", "trim.fq")
+    log: os.path.join(config['dir_logs'], TIMESTAMP, "{sample}", "cutadapt.log")
+    shell:
+        "cutadapt --trim-n -O 1 -m 5 -a	{config[adapters]} -o {output} {input} -j 0 &> {log}"
+
+rule map_to_r_rna:
+    input:
+        [os.path.join(config['dir_index'], config['rrna_index_prefix'] + ".{}.ht2".format(index)) for index in range(1, 9)],
+        fq=os.path.join(config['dir_tmp'], "{sample}", "trim.fq")
+    params:
+        prefix=os.path.join(config['dir_index'], config['rrna_index_prefix'])
+    output:
+        fq=os.path.join(config['dir_tmp'], "{sample}", "nonrRNA.fq"),
+        sam=os.path.join(config['dir_tmp'], "{sample}", "rRNA_map.sam")
+    log: os.path.join(config['dir_logs'], TIMESTAMP, "{sample}", "hisat2_rrna.log")
+    shell:
+        "hisat2 --version &> {log}; hisat2 -p {config[num_processes]} -N 1 -k 1 --un {output.fq} -x {params.prefix} -S {output.sam} -U {input.fq} &>> {log}"
+
+rule map_to_orf:
+    input:
+        [os.path.join(config['dir_index'], config['orf_index_prefix'] + ".{}.ht2".format(index)) for index in range(1, 9)],
+        fq=os.path.join(config['dir_tmp'], "{sample}", "nonrRNA.fq")
+    params:
+        prefix=os.path.join(config['dir_index'], config['orf_index_prefix'])
+    output:
+        fq=os.path.join(config['dir_tmp'], "{sample}", "unaligned.fq"),
+        sam=os.path.join(config['dir_tmp'], "{sample}", "orf_map.sam")
+    log: os.path.join(config['dir_logs'], TIMESTAMP, "{sample}", "hisat2_orf.log")
+    shell:
+        "hisat2 --version &> {log}; hisat2 -p {config[num_processes]} -k 2 --no-spliced-alignment --rna-strandness F --no-unal --un {output.fq} -x {params.prefix} -S {output.sam} -U {input.fq} &>> {log}"
+
+rule trim_5p_mismatches:
+    input:
+        os.path.join(config['dir_tmp'], "{sample}", "orf_map.sam")
+    output:
+        clean_sam=os.path.join(config['dir_tmp'], "{sample}", "orf_map_clean.sam"),
+        tsv=os.path.join(config['dir_tmp'], "{sample}", "trim_5p_mismatch.tsv")
+    log: os.path.join(config['dir_logs'], TIMESTAMP, "{sample}", "trim_5p_mismatch.log")
+    shell:
+        "python -m riboviz.tools.trim_5p_mismatch -m 2 -i {input} -o {output.clean_sam} -s {output.tsv} &> {log}"
+
+rule sort_bam:
+    input:
+        os.path.join(config['dir_tmp'], "{sample}", "orf_map_clean.sam")
+    output:
+        os.path.join(config['dir_out'], "{sample}", "{sample}.bam")
+    log: os.path.join(config['dir_logs'], TIMESTAMP, "{sample}", "samtools_view_sort.log")
+    shell:
+        "samtools --version &> {log}; samtools view -b {input} | samtools sort -@ {config[num_processes]} -O bam -o {output} - &>> {log}"
+
+rule index_bam:
+    input:
+        os.path.join(config['dir_out'], "{sample}", "{sample}.bam")
+    output:
+        os.path.join(config['dir_out'], "{sample}", "{sample}.bam.bai")
+    log: os.path.join(config['dir_logs'], TIMESTAMP, "{sample}", "samtools_index.log")
+    shell:
+        "samtools --version &> {log}; samtools index {input} &>> {log}"
+
+if config['make_bedgraph']:
+    rule make_bedgraph_plus:
+        input:
+            bam=os.path.join(config['dir_out'], "{sample}", "{sample}.bam"),
+            bam_bai=os.path.join(config['dir_out'], "{sample}", "{sample}.bam.bai")
+        output:
+            os.path.join(config['dir_out'], "{sample}", "plus.bedgraph"),
+        log: os.path.join(config['dir_logs'], TIMESTAMP, "{sample}", "bedgraph_genome_cov_plus.log")
+        # TODO how to capture log information?!
+        shell:
+            "bedtools --version &> {log}; bedtools genomecov -ibam {input.bam} -trackline -bga -5 -strand + > {output} 2>> {log}"
+
+if config['make_bedgraph']:
+    rule make_bedgraph_minus:
+        input:
+            bam=os.path.join(config['dir_out'], "{sample}", "{sample}.bam"),
+            bam_bai=os.path.join(config['dir_out'], "{sample}", "{sample}.bam.bai")
+        output:
+            os.path.join(config['dir_out'], "{sample}", "minus.bedgraph"),
+        log: os.path.join(config['dir_logs'], TIMESTAMP, "{sample}", "bedgraph_genome_cov_minus.log")
+        # TODO how to capture log information?!
+        shell:
+            "bedtools --version &> {log}; bedtools genomecov -ibam {input.bam} -trackline -bga -5 -strand - > {output} 2>> {log}"
+
+rule bam_to_h5:
+    input:
+        gff=config['orf_gff_file'],
+        bam=os.path.join(config['dir_out'], "{sample}", "{sample}.bam"),
+        bam_bai=os.path.join(config['dir_out'], "{sample}", "{sample}.bam.bai")
+    params:
+        secondary_id="NULL" if config['secondary_id'] is None else config['secondary_id']
+    output:
+        os.path.join(config['dir_out'], "{sample}", "{sample}" + ".h5"),
+    log: os.path.join(config['dir_logs'], TIMESTAMP, "{sample}", "bam_to_h5.log")
+    shell:
+        # TODO how to derive R path if not relative?
+        "Rscript --vanilla rscripts/bam_to_h5.R --num-processes={config[num_processes]} --min-read-length={config[min_read_length]} --max-read-length={config[max_read_length]} --buffer={config[buffer]} --primary-id={config[primary_id]} --secondary-id={params.secondary_id} --dataset={config[dataset]} --bam-file={input.bam} --hd-file={output} --orf-gff-file={input.gff} --is-riboviz-gff={config[is_riboviz_gff]} --stop-in-cds={config[stop_in_cds]} &> {log}"
+
+rule generate_stats_figs:
+    input:
+        fasta=config['orf_fasta_file'],
+        h5=os.path.join(config['dir_out'], "{sample}", "{sample}" + ".h5"),
+	t_rna=config['t_rna_file'],
+	codon_positions=config['codon_positions_file'],
+	features=config['features_file'],
+        gff=config['orf_gff_file'],
+	asite_disp_length=config['asite_disp_length_file']
+    params:
+        output_dir=os.path.join(config['dir_out'], "{sample}")
+    output:
+        os.path.join(config['dir_out'], "{sample}", "3nt_periodicity.tsv"),
+        os.path.join(config['dir_out'], "{sample}", "3nt_periodicity.pdf"),
+        os.path.join(config['dir_out'], "{sample}", "read_lengths.tsv"),
+        os.path.join(config['dir_out'], "{sample}", "read_lengths.pdf"),
+        os.path.join(config['dir_out'], "{sample}", "pos_sp_nt_freq.tsv"),
+        os.path.join(config['dir_out'], "{sample}", "pos_sp_rpf_norm_reads.pdf"),
+        os.path.join(config['dir_out'], "{sample}", "pos_sp_rpf_norm_reads.tsv"),
+        os.path.join(config['dir_out'], "{sample}", "features.pdf"),
+        os.path.join(config['dir_out'], "{sample}", "tpms.tsv"),
+        os.path.join(config['dir_out'], "{sample}", "codon_ribodens.tsv"),
+        os.path.join(config['dir_out'], "{sample}", "codon_ribodens.pdf"),
+        os.path.join(config['dir_out'], "{sample}", "startcodon_ribogridbar.pdf"),
+        os.path.join(config['dir_out'], "{sample}", "startcodon_ribogrid.pdf"),
+        os.path.join(config['dir_out'], "{sample}", "3ntframe_bygene.tsv"),
+        os.path.join(config['dir_out'], "{sample}", "3ntframe_propbygene.pdf")
+    log: os.path.join(config['dir_logs'], TIMESTAMP, "{sample}", "generate_stats_figs.log")
+    shell:
+        # TODO how to handle optional files/parameters: t_rna_file, codon_positions_file, asite_disp_length_file, features_file, orf_gff_file.
+        # TODO how to derive R path if not relative?
+        "Rscript --vanilla rscripts/generate_stats_figs.R --num-processes={config[num_processes]} --min-read-length={config[min_read_length]} --max-read-length={config[max_read_length]} --buffer={config[buffer]} --primary-id={config[primary_id]} --dataset={config[dataset]} --hd-file={input.h5} --orf-fasta-file={input.fasta} --rpf={config[rpf]} --output-dir={params.output_dir} --do-pos-sp-nt-freq={config[do_pos_sp_nt_freq]} --t-rna-file={input.t_rna} --codon-positions-file={input.codon_positions} --features-file={input.features} --orf-gff-file={input.gff} --asite-disp-length-file={input.asite_disp_length} --count-threshold={config[count_threshold]} &> {log}"
+
+rule collate_tpms:
+    input:
+        expand(os.path.join(config['dir_out'], "{sample}", "tpms.tsv"), sample=SAMPLE_IDS)
+    output:
+        os.path.join(config['dir_out'], "TPMs_collated.tsv"),
+    log: os.path.join(config['dir_logs'], TIMESTAMP, "collate_tpms.log")
+    shell:
+        # TODO how to derive R path if not relative?
+        "Rscript --vanilla rscripts/collate_tpms.R --sample-subdirs=True --output-dir={config[dir_out]} {SAMPLE_IDS} &> {log}"
+
+def save_sample_sheet(filename):
+    sample_sheet = {}
+    sample_sheet['fq_files'] = SAMPLES
+    with open(str(filename), 'w') as f:
+        yaml.dump(sample_sheet, f, sort_keys=False)
+
+rule make_sample_sheet:
+    output:
+        os.path.join(config['dir_out'], "sample_sheet.yaml"),
+    run:
+        save_sample_sheet(output)
+
+if config['count_reads']:
+    rule count_reads:
+        input:
+            os.path.join(config['dir_out'], "sample_sheet.yaml")
+        output:
+            os.path.join(config['dir_out'], "read_counts.tsv")
+        log: os.path.join(config['dir_logs'], TIMESTAMP, "count_reads.log")
+        shell:
+            "python -m riboviz.tools.count_reads -c {input} -i {config[dir_in]} -t {config[dir_tmp]} -o {config[dir_out]} -r {output} &> {log}"
