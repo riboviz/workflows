@@ -194,9 +194,6 @@ Create and build container:
   - Name, version, licence, web page, maintainer.
   - Consistent with metadata needed for BioConda recipie.
 
-Documentation:
-
-* https://biocontainers-edu.biocontainers.pro/en/latest/
 * Docker Containers: Dockerfile recipes to automatically build containers in BioContainers.
 * Conda based Containers: Conda recipes to automatically build first a conda package and then a Docker container.
 * Biocontainers Registry: hosted registry of all BioContainers images that are ready to be used.
@@ -204,7 +201,6 @@ Documentation:
 
 Integration with workflow engines
 
-* https://biocontainers-edu.biocontainers.pro/en/latest/galaxy_container_dependencies.html#integration-with-workflow-engines
 * Galaxy tools (also called wrappers) can use Conda packages and Docker containers as dependency resolvers.
 * Recommends Conda packages as Docker is not available on every (HPC-) system.
 * Conda can be installed by Galaxy and maintained entirely in user space.
