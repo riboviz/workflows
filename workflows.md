@@ -165,7 +165,7 @@ GitHub organisation:
 
 BioContainers registries and Registry-UI:
 
-* https://biocontainers.pro/registry/
+* https://biocontainers.pro/#/registry
 * Containers built and made available for download and use by Docker or rkt.
 * Search, tag and find BioContainers independently of where they have been deployed. 
 
@@ -182,7 +182,7 @@ Request new container:
 Create and build container:
 
 * EITHER create BioConda recipe for the software:
-  - BioConda guidelines, https://bioconda.github.io/guidelines.html.
+  - BioConda guidelines, https://bioconda.github.io/contributor/guidelines.html
   - Container generation tool, https://github.com/BioContainers/auto-mulled/, automatically creates a "mulled" container.
     - Uses involucro, https://github.com/involucro/involucro, to create containers without any Dockerfile definition, reusing already existing recipes from other package managers e.g. Conda, Alpine.
     - involucro installs Conda package into build-time container which has preferred package manager already installed.
@@ -456,9 +456,8 @@ Explicit configuration commercial cloud workbenches:
 
 Explicit configuration open source cloud API:
 
-* Curoverse's Arvados, https://curoverse.com
+* Arvados, https://curoverse.com, https://arvados.org/
 * iPlant Collaborative's Agave,
-  - http://developer.agaveapi.co/
   - https://github.com/smirarab/iplant-agave-sdk/blob/master/README.md
   - Not sure how current this is.
 
