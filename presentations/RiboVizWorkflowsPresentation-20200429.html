@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Choosing a workflow management system for RiboViz</title>
+    <meta charset="utf-8">
+    <style>
+      /* Styles match epcc_clarity.thmx where possible. */
+      body { 
+        font-family: "Arial";
+        color: #292934;
+      }
+      p, li, th, td { 
+        font-family: "Arial";
+        font-size: 20pt;
+        line-height: 1.2;
+      }
+      h1, h2, h3 {
+        font-family: "Arial";
+        font-weight: normal;
+        color: #A53926;
+      }
+      .remark-code {
+        font-family: 'Courier';
+        font-weight: bold;
+        font-size: 14pt;
+      }
+      .remark-inline-code {
+        font-family: 'Courier';
+        font-weight: bold;
+        font-size: 16pt;
+      }
+      /* Collapse table cell borders so cells share borders. */
+      table {
+        border-collapse: collapse;
+      }
+      th, td {
+        padding: 5px;
+        border: 1px solid;
+      }
+      /*
+       * From Two-column formatting? #236
+       * https://github.com/gnab/remark/issues/236 
+       */
+      .columns {
+        display: flex;
+      }
+      .col {
+        width: 50%;
+        padding: 0 1%;
+        box-sizing: border-box;
+      }
+      .col3 {
+        width: 33%;
+        padding: 0 1%;
+        box-sizing: border-box;
+      }
+      /*
+       * From Center slide numbering in xaringan
+       * https://community.rstudio.com/t/center-slide-numbering-in-xaringan/24463/2
+       */
+      .remark-slide-number {
+        right: 50%
+      }
+      /*
+       * From Easy way to add footer / disable slide numbering #34
+       * https://github.com/yihui/xaringan/issues/34
+       */
+      .footer {
+        position: fixed;
+        top: 85%;
+        left: 0;
+        width: 100%;
+      }
+      .logo_columns {
+        display: flex;
+        align-items: center;
+      }
+      .epcc-logo img {
+        height: 40pt;
+        float: left;
+        vertical-align: bottom;
+      }
+      .uoe-logo img {
+        height: 50pt;
+        float: right;
+        vertical-align: bottom;
+      }
+      /*
+       * From Slide number removal
+       * https://github.com/yihui/xaringan/wiki/Slide-number-removal
+       */
+      .title-slide .remark-slide-number {
+        display: none;
+      }
+      .title-slide h1
+      {
+        font-size: 54pt;
+      }
+      .title-slide hr
+      {
+        border-color: #D2533C;
+      }
+      .title-slide p
+      {
+        font-size: 24pt;
+        color: #57576E;
+      }
+      .footnote p
+      {
+        font-size: 12pt;
+        line-height: 1.2;
+      }
+      .workflow-svg img {
+        height: 350pt;
+      }
+      .workflow-deplex-svg img {
+        height: 350pt;
+      }
+      .slide-survey p
+      {
+        font-size: 16pt;
+      }
+      .slide-shortlist th, td {
+        padding: 5px;
+        border: 1px solid;
+        font-size: 18pt;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+layout: true
+
+.footer[
+.logo_columns[
+.col[
+.epcc-logo[![EPCC logo](./img/epcc_logo.png)]
+]
+.col[
+.uoe-logo[![The University of Edinburgh logo](./img/uoe_logo.png)]
+]
+]
+]
+
+---
+
+class: title-slide
+
+# Choosing a workflow management system for RiboViz
+
+<hr/>
+
+Mike Jackson
+
+EPCC, The University of Edinburgh
+
+.footnote[
+This work is funded by BBSRC in the UK and the NSF/BIO in the USA as a BBSRC-NSF/BIO Lead Agency collaboration. This presentation was written using [remark](http://gnab.github.com/remark).
+]
+
+---
+
+## Best practices for scientific computing
+
+Wilson, G., Aruliah, D.A., Brown, C.T., Chue Hong, N.P. and Davis, M. "Best Practices for Scientific Computing" (doi:[10.1371/journal.pbio.1001745](https://doi.org/10.1371/journal.pbio.1001745)).
+
+2) Let the computer do the work:
+
+* (a) Make the computer repeat tasks.
+* (b) Save recent commands in a file for re-use.
+* (c) Use a build tool to automate workflows.
+
+4) Don't repeat yourself (or others):
+
+* (c) Re-use code instead of rewriting it.
+
+---
+
+## Implementing the RiboViz workflow
+
+Initial explorations:
+
+* Run commands by hand.
+
+Make the computer repeat tasks and Save recent commands in a file for re-use:
+
+* Implement a bash script ("write once, run many").
+* Reimplement as a Python script ("we are here").
+
+Use a build tool to automate workflows and Re-use code instead of rewriting it:
+
+* Migrate to workflow management system (recommended).
+
+???
+
+* So, why migrate further?
+
+---
+
+## Processing samples
+
+.center[
+.workflow-svg[
+![Workflow for processing samples](./img/workflow.svg)
+]
+]
+
+---
+
+## Processing multiplexed samples
+
+.center[
+.workflow-deplex-svg[
+![Workflow for processing multiplexed samples ](./img/workflow-deplex.svg)
+]
+]
+
+???
+
+* Workflow includes barcode and UMI extraction, demultiplexing and deduplication.
+
+---
+
+## Benefits of a workflow management system
+
+Represent the workflow within a system that is popular, and well understood, within the bioinformatics community.
+
+Out-of-the-box workflow execution management functionality.
+
+Incremental build, if steps fail or if new samples are added.
+
+Exploit containers, high-performance computing (HPC) systems, cloud.
+
+Focus on analysis of ribosome profiling data, the science!
+
+---
+
+## Costs of a workflow management system
+
+Learning curve.
+
+Syntax will be less expressive than pure Python.
+
+---
+
+## Four steps for choosing a bioinformatics workflow management system (or any software)
+
+Survey available tools.
+
+Shortlist tools.
+
+Hands-on evaluation against criteria.
+
+Select a tool.
+
+---
+
+name: slide-survey
+
+## Survey available tools
+
+.slide-survey[
+J. Leipzig (2017) "A review of bioinformatic pipeline frameworks" doi:[10.1093/bib/bbw020](https://doi.org/10.1093/bib/bbw020)
+
+S. Baichoo et al. (2018) "Developing reproducible bioinformatics analysis workflows for heterogeneous computing environments to support African genomics" doi: [10.1186/s12859-018-2446-1](https://doi.org/10.1186/s12859-018-2446-1)
+
+Reddit (December 2018) "[Given the experience of others writing bioinformatic pipelines, what are the pros/cons of Toil vs Snakemake vs Nextflow?](https://www.reddit.com/r/bioinformatics/comments/a4fq4i/given_the_experience_of_others_writing/)"
+
+Twitter (December 2018) [Which Bioinformatics Workflow Manager / Tool / Platform / Language / Specification / Standard do you use or prefer?](https://twitter.com/AlbertVilella/status/1069635987427532800)
+
+Common Workflow Language's [Computational Data Analysis Workflow Systems](https://github.com/common-workflow-language/common-workflow-language/wiki/Existing-Workflow-systems) and [Awesome Pipeline](https://github.com/pditommaso/awesome-pipeline).
+
+Overchoice!
+]
+
+???
+
+* Baichoo et al. chose CWL and Nextflow.
+* On Reddit, Nextflow was viewed most positively but CWL, WDL and Snakemake had their supporters.
+* Twitter poll results were 44.4% Nextflow, 22.2% SevenBridges, 19.4% CWL, Snakemake, Galaxy, from 36 responses.
+* CWL and Awesome Pipeline list dozens of tools.
+
+---
+
+## Shortlist tools (28/02/20)
+
+.slide-shortlist[
+
+| System | License | Project start | Last Updated | Contributors | Hits | 
+| ------ | ------- | ------------- | ------------ | ------------ | ----- |
+| [Snakemake](https://github.com/snakemake/snakemake) | MIT | 2013 | week of survey | 122 | 23,000 |
+| [Nextflow](https://github.com/nextflow-io/nextflow) | Apache 2.0 | 2013 | week of survey | 230 | 23,800 |
+| [cwltool](https://github.com/common-workflow-language/cwltool) | Apache 2.0 | 2014 | day of survey  | 72 | 3,700 |
+| [Toil](https://github.com/DataBiosphere/toil) | Apache 2.0 | 2011 | day of survey  | 81 | 207,000 |
+
+[Choosing the right open-source software for your project](https://www.software.ac.uk/choosing-right-open-source-software-your-project), The Software Sustainability Institute.
+]
+
+???
+
+* Systems most mentioned within papers and Reddit discussion, received votes in Twitter poll, and mentioned by RiboViz bioinformaticians and their colleagues.
+* Google hits, "'SYSTEM' 'bioinformatics'".
+* cwltool is CWL reference implementation.
+* Toil is a CWL production implementation.
+* Open source licenses, in existence for years, many contributors, regularly updated.
+* Confidence systems are widely and actively used, developed and supported, and will continue to be so for the forseeable future.
+
+---
+
+## Hands-on evaluation against criteria
+
+Ease of download, install, initial use, and quality of tutorials.
+
+Ease of implementation of first 5 workflow steps.
+
+Required functionality:
+
+* Iterate over samples, process other samples if one fails, aggregate sample-specific results, conditional steps.
+
+Useful functionality:
+
+* Step-specific log files, YAML configuration, "dry run", output re-runnable bash script.
+
+???
+
+* Five steps: build rRNA and ORF indices using HISAT2; cut out sequencing library adapters using Cutadapt; remove rRNA or other contaminating reads by alignment to rRNA index files using HISAT2; align to ORFs by alignment to ORF index files using HISAT2.
+* 2-3 days per tool.
+
+---
+
+## Python cutadapt step
+
+```
+def cut_adapters(adapter,
+                 original_fq,
+                 trimmed_fq,
+                 log_file,
+                 run_config):
+    LOGGER.info("Cut out sequencing library adapters. Log: %s", log_file)
+    cmd = ["cutadapt", "--trim-n", "-O", "1", "-m", "5",
+           "-a", adapter, "-o", trimmed_fq, original_fq]
+    cmd += ["-j", str(0)]  # Request all available processors
+    process_utils.run_logged_command(cmd,
+                                     log_file,
+                                     run_config.cmd_file,
+                                     run_config.is_dry_run)
+```
+```
+log_file = os.path.join(logs_dir,
+                        LOG_FORMAT.format(step, "cutadapt.log"))
+trim_fq = os.path.join(tmp_dir, workflow_files.ADAPTER_TRIM_FQ)
+workflow.cut_adapters(config[params.ADAPTERS],
+                      sample_fastq,
+                      trim_fq,
+                      log_file,
+                      run_config)
+```
+
+---
+
+## Snakemake cutadapt rule
+
+```
+rule cut_adapters:
+    input:
+        lambda wildcards: os.path.join(config['dir_in'],
+                          SAMPLES[wildcards.sample])
+    output:
+        os.path.join(config['dir_tmp'],
+                     "{sample}",
+                     "trim.fq")
+    log:
+        os.path.join(config['dir_logs'], 
+                     TIMESTAMP, "{sample}",
+                     "cutadapt.log")
+    shell:
+        "cutadapt --trim-n -O 1 -m 5 -a {config[adapters]} 
+         -o {output} {input} -j 0 &> {log}"
+```
+
+???
+
+* Structure analogous to a Makefile for the Make automated build tool.
+* Include Python.
+
+---
+
+## CWL cutadapt tool wrapper
+
+.columns[
+.col[
+```
+cwlVersion: v1.0
+class: CommandLineTool
+label: "cutaddapt"
+doc: "...cutadapt..."
+requirements:
+  InlineJavascriptRequirement: {}
+baseCommand: [cutadapt]
+inputs:
+  trim:
+    type: boolean
+    inputBinding:
+      position: 1
+      prefix: --trim-n
+  overlap:
+      ...
+  min_length:
+      ...
+  adapter:
+      ...
+```
+]
+.col[
+```
+  output:
+   type: string
+   inputBinding:
+     position: 5
+     prefix: -o
+  cores:
+      ...
+  input:
+    type: File
+    inputBinding:
+      position: 7
+outputs:
+  output_file:
+    type: File
+    outputBinding:
+      glob: $(inputs.output)
+```
+]
+]
+
+---
+
+## CWL cutadapt step
+
+```
+cutadapt:
+  run: cutadapt.cwl
+  in:
+    trim:
+      default: true
+    overlap:
+      default: 1
+    min_length:
+      default: 5
+    adapter: adapter
+    cores:
+      default: 0
+    input: sample_file
+    output:
+      source: sample
+      valueFrom: $(self + '.trim.fq')
+  out: [output_file]
+```
+
+???
+
+* YAML or JSON.
+* Include JavaScript.
+
+---
+
+## Nextflow cutadapt process
+
+```
+process cutAdapters {
+    tag "${sample_id}"
+    errorStrategy 'ignore'
+    publishDir "${params.dir_tmp}/${sample_id}", \
+        mode: 'copy', overwrite: true
+    input:
+        tuple val(sample_id), file(sample_file) \
+            from sample_files.collect{ id, file -> [id, file] }
+    output:
+        tuple val(sample_id), file("trim.fq") into cut_samples
+    shell:
+        """
+        cutadapt --trim-n -O 1 -m 5 -a ${params.adapters} \
+            -o trim.fq ${sample_file} -j 0
+        """
+}
+```
+
+???
+
+* Structure analogous to a Makefile or Snakefile.
+* Include Groovy.
+
+---
+
+## Snakemake demo
+
+Demonstration:
+
+* `$ snakemake --configfile vignette/vignette_config.yaml`
+* "dry run" via `-n` flag.
+* YAML configuration accessible via `config` variable.
+* Use of Python, for example to filter samples down to those whose files exist.
+* Conditional tasks wrapped in Python `if` blocks.
+* Explicit standard output and error capture in bash commands via `&> {log}`.
+* Incremental build.
+
+---
+
+## Snakemake experiences
+
+Very easy to download and install, good tutorial.
+
+Implementing steps was straightforward.
+
+Provides all required and useful functionality.
+
+Implemented a version of the complete RiboViz workflow in less than a day.
+
+Supports containers (Docker, Singularity), HPC systems (Sun GridEngine), clouds (Google Cloud Engine via Kubernetes, Amazon Web Services via Tibanna).
+
+---
+
+## CWL experiences
+
+Very easy to install both cwltool and Toil. 
+
+Readable, Software Carpentry-style, tutorial.
+
+Implemented 3 steps in a day.
+
+Very slow and painful "edit-run-debug" development cycle.
+
+Parked due to implementation effort, lack of conditionals and JavaScript requirement.
+
+???
+
+* Supports YAML configuration files.
+* Slow development due to richness, occasionally cryptic error messages. 
+* Conditional behaviour not yet supported.
+* "Collecting use cases for workflow level conditionals" added in February 2020 to 1.2 milestone, but no due date.
+* A colleague evaluated CWL a year and a half ago and commented "Simple workflows showed promise, but more complicated examples ... were not possible as the current CWL specification does not provide conditional workflow paths."
+
+---
+
+## Nextflow demo
+
+Demonstration:
+
+* `$ nextflow run prep_riboviz.nf -params-file vignette/vignette_config.yaml -ansi-log false`
+* YAML configuration accessible via `params` variable.
+* Use of Groovy, for example to filter samples down to those whose files exist.
+* Conditional processes denoted via a `when` statement.
+* Process-specific `work/` directory includes bash command, exit code, standard output and standard error, symbolic links to process's input files.
+* Publish process output to known locations via `publishDir`.
+* Incremental build via `-resume` flag uses `Cached` outputs within `work/` directory.
+
+---
+
+## Nextflow experiences
+
+Very easy to download and install and a straightforward tutorial.
+
+Provides all required and most useful functionality.
+
+Implemented a version of the complete RiboViz workflow in two days.
+
+Built-in functions to count and extract records in FASTA and FASTQ and to query the NCBI SRA database.
+
+Supports containers (Docker, Singularity), HPC systems (Sun Grid Engine, PBS Pro, SLURM, Kubernetes, AWS batch), cloud (Amazon Cloud, Google Cloud).
+
+???
+
+* No "dry run", recommends using small datasets.
+* Rich documentation but more comprehensive tutorial would help.
+* It likes files more than directories and RiboViz script tweaks may be needed to be used easily from within Nextflow (especially `riboviz.tools.count_reads` which takes a directory as input).
+
+---
+
+## Select a tool
+
+Nextflow:
+
+* Feels far richer than Snakemake, in both features and expressivity.
+* Provides all required and most useful functionality.
+* Execution of tasks in isolated directories is very useful for debugging.
+* Support for containers, HPC systems and cloud, seems more comprehensive than Snakemake's.
+* Writing Groovy should not be an issue for Python or R projects.
+* Very positive community "vibe".
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
