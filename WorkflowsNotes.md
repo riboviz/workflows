@@ -129,87 +129,6 @@ Consider "return on investment"¬
 
 ---
 
-## biocontainers project
-
-https://biocontainers.pro/#/
-
-Felipe da Veiga Leprevost, Björn A Grüning, Saulo Alves Aflitos, Hannes L Röst, Julian Uszkoreit, Harald Barsnes, Marc Vaudel, Pablo Moreno, Laurent Gatto, Jonas Weber, Mingze Bai, Rafael C Jimenez, Timo Sachsenberg, Julianus Pfeuffer, Roberto Vera Alvarez, Johannes Griss, Alexey I Nesvizhskii, Yasset Perez-Riverol, BioContainers: an open-source and community-driven framework for software standardization, Bioinformatics, Volume 33, Issue 16, 15 August 2017, Pages 2580–2582, https://doi.org/10.1093/bioinformatics/btx192
-
-* Open source, community drive.
-* Platform independent executable environments.
-* Container-based technologies:
-  - Docker, https://www.docker.com/
-  - rkt, https://coreos.com/rkt/
-* Integrate containers into piplelines and architectures.
-* Infrastructure and guidelines to create, manage and distribute containers.
-* Integrated with BioConda, https://bioconda.github.io/
-  - Automatically generate containers for each BioConda recipe.
-* 2700+ containers.
-* Container provider with open source projects:
-  - Galaxy, https://galaxyproject.org/
-    - Uses Docker containers to solve workflow dependencies.
-  - PhenoMeNal H2020, https://phenomenal-h2020.eu/home/
-    - Adopted and implemented BioContainers guidelines.
-    - Deploying containers into the BioContainers architecture.
-* Workflow systems:
-  - OpenMS, https://www.openms.de/, runs within Galaxy etc.
-  - Taverna
-  - Galaxy
-
-GitHub organisation:
-
-* https://github.com/BioContainers/
-* Docker files.
-* Specification.
-* Tools to create/manage containers.
-
-BioContainers registries and Registry-UI:
-
-* https://biocontainers.pro/#/registry
-* Containers built and made available for download and use by Docker or rkt.
-* Search, tag and find BioContainers independently of where they have been deployed. 
-
-Request new container:
-
-* Open issue in https://github.com/BioContainers/containers/.
-* Specify software (name, URL or binary to be packaged).
-* Member of the BioContainers community:
-  - Picks up the issue.
-  - Generate the specific container.
-  - Configures/deploys automated build system.
-* New container available within hours.
-
-Create and build container:
-
-* EITHER create BioConda recipe for the software:
-  - BioConda guidelines, https://bioconda.github.io/contributor/guidelines.html
-  - Container generation tool, https://github.com/BioContainers/auto-mulled/, automatically creates a "mulled" container.
-    - Uses involucro, https://github.com/involucro/involucro, to create containers without any Dockerfile definition, reusing already existing recipes from other package managers e.g. Conda, Alpine.
-    - involucro installs Conda package into build-time container which has preferred package manager already installed.
-    - Copies resulting new image layer on top of runtime environment defined by BioContainers (busybox).
-  - Container is pushed to BioContainers quay.io registry.
-* OR create Dockerfile recipe in https://github.com/BioContainers/containers.
-  - Instructions to create complete container.
-  - Template, https://github.com/BioContainers/specs/blob/master/container-specs.md
-  - Name, version, licence, web page, maintainer.
-  - Consistent with metadata needed for BioConda recipie.
-
-* Docker Containers: Dockerfile recipes to automatically build containers in BioContainers.
-* Conda based Containers: Conda recipes to automatically build first a conda package and then a Docker container.
-* Biocontainers Registry: hosted registry of all BioContainers images that are ready to be used.
-* Specifications: guidelines and rules to contribute with BioContainers.
-
-Integration with workflow engines
-
-* Galaxy tools (also called wrappers) can use Conda packages and Docker containers as dependency resolvers.
-* Recommends Conda packages as Docker is not available on every (HPC-) system.
-* Conda can be installed by Galaxy and maintained entirely in user space.
-* Run jobs in container runtimes:
-  - Docker, requires `sudo` with no password prompt.
-  - Singularity, https://www.sylabs.io/.
-
----
-
 ## Developing reproducible bioinformatics analysis workflows for heterogeneous computing environments to support African genomics
 
 Baichoo, S., Souilmi, Y., Panji, S. et al. Developing reproducible bioinformatics analysis workflows for heterogeneous computing environments to support African genomics. BMC Bioinformatics 19, 457 (2018). https://doi.org/10.1186/s12859-018-2446-1
@@ -375,6 +294,8 @@ Strozzi F. et al. (2019) Scalable Workflows and Reproducible Data Analysis for G
 
 Marijn van Vliet, Guidelines for data analysis scripts, v2, 9 Aug 2019, [arXiv:1904.06163](https://arxiv.org/abs/1904.06163) [cs.SE].
 
+Felipe da Veiga Leprevost, Björn A Grüning, Saulo Alves Aflitos, Hannes L Röst, Julian Uszkoreit, Harald Barsnes, Marc Vaudel, Pablo Moreno, Laurent Gatto, Jonas Weber, Mingze Bai, Rafael C Jimenez, Timo Sachsenberg, Julianus Pfeuffer, Roberto Vera Alvarez, Johannes Griss, Alexey I Nesvizhskii, Yasset Perez-Riverol, BioContainers: an open-source and community-driven framework for software standardization, Bioinformatics, Volume 33, Issue 16, 15 August 2017, Pages 2580–2582, https://doi.org/10.1093/bioinformatics/btx192
+
 ---
 
 ## Poll of workflow managers, December 2018
@@ -391,7 +312,7 @@ https://twitter.com/AlbertVilella/status/1069635987427532800
 
 ---
 
-## Tools
+## Links to tools referenced above
 
 Implicit convention frameworks:
 
@@ -491,7 +412,7 @@ Workflow Description Language (WDL)
 
 ---
 
-## Summary (28/02/20)
+## Summary of popularity and longevity (28/02/20)
 
 "Google" is hits from `"<NAME>" "bioinformatics"`.
 
