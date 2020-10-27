@@ -14,6 +14,11 @@ This repository also contains Snakemake, Nextflow and CWL workflows rapidly prot
 
 For our notes on options for a workflow management system for RiboViz and links to the prototype workflows within this repository, see [Exploring options for a workflow management system for RiboViz](./WorkflowOptions.md).
 
+The `presentations/` directory has the sources for two presentations where these explorations were discussed with colleagues:
+
+* [Choosing a workflow management system for RiboViz](./presentations/RiboVizWorkflowsPresentation-20200603.html), 03 June 2020. Presentation for EPCC seminar.
+* [Choosing a workflow management system for RiboViz](./presentations/RiboVizWorkflowsPresentation-20200429.html), 29 April 2020. Presentation for RiboViz team plus guests.
+
 ## RiboViz
 
 These notes relate to the RiboViz development ticket Assess workflow language options ([riboviz#48](https://github.com/riboviz/riboviz/issues/48)).
@@ -22,12 +27,6 @@ RiboViz release [2.0](https://github.com/riboviz/riboviz/releases/tag/2.0) of 8t
 
 * Nextflow workflow ([prep_riboviz.nf](https://github.com/riboviz/riboviz/blob/2.0/prep_riboviz.nf)).
 * Python workflow ([riboviz.tools.prep_riboviz](https://github.com/riboviz/riboviz/blob/2.0/riboviz/tools/prep_riboviz.py)).
-
-## Related papers and presentations
-
-[Choosing a workflow management system for RiboViz](https://riboviz.github.io/workflows/RiboVizWorkflowsPresentation-20200603.html), 03 June 2020. Presentation for EPCC seminar.
-
-[Choosing a workflow management system for RiboViz](https://riboviz.github.io/workflows/RiboVizWorkflowsPresentation-20200429.html), 29 April 2020. Presentation for RiboViz team plus guests.
 
 ## Copyright and License
 
