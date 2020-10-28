@@ -99,7 +99,7 @@ Explicit configuration commercial cloud workbenches:
 
 Explicit configuration open source cloud API:
 
-* Curoverse's Arvados, iPlant Collaborative's Agave.
+* Arvados, iPlant Collaborative's Agave.
 
 Common Workflow Language Specification (CWL):
 
@@ -373,7 +373,7 @@ Explicit configuration commercial cloud workbenches:
 
 Explicit configuration open source cloud API:
 
-* Arvados, https://curoverse.com, https://arvados.org/
+* Arvados, https://arvados.org/
 * iPlant Collaborative's Agave,
   - https://github.com/smirarab/iplant-agave-sdk/blob/master/README.md
   - Not sure how current this is.
