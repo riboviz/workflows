@@ -1,19 +1,27 @@
 # RiboViz and Nextflow
 
+## Introduction
+
+This page describes how to run a prototype of a subset of the RiboViz workflow implemented in [Nextflow](https://www.nextflow.io/) and a discussion on the pros and cons of using Nextflow to implement the RiboViz workflow.
+
+---
+
+## Nextflow links
+
 * [Nextflow](https://www.nextflow.io/)
 * [GitHub](https://github.com/nextflow-io/nextflow)
 * [Documentation](https://www.nextflow.io/docs/latest/index.html)
 
 ---
 
-## Run the RiboViz example
+## Run Nextflow
 
 ### Install Nextflow using conda (recommended)
 
 Create a new conda environment from the current RiboViz one and activate it:
 
 ```console
-$ conda create --name riboviz-nextflow --clone base
+$ conda create --name riboviz-nextflow --clone riboviz
 $ conda activate riboviz-nextflow
 ```
 

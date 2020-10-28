@@ -1,21 +1,26 @@
 # RiboViz and CWL
 
-* [Common Workflow Language](http://www.commonwl.org)
-* [GitHub](https://github.com/common-workflow-language)
-* [cwltool](https://github.com/common-workflow-language/cwltool)
+## Introduction
 
-See notes on:
-
-* [Common Workflow Language (CWL)](./CommonWorkflowLanguage.md)
+This page describes how to run a prototype of a subset of the RiboViz workflow implemented in [Common Workflow Language](http://www.commonwl.org) (CWL) and a discussion on the pros and cons of using CWL to implement the RiboViz workflow.
 
 ---
 
-## Run examples
+## Common Workflow Language links
+
+* [Common Workflow Language](http://www.commonwl.org)
+* [GitHub](https://github.com/common-workflow-language)
+* [cwltool](https://github.com/common-workflow-language/cwltool)
+* Our notes on [Common Workflow Language (CWL)](./CommonWorkflowLanguage.md)
+
+---
+
+## Run CWL jobs via cwltool
 
 Create a new conda environment from the current RiboViz one and activate it:
 
 ```console
-$ conda create --name riboviz-cwltool --clone base
+$ conda create --name riboviz-cwltool --clone riboviz
 $ conda activate riboviz-cwltool
 ```
 

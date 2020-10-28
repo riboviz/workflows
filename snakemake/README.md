@@ -1,18 +1,26 @@
 # RiboViz and Snakemake
 
+## Introduction
+
+This page describes how to run a prototype of a subset of the RiboViz workflow implemented in [Snakemake](https://snakemake.readthedocs.io/en/stable/) and a discussion on the pros and cons of using Snakemake to implement the RiboViz workflow.
+
+---
+
+## Snakemake links
+
 * [GitHub](https://github.com/snakemake/snakemake)
 * [Documentation](https://snakemake.readthedocs.io/en/stable/)
 
 ---
 
-## Run the RiboViz example
+## Run Snakemake
 
 [Snakefile](./Snakefile) contains a Snakemake Snakefile with steps mimicing those in `riboviz.tools.prep_riboviz` to run the RiboViz vignette (i.e. no UMI extraction, deduplication or demultiplexing).
 
 Create a new conda environment from the current RiboViz one and activate it:
 
 ```console
-$ conda create --name riboviz-snakemake --clone base
+$ conda create --name riboviz-snakemake --clone riboviz
 $ conda activate riboviz-snakemake
 ```
 
