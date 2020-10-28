@@ -2,7 +2,7 @@
 
 ## Notes
 
-* [Notes on Workflow Options 28/02/2020](./WorkflowsNotes.md): notes on possible workflow management systems options.
+* [Notes on Workflow Options 28/02/2020](./WorkflowNotes.md): notes on possible workflow management systems options.
 * [Docker](./Docker.md): notes on Docker as some workflow technogies use Docker.
 
 "Overchoice" is an issue, so focus is on the following that have been mentioned in meetings and seem most prevalent and popular: Snakemake, CWL and Nextflow.
@@ -99,4 +99,4 @@ I'd recommend adopting Nextflow over Snakemake for the following reasons:
 * Nextflow feels far richer in terms of its features and expressivity.
 * The execution of each task in isolated directories is very useful for debugging.
 * Nextflow's built-in support for, and documentation around, Docker, Singularity, cluster and cloud execution, seems more comprehensive than that of Snakemake.
-* While Nextflow and Snakemake are both very popular tools within the bioinformatics community, Nextflow seems to have the slight edge (based on [Notes on Workflow Options 28/02/2020](./WorkflowsNotes.md)).
+* While Nextflow and Snakemake are both very popular tools within the bioinformatics community, Nextflow seems to have the slight edge (based on [Notes on Workflow Options 28/02/2020](./WorkflowNotes.md)).
