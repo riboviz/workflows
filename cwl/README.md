@@ -11,7 +11,17 @@ This page describes how to run a prototype of a subset of the RiboViz workflow i
 * [Common Workflow Language](http://www.commonwl.org)
 * [GitHub](https://github.com/common-workflow-language)
 * [cwltool](https://github.com/common-workflow-language/cwltool)
-* Our notes on [Common Workflow Language (CWL)](./CommonWorkflowLanguage.md)
+
+---
+
+## Folder contents
+
+* [cutadapt.cwl](./cutadapt.cwl): tool wrapper for `cutadapt`.
+* [cutadapt-job.yml](./cutadapt-job.yml): job configuration for above.
+* [riboviz-workflow.cwl](./riboviz-workflow.cwl): workflow invoking `hisat2-build` and `cutadapt`.
+* [riboviz-job.yml](./riboviz-job.yml): job configuration for the above.
+* [CommonWorkflowLanguage.md](./CommonWorkflowLanguage.md): Notes on CWL.
+* [SnakemakeCwl.md](./SnakemakeCwl.md): Notes on Snakemake's `--export-cwl` option.
 
 ---
 

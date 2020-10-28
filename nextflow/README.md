@@ -14,6 +14,15 @@ This page describes how to run a prototype of a subset of the RiboViz workflow i
 
 ---
 
+## Folder contents
+
+* [riboviz.nf](./nextflow/riboviz.nf): Example Nextflow script for RiboViz.
+* [report.html](./report.html): Example auto-generated report.
+* [timeline.html](./timeline.html): Example auto-generated timeline of workflow execution.
+* [workflow.svg](./workflow.svg):  Example auto-generated workflow image.
+
+---
+
 ## Run Nextflow
 
 ### Install Nextflow using conda (recommended)

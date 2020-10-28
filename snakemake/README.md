@@ -13,6 +13,14 @@ This page describes how to run a prototype of a subset of the RiboViz workflow i
 
 ---
 
+## Folder contents
+
+* [Snakefile](./Snakefile): Example Snakefile for RiboViz.
+* [workflow.svg](./workflow.svg): Example auto-generated workflow image.
+* [report.html](./report.html): Example auto-generatedreport with a graphical representation of the workflow.
+
+---
+
 ## Run Snakemake
 
 [Snakefile](./Snakefile) contains a Snakemake Snakefile with steps mimicing those in `riboviz.tools.prep_riboviz` to run the RiboViz vignette (i.e. no UMI extraction, deduplication or demultiplexing).
