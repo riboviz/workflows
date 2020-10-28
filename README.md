@@ -23,7 +23,7 @@ The `presentations/` directory has the sources for two presentations where these
 
 These notes relate to the RiboViz development ticket Assess workflow language options ([riboviz#48](https://github.com/riboviz/riboviz/issues/48)).
 
-RiboViz release [2.0](https://github.com/riboviz/riboviz/releases/tag/2.0) of 8th July 2020 contains the first complete implementation of the RiboViz workflow in Nextflow, pur chosen workflow management system, which can be compared to the Python implementation within the same release:
+RiboViz release [2.0](https://github.com/riboviz/riboviz/releases/tag/2.0) of 8th July 2020 contains the first complete implementation of the RiboViz workflow in Nextflow, our chosen workflow management system, which can be compared to the Python implementation within the same release:
 
 * Nextflow workflow ([prep_riboviz.nf](https://github.com/riboviz/riboviz/blob/2.0/prep_riboviz.nf)).
 * Python workflow ([riboviz.tools.prep_riboviz](https://github.com/riboviz/riboviz/blob/2.0/riboviz/tools/prep_riboviz.py)).
