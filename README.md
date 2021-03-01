@@ -8,7 +8,9 @@ March-July 2020.
 
 ## About
 
-This repository contains notes related to exploring options for reimplementing the [RiboViz](https://github.com/riboviz/riboviz) workflow (implemented at that time as a custom Python script) using workflow technologies popular within the bioinformatics community.
+This repository contains notes related to exploring options for reimplementing the [RiboViz](https://github.com/riboviz/riboviz) workflow (implemented at that time as a custom Python script) using workflow technologies popular within the bioinformatics community. These notes complement the publication:
+
+Jackson, Michael; Kavoussanakis, Kostas; Wallace, Edward W.J. "Using prototyping to choose a bioinformatics workflow management system". PLOS Computational Biology, 25 February 2021. doi: [10.1371/journal.pcbi.1008622](https://doi.org/10.1371/journal.pcbi.1008622)
 
 This repository also contains Snakemake, Nextflow and CWL workflows rapidly prototyped during these explorations. These prototype workflows are unsupported and not designed for actual use, but may prove of interest to others as snapshots of how a subset of the RiboViz workflow was reimplemented using these technologies.
 
@@ -16,8 +18,8 @@ For our notes on options for a workflow management system for RiboViz and links 
 
 The `presentations/` directory has the sources for two presentations where these explorations were discussed with colleagues. The online versions of these are hosted on GitHub:
 
-* [Choosing a workflow management system for RiboViz](https://riboviz.github.io/workflows/RiboVizWorkflowsPresentation-20200429.html), 29 April 2020. Presentation for RiboViz team plus guests. ([./presentations/RiboVizWorkflowsPresentation-20200429.html](./presentations/RiboVizWorkflowsPresentation-20200429.html))
-* [Choosing a workflow management system for RiboViz](https://riboviz.github.io/workflows/RiboVizWorkflowsPresentation-20200603.html), 03 June 2020.  Presentation for EPCC seminar ([./presentations/RiboVizWorkflowsPresentation-20200603.html](./presentations/RiboVizWorkflowsPresentation-20200603.html))
+* [Choosing a workflow management system for RiboViz](https://riboviz.github.io/workflows/RiboVizWorkflowsPresentation-20200429.html), 29 April 2020. Presentation for RiboViz team plus guests. ([./presentations/RiboVizWorkflowsPresentation-20200429.html](./presentations/RiboVizWorkflowsPresentation-20200429.html)).
+* [Choosing a workflow management system for RiboViz](https://riboviz.github.io/workflows/RiboVizWorkflowsPresentation-20200603.html), 03 June 2020.  Presentation for EPCC seminar ([./presentations/RiboVizWorkflowsPresentation-20200603.html](./presentations/RiboVizWorkflowsPresentation-20200603.html)).
 
 ## RiboViz
 
