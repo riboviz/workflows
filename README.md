@@ -10,7 +10,7 @@ March-July 2020.
 
 This repository contains notes related to exploring options for reimplementing the [RiboViz](https://github.com/riboviz/riboviz) workflow (implemented at that time as a custom Python script) using workflow technologies popular within the bioinformatics community. These notes complement the publication:
 
-Jackson, Michael; Kavoussanakis, Kostas; Wallace, Edward W.J. "Using prototyping to choose a bioinformatics workflow management system". PLOS Computational Biology, 25 February 2021. doi: [10.1371/journal.pcbi.1008622](https://doi.org/10.1371/journal.pcbi.1008622)
+Jackson M, Kavoussanakis K, Wallace EWJ (2021) Using prototyping to choose a bioinformatics workflow management system. PLoS Comput Biol 17(2): e1008622. doi: [10.1371/journal.pcbi.1008622](https://doi.org/10.1371/journal.pcbi.1008622)
 
 This repository also contains Snakemake, Nextflow and CWL workflows rapidly prototyped during these explorations. These prototype workflows are unsupported and not designed for actual use, but may prove of interest to others as snapshots of how a subset of the RiboViz workflow was reimplemented using these technologies.
 
